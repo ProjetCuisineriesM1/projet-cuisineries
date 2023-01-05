@@ -1,0 +1,9 @@
+{% if next_vacations_list %}
+    <ul>
+    {% for vacation in next_vacations_list %}
+        <li><a href="/vacations/{{ vacation.id }}/">{{ vacation.nom }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No vacations are available.</p>
+{% endif %}
