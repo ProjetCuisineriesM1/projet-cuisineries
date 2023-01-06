@@ -9,7 +9,7 @@ class Membre(AbstractUser):
     nb_heures = models.FloatField(default=0, null=True)
     credits = models.IntegerField(default=0, null=True)
     competences = models.JSONField(null=True)
-    referent = models.ForeignKey('self', on_delete=models.PROTECT, null=True)
+    referent = models.ForeignKey('self', blank=True, on_delete=models.PROTECT, null=True, limit_choices_to= models.Q( groups__name = 'Référent'))
     pass
     def __str__(self):
         return self.first_name+" "+self.last_name
@@ -33,6 +33,7 @@ class Reunion(models.Model):
     date = models.DateTimeField()
     referent = models.ForeignKey(Membre, on_delete=models.CASCADE)
     membre = models.ForeignKey(Membre, on_delete=models.CASCADE, related_name="membres")
+    contenu = models.TextField(null=True, blank=True)
     def __str__(self):
         return "Réunion entre "+str(self.referent)+" et "+str(self.membre)+" ("+self.date.strftime("%d/%m/%Y")+")"
 

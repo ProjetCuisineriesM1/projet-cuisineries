@@ -20,4 +20,4 @@ urlpatterns = [
     path('', include('site_cuisineries.urls')),
     path('admin/', admin.site.urls),
 ]
-
+admin.site.site_header = "Les Cuisineries"
