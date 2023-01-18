@@ -1,5 +1,5 @@
-from django.urls import path
 
+from django.urls import include, path
 from . import views
 
 urlpatterns = [
@@ -7,5 +7,5 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('login', views.login, name='Connecter'),
     path('ajax/calendar', views.compute, name="compute"),
-    path('chat', views.chat, name="chat"),
+    path("chat/", include("chat.urls")),
 ]

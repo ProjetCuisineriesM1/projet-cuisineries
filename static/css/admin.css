@@ -1,0 +1,11 @@
+#header{
+    background-color: #f9f0e9;
+}
+
+#head{
+    color: #003f49 !important;
+    font-weight: 600 !important;
+}
+#user-tools, #user-tools > a{
+    color: #003f49 !important;
+}
