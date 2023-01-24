@@ -7,5 +7,6 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('login', views.login, name='Connecter'),
     path('ajax/calendar', views.compute, name="compute"),
+    path('vacations/<int:vacation>', views.vacation),
     path("chat/", include("chat.urls")),
 ]

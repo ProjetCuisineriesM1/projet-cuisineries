@@ -132,10 +132,13 @@ document.addEventListener('DOMContentLoaded', function(){
             .then(result => {
                 document.querySelector('#events').innerHTML = "";
                 result.reunions.forEach(element => {
-                    document.querySelector('#events').innerHTML += '<div class="card" style="width: 18rem;"><div class="card-body"><h5 class="card-title">'+element.membre.first_name+' '+element.membre.last_name+' et '+element.referent.first_name+' '+element.referent.last_name+'</h5><h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6></div></div>'
+                    var date_reunion = new Date(element.date);
+                    document.querySelector('#events').innerHTML += '<a href="reunions/'+element.id+'"><div class="card"><div class="card-body"><h5 class="card-title">'+element.membre.first_name+' '+element.membre.last_name+' et '+element.referent.first_name+' '+element.referent.last_name+'</h5><h6 class="card-subtitle mb-2 text-muted">Réunion à '+date_reunion.getHours()+'h'+date_reunion.getMinutes()+'</h6></div></div></a>'
                 });
                 result.vacations.forEach(element => {
-                    document.querySelector('#events').innerHTML += '<div class="card" style="width: 18rem;"><div class="card-body"><h5 class="card-title">'+element.nom+'</h5><h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6></div></div>'
+                    var date_vacation_debut = new Date(element.date_debut);
+                    var date_vacation_fin = new Date(element.date_fin);
+                    document.querySelector('#events').innerHTML += '<a href="vacations/'+element.id+'"><div class="card"><div class="card-body"><h5 class="card-title">'+element.nom+'</h5><h6 class="card-subtitle mb-2 text-muted">De '+date_vacation_debut.getHours()+'h'+(date_vacation_debut.getMinutes()<10?'0':'')+date_vacation_debut.getMinutes()+' à '+date_vacation_fin.getHours()+'h'+(date_vacation_fin.getMinutes()<10?'0':'')+date_vacation_fin.getMinutes()+'</h6></div></div></a>'
                 });
             });
         

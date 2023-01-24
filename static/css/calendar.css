@@ -91,6 +91,7 @@
      text-align: center;
      margin: 4em auto;
      position: relative;
+     max-width: fit-content;
  }
  
  #header {
@@ -137,7 +138,7 @@
  
  .head-info {
      float: left;
-     width: 16em;
+     width: 14em;
  }
  
  .head-day {
@@ -247,3 +248,33 @@
      transform: scale(0.8);     
  }
  
+ #events > a {
+    text-decoration: none !important;
+    color: initial !important;
+ }
+
+.container {
+    padding: 0 !important;
+}
+
+@media (max-width: 768px) {
+    #events{
+        position: relative !important;
+        transform: translate(-25%,0)!important;
+        top: 0!important;
+    }
+    .container > .row {
+        display: block !important;
+    }
+}
+@media (min-width: 538px) {
+    #events > a > .card {
+        width: 18rem;;
+    }
+}
+@media (max-width: 538px) {
+    #events{
+        position: initial !important;
+        transform: none !important;
+    }
+}

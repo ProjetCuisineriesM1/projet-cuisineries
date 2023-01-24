@@ -55,18 +55,20 @@ def compute(request):
         reunion_list=list(Reunion.objects.filter(Q(membre_id=request.user.id) | Q(referent_id=request.user.id)).filter(date__year=request.POST.get('annee')).filter(date__month=request.POST.get('mois')).values('date'))
         reponse = {'vacations': vacation_list, 'reunions': reunion_list}
     if request.POST.get('requete') == "jour":
-        vacation_list=list(Vacation.objects.filter(date_debut__year=request.POST.get('annee')).filter(date_debut__month=request.POST.get('mois')).filter(date_debut__day=request.POST.get('jour')).values("date_debut", "date_fin", "nom"))
-        reunion_list=list(Reunion.objects.filter(Q(membre_id=request.user.id) | Q(referent_id=request.user.id)).filter(date__year=request.POST.get('annee')).filter(date__month=request.POST.get('mois')).filter(date__day=request.POST.get('jour')).values("date", "referent", "membre"))
+        vacation_list=list(Vacation.objects.filter(date_debut__year=request.POST.get('annee')).filter(date_debut__month=request.POST.get('mois')).filter(date_debut__day=request.POST.get('jour')).values("id","date_debut", "date_fin", "nom"))
+        reunion_list=list(Reunion.objects.filter(Q(membre_id=request.user.id) | Q(referent_id=request.user.id)).filter(date__year=request.POST.get('annee')).filter(date__month=request.POST.get('mois')).filter(date__day=request.POST.get('jour')).values("id","date", "referent", "membre"))
         for i in reunion_list:
             i["membre"] = list(Membre.objects.filter(id=i["membre"]).values("first_name", "last_name"))[0]
             i["referent"] = list(Membre.objects.filter(id=i["referent"]).values("first_name", "last_name"))[0]
         reponse = {'vacations': vacation_list, 'reunions': reunion_list}
     return JsonResponse(reponse)
     
-    
-def chat(request):
-    person= Membre.objects.get(id=1)
+def vacation(request, vacation):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    vacation_data=Vacation.objects.get(id=vacation)
     context = {
-        'person': person,
+        'vacation_data':vacation_data,
     }
-    return render(request, 'site_cuisineries/chat.html', context)
+    return render(request, 'site_cuisineries/vacation.html', context)    
+
