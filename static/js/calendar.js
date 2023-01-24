@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function(){
                 document.querySelector('#events').innerHTML = "";
                 result.reunions.forEach(element => {
                     var date_reunion = new Date(element.date);
-                    document.querySelector('#events').innerHTML += '<a href="reunions/'+element.id+'"><div class="card"><div class="card-body"><h5 class="card-title">'+element.membre.first_name+' '+element.membre.last_name+' et '+element.referent.first_name+' '+element.referent.last_name+'</h5><h6 class="card-subtitle mb-2 text-muted">Réunion à '+date_reunion.getHours()+'h'+date_reunion.getMinutes()+'</h6></div></div></a>'
+                    document.querySelector('#events').innerHTML += '<a href="reunions/'+element.id+'"><div class="card"><div class="card-body"><h5 class="card-title">'+element.membre.first_name+' '+element.membre.last_name+' et '+element.referent.first_name+' '+element.referent.last_name+'</h5><h6 class="card-subtitle mb-2 text-muted">Réunion à '+date_reunion.getHours()+'h'+(date_reunion.getMinutes()<10?'0':'')+date_reunion.getMinutes()+'</h6></div></div></a>'
                 });
                 result.vacations.forEach(element => {
                     var date_vacation_debut = new Date(element.date_debut);

@@ -7,6 +7,7 @@ from django.core import serializers
 from .models import Vacation
 from .models import Membre
 from .models import Reunion
+from .models import Inscription
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 
@@ -25,6 +26,8 @@ def index(request):
     return render(request, 'site_cuisineries/index.html', context)
 
 def profile(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
     competences_list= Membre.objects.get(email=request.user.email)
     reunion_id_list= Reunion.objects.filter(membre_id=request.user.id)
     context = {
@@ -49,6 +52,8 @@ def login(request):
         return render(request, 'site_cuisineries/login.html')
 
 def compute(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({})
     reponse = {}
     if request.POST.get('requete') == "mois":
         vacation_list=list(Vacation.objects.filter(date_debut__year=request.POST.get('annee')).values('date_debut').filter(date_debut__month=request.POST.get('mois')))
@@ -66,9 +71,24 @@ def compute(request):
 def vacation(request, vacation):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
+
     vacation_data=Vacation.objects.get(id=vacation)
+    inscrit = Inscription.objects.filter(vacation=vacation_data, membre=request.user).exists()
+    
     context = {
         'vacation_data':vacation_data,
+        'inscrit':inscrit
     }
+    if request.method == 'POST':
+        if request.POST['status'] == "0" and vacation_data.nb_inscrits() < vacation_data.nb_max_inscrit:
+            Inscription(vacation=vacation_data, membre=request.user).save()
+            context["inscrit"] = True
+        elif request.POST['status'] == "1":
+            Inscription.objects.get(vacation=vacation_data, membre=request.user).delete()
+            context["inscrit"] = False
+        else:
+            context["error_message"] = "Erreur lors de l'inscription"
+            return render(request, 'site_cuisineries/vacation.html', context)
+    context["vacation_data"] = Vacation.objects.get(id=vacation)
     return render(request, 'site_cuisineries/vacation.html', context)    
 

@@ -12,38 +12,65 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Calendar </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/chat">Chat</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="/admin">Admin</a>
-                </li>
-            </ul>
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img src="/static/img/cropped-Logo-les-cuisineries.png" alt="Les cuisineries" height="24">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Calendrier</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/chat">Chat</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/admin">Admin</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
-    <div class="container text-center">
-        {{vacation_data.nom}}
+    <div class="container d-lg-flex " style="margin-top: 3rem;">
+        <div class="col col-lg-2"></div>
+        <div class="col col-lg-8">
+            <div class="card">
+                <h5 class="card-header text-center">{{vacation_data.nom}}</h5>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted d-flex"><span>{% if vacation_data.date_debut.date == vacation_data.date_fin.date %} Le {{vacation_data.date_debut.date}} de {{vacation_data.date_debut|date:'H:i'}} à {{vacation_data.date_fin|date:'H:i'}} {% else %} Du {{vacation_data.date_debut.date}} à {{vacation_data.date_debut|date:'H:i'}}<br> au {{vacation_data.date_fin.date}} à {{vacation_data.date_fin|date:'H:i'}} {% endif %}</span><span class="ms-auto">{{vacation_data.nb_inscrits}}/{{vacation_data.nb_max_inscrit}} inscrits</span></h6>
+                    <p class="card-text">{{vacation_data.description}}</p>
+                    <form action="/vacations/{{vacation_data.id}}" method="post">
+                        {% csrf_token %}
+                        {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+                        <div class="text-end">
+                            {% if inscrit %}
+                            <input name="status" type="hidden" value="1">
+                            <input type="submit" href="#" class="btn btn-outline-danger" value="Se désinscrire">
+                            {% else %}
+                            {% if vacation_data.nb_inscrits < vacation_data.nb_max_inscrit %}
+                            <input name="status" type="hidden" value="0">
+                            <input type="submit" href="#" class="btn btn-danger" value="S'inscrire">
+                            {% else %}
+                            <input disabled class="btn btn-outline-secondary" value="Complet">
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col col-lg-2"></div>
     </div>
-
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
-    <script src="/static/js/calendar.js"></script>
 </body>
 
 </html>

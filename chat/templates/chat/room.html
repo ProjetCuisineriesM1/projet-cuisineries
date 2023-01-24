@@ -1,17 +1,42 @@
 <!-- chat/templates/chat/room.html -->
 <!DOCTYPE html>
 <html>
+    
 <head>
     <meta charset="utf-8"/>
     <title>Chat Room</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        
 </head>
-<body style="background-image:url(/static/img/bg2.jpg)">
-    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
-    <input id="chat-message-input" type="text" size="100"><br>
+<body style="background-image:url(/static/img/bg9.jpg)">
+    
+        {% if message_list %}
+        <div class="card  " style="width: 50rem; ">
+            <div class="d-flex flex-column " id="chat-log">
+                
+                  
+            {% for txt in message_list %}
+                {% if txt.sender_id == request.user.id %}
+                    <div class="d-flex justify-content-end bg-light">{{ txt.message}}</div>
+                    
+                {% else %}
+                    <div class="d-flex justify-content-start bg-danger ">{{ txt.message}}</div>
+                    
+                {% endif %}
+            {% endfor %}
+            {% else %}
+                Type a text.
+            {% endif %}
+            
+            <br>
+        
+            </div>
+        </div>
+    <input id="chat-message-input" type="text" size="1000"><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
     <script>
-        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const roomName = JSON.parse(document.getElementById('room-name').textContent) ;
 
         const chatSocket = new WebSocket(
             'ws://'
@@ -23,8 +48,18 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
-        };
+            if(data.sender == {{request.user.id}}) {
+                document.querySelector('#chat-log').innerHTML +=  '<div class="d-flex justify-content-end bg-light">'+data.message+'</div>';
+            }
+            else {
+                document.querySelector('#chat-log').innerHTML +=  '<div class="d-flex justify-content-start bg-danger">'+data.message+'</div>';
+        
+            }
+                
+
+                 
+            
+           };
 
         chatSocket.onclose = function(e) {
             console.error('Chat socket closed unexpectedly');
@@ -41,8 +76,10 @@
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
             chatSocket.send(JSON.stringify({
-                'message': message
+                'message': message,
+                'sender' : {{request.user.id}}
             }));
+        
             messageInputDom.value = '';
         };
     </script>

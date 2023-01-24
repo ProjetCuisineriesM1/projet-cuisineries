@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class Membre(AbstractUser):
@@ -18,9 +19,13 @@ class Vacation(models.Model):
     date_debut = models.DateTimeField()
     date_fin = models.DateTimeField()
     nom = models.CharField(max_length=100)
-    nb_max_inscrit = models.FloatField(default=0, null=True)
+    description = models.TextField(null=True)
+    nb_max_inscrit = models.IntegerField(default=0, null=True)
     def __str__(self):
         return self.nom+" ("+self.date_debut.strftime("%d/%m/%Y")+")"
+
+    def nb_inscrits(self):
+        return Inscription.objects.filter(vacation=self.id).count()
 
 class Contrepartie(models.Model):
     nom = models.CharField(max_length=100)
@@ -55,3 +60,16 @@ class Choix(models.Model):
             )
         ]
         verbose_name_plural = "Choix"
+class Conversation(models.Model):
+    pers1=models.ForeignKey(Membre, on_delete=models.CASCADE,related_name='pers1')
+    pers2=models.ForeignKey(Membre, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.pers1+" "+self.pers2
+
+class Message(models.Model):
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
+    sender=models.ForeignKey(Membre, on_delete=models.CASCADE)
+    message = models.TextField(null=True)
+    date = models.DateTimeField()
+    def __str__(self):
+        return self.conversation+" "+self.date
