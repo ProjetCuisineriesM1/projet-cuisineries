@@ -2,14 +2,19 @@ from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
+
+class Competence(models.Model):
+    nom = models.CharField(max_length=200, null=False, primary_key=True)
+    def __str__(self):
+        return self.nom
+        
 class Membre(AbstractUser):
     photo = models.FileField(null=True, upload_to='static/profils/', max_length=500)
-    attentes = models.TextField(null=True)
     cat_sociopro = models.IntegerField(default=0)
     telephone = models.CharField(max_length=10, null=True)
     nb_heures = models.FloatField(default=0, null=True)
     credits = models.IntegerField(default=0, null=True)
-    competences = models.JSONField(null=True)
+    competences = models.ManyToManyField(Competence)
     referent = models.ForeignKey('self', blank=True, on_delete=models.PROTECT, null=True, limit_choices_to= models.Q( groups__name = 'Référent'))
     pass
     def __str__(self):
@@ -40,7 +45,7 @@ class Reunion(models.Model):
     membre = models.ForeignKey(Membre, on_delete=models.CASCADE, related_name="membres")
     contenu = models.TextField(null=True, blank=True)
     def __str__(self):
-        return "Réunion entre "+str(self.referent)+" et "+str(self.membre)+" ("+self.date.strftime("%d/%m/%Y")+")"
+        return "Réunion entre "+str(self.referent)+" et "+str(self.membre)
 
 class Inscription(models.Model):
     vacation = models.ForeignKey(Vacation, on_delete=models.CASCADE)
@@ -73,3 +78,9 @@ class Message(models.Model):
     date = models.DateTimeField()
     def __str__(self):
         return self.conversation+" "+self.date
+
+class Attente(models.Model):
+    membre = models.ForeignKey(Membre, on_delete=models.CASCADE)
+    nom = models.CharField(max_length=200, null=False)
+    def __str__(self):
+        return self.nom

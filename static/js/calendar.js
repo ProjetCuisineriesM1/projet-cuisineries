@@ -73,7 +73,6 @@ document.addEventListener('DOMContentLoaded', function(){
                     days[k].className = '';
                 }
 
-                console.log(vacations)
                 for(var i  = 1; i <= nDays ; i++) {
                     days[n].innerHTML = i;
                     if((vacations.find(item => {return parseInt(item.getDate()) == i}) || []).length != 0){

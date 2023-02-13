@@ -1,10 +1,17 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Membre, Vacation, Inscription, Reunion, Contrepartie, Choix
+from .models import Membre, Vacation, Inscription, Reunion, Contrepartie, Choix, Attente, Competence
 
 
-admin.site.register(Membre)
+
+class AttenteInline(admin.TabularInline):
+     model=Attente
+     extra=1
+class MembreAdmin(admin.ModelAdmin):
+     inlines = [AttenteInline]
+
+admin.site.register(Membre, MembreAdmin)
 class VacationAdmin(admin.ModelAdmin):
      list_display = ('nom','date_debut', 'nombre_inscrits', 'complet')
      date_hierarchy = 'date_debut'
@@ -16,8 +23,11 @@ class VacationAdmin(admin.ModelAdmin):
           return obj.nb_inscrits()==obj.nb_max_inscrit
 admin.site.register(Vacation,VacationAdmin)
 admin.site.register(Inscription)
-admin.site.register(Reunion)
+class ReunionAdmin(admin.ModelAdmin):
+     list_display = ('membre', 'referent', 'date')
+admin.site.register(Reunion, ReunionAdmin)
 class ContrepartieAdmin(admin.ModelAdmin):
      list_display = ('nom', 'quantite_dispo')
 admin.site.register(Contrepartie, ContrepartieAdmin)
 admin.site.register(Choix)
+admin.site.register(Competence)

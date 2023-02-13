@@ -8,8 +8,9 @@ from .models import Vacation
 from .models import Membre
 from .models import Reunion
 from .models import Inscription
+from .models import Attente
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, logout, login as auth_login
 
 # Create your views here.
 
@@ -25,16 +26,19 @@ def index(request):
     }
     return render(request, 'site_cuisineries/index.html', context)
 
-def profile(request):
+def profil(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
-    competences_list= Membre.objects.get(email=request.user.email)
+    membre_info= Membre.objects.get(email=request.user.email)
+    attentes_list = Attente.objects.filter(membre_id=request.user.id)
     reunion_id_list= Reunion.objects.filter(membre_id=request.user.id)
     context = {
-        'competences_list':  competences_list.competences,
+        'membre_info':  membre_info,
+        'competences_list' : membre_info.competences.all(),
         'reunion_id_list':  reunion_id_list,
+        'attentes_list' : attentes_list
     }
-    return render(request, 'site_cuisineries/profile.html', context)
+    return render(request, 'site_cuisineries/profil.html', context)
 
 def login(request):
     if request.user.is_authenticated:
@@ -50,6 +54,11 @@ def login(request):
             return render(request, 'site_cuisineries/login.html')
     else:
         return render(request, 'site_cuisineries/login.html')
+
+def logout_user(request):
+    if request.user.is_authenticated:
+        logout(request)
+    return HttpResponseRedirect('/login')
 
 def compute(request):
     if not request.user.is_authenticated:
@@ -91,4 +100,17 @@ def vacation(request, vacation):
             return render(request, 'site_cuisineries/vacation.html', context)
     context["vacation_data"] = Vacation.objects.get(id=vacation)
     return render(request, 'site_cuisineries/vacation.html', context)    
+
+
+def reunion(request, reunion):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+
+    reunion_data=Reunion.objects.get(id=reunion)
+    
+    context = {
+        'reunion_data':reunion_data
+    }
+    
+    return render(request, 'site_cuisineries/reunion.html', context)    
 
