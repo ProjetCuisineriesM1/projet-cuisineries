@@ -57,6 +57,7 @@
                         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
                         <div class="text-end">
                             {% if inscrit %}
+                            <input name="formname" type="hidden" value="inscription">
                             <input name="status" type="hidden" value="1">
                             <input type="submit" href="#" class="btn btn-outline-danger" value="Se désinscrire">
                             {% else %}
@@ -71,6 +72,49 @@
                     </form>
                 </div>
             </div>
+            <br>
+            {% if liste_inscrits %}
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for comp in liste_inscrits %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="d-flex col align-items-center"><span>{{ comp.membre }}</span></div>
+                            
+                            <div class="col text-end">
+                                {% if validation %}
+                                {% if comp.participation_valide %}
+                                <span class="text-success-emphasis">La participation à été validée</span>
+                                {% elif comp.participation_valide is False %}
+                                <span class="text-danger-emphasis">La participation à été annulée</span>
+                                {% else %}
+                                <form action="/vacations/{{vacation_data.id}}" method="post" class="d-inline-block">
+                                    {% csrf_token %}
+                                    <input name="formname" type="hidden" value="validationPresence">
+                                    <input name="valide" type="hidden" value="1">
+                                    <input name="user" type="hidden" value="{{request.user.id}}">
+                                    <button type="submit" class="btn btn-success"><span class="material-symbols-outlined d-block">done</span></button>
+                                </form>
+                                <form action="/vacations/{{vacation_data.id}}" method="post" class="d-inline-block">
+                                    {% csrf_token %}
+                                    <input name="formname" type="hidden" value="validationPresence">
+                                    <input name="valide" type="hidden" value="0">
+                                    <input name="user" type="hidden" value="{{request.user.id}}">
+                                    <button type="submit" class="btn btn-danger"><span class="material-symbols-outlined d-block">close</span></button>
+                                </form>
+                                {% endif %}
+                                {% else %}
+                                <span class="text-muted">La validation n'est pas encore disponible</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Aucun inscrit enregistré.</p>
+            </div>
+            {% endif %}
         </div>
         <div class="col col-lg-2"></div>
     </div>

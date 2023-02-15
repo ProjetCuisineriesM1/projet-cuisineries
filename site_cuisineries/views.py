@@ -11,6 +11,7 @@ from .models import Inscription
 from .models import Attente
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, logout, login as auth_login
+from django.utils import timezone
 
 # Create your views here.
 
@@ -30,13 +31,12 @@ def profil(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     membre_info= Membre.objects.get(email=request.user.email)
-    attentes_list = Attente.objects.filter(membre_id=request.user.id)
     reunion_id_list= Reunion.objects.filter(membre_id=request.user.id)
     context = {
         'membre_info':  membre_info,
         'competences_list' : membre_info.competences.all(),
         'reunion_id_list':  reunion_id_list,
-        'attentes_list' : attentes_list
+        'attentes_list' : membre_info.attentes.all()
     }
     return render(request, 'site_cuisineries/profil.html', context)
 
@@ -83,21 +83,41 @@ def vacation(request, vacation):
 
     vacation_data=Vacation.objects.get(id=vacation)
     inscrit = Inscription.objects.filter(vacation=vacation_data, membre=request.user).exists()
+
+    membre = Membre.objects.get(id=request.user.id)
     
     context = {
         'vacation_data':vacation_data,
         'inscrit':inscrit
     }
+
+    if request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() :
+        context['liste_inscrits'] = Inscription.objects.filter(vacation=vacation_data).all()
+        context['validation'] = vacation_data.date_debut < timezone.now()
+
+
     if request.method == 'POST':
-        if request.POST['status'] == "0" and vacation_data.nb_inscrits() < vacation_data.nb_max_inscrit:
-            Inscription(vacation=vacation_data, membre=request.user).save()
-            context["inscrit"] = True
-        elif request.POST['status'] == "1":
-            Inscription.objects.get(vacation=vacation_data, membre=request.user).delete()
-            context["inscrit"] = False
-        else:
-            context["error_message"] = "Erreur lors de l'inscription"
-            return render(request, 'site_cuisineries/vacation.html', context)
+        if request.POST['formname'] == "inscription":
+            if request.POST['status'] == "0" and vacation_data.nb_inscrits() < vacation_data.nb_max_inscrit:
+                Inscription(vacation=vacation_data, membre=request.user).save()
+                context["inscrit"] = True
+            elif request.POST['status'] == "1":
+                Inscription.objects.get(vacation=vacation_data, membre=request.user).delete()
+                context["inscrit"] = False
+            else:
+                context["error_message"] = "Erreur lors de l'inscription"
+                return render(request, 'site_cuisineries/vacation.html', context)
+        if request.POST['formname'] == "validationPresence":
+            if request.POST['valide'] == "1":
+                valideUser = Membre.objects.get(id=request.POST['user'])
+                inscr = Inscription.objects.get(vacation=vacation_data, membre=valideUser)
+                inscr.participation_valide = True
+                inscr.save()
+            if request.POST['valide'] == "0":
+                valideUser = Membre.objects.get(id=request.POST['user'])
+                inscr = Inscription.objects.get(vacation=vacation_data, membre=valideUser)
+                inscr.participation_valide = False
+                inscr.save()
     context["vacation_data"] = Vacation.objects.get(id=vacation)
     return render(request, 'site_cuisineries/vacation.html', context)    
 

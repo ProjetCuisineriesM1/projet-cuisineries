@@ -7,6 +7,12 @@ class Competence(models.Model):
     nom = models.CharField(max_length=200, null=False, primary_key=True)
     def __str__(self):
         return self.nom
+
+class Attente(models.Model):
+    nom = models.CharField(max_length=200, null=False)
+    def __str__(self):
+        return self.nom
+
         
 class Membre(AbstractUser):
     photo = models.FileField(null=True, upload_to='static/profils/', max_length=500)
@@ -15,6 +21,7 @@ class Membre(AbstractUser):
     nb_heures = models.FloatField(default=0, null=True)
     credits = models.IntegerField(default=0, null=True)
     competences = models.ManyToManyField(Competence)
+    attentes = models.ManyToManyField(Attente)
     referent = models.ForeignKey('self', blank=True, on_delete=models.PROTECT, null=True, limit_choices_to= models.Q( groups__name = 'Référent'))
     pass
     def __str__(self):
@@ -50,6 +57,7 @@ class Reunion(models.Model):
 class Inscription(models.Model):
     vacation = models.ForeignKey(Vacation, on_delete=models.CASCADE)
     membre = models.ForeignKey(Membre, on_delete=models.CASCADE)
+    participation_valide = models.BooleanField(null=True)
     def __str__(self):
         return str(self.membre)+" est inscrit à "+str(self.vacation)
 
@@ -79,8 +87,3 @@ class Message(models.Model):
     def __str__(self):
         return self.conversation+" "+self.date
 
-class Attente(models.Model):
-    membre = models.ForeignKey(Membre, on_delete=models.CASCADE)
-    nom = models.CharField(max_length=200, null=False)
-    def __str__(self):
-        return self.nom
