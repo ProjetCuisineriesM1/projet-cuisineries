@@ -57,6 +57,8 @@ def roomGroupe(request, room_name):
     start_date = datetime.now() - timedelta(days=30)
     message_list=MessageGroup.objects.filter(date__gte=start_date,conversation_id=room_name)
     inscription=Inscription.objects.filter(vacation_id=room_name)
+    
+    
     context ={
         'message_list' : message_list.values,
         "room_name": room_name,
