@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nouvel utilisateur - Les Cuisineries</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+
+<body style="background-image:url(/static/img/bg9.jpg)">
+    {% include "site_cuisineries/navbar.html" %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6 mb-3 mb-sm-0  text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Création d'un compte</h5>
+                            <form action="#" method="POST">
+                                {% csrf_token %}
+                                <div id="form_part1" class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating" id="firstnameDiv">
+                                            <input type="text" class="form-control" id="firstname" name="firstname" required placeholder="Prénom">
+                                            <label for="firstname">Prénom</label>
+                                            <div class="invalid-feedback" id="firstnameError" style="display: none;">Insérez un prénom valide</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating" id="lastnameDiv">
+                                            <input type="text" class="form-control" id="lastname" name="lastname" required placeholder="Nom">
+                                            <label for="lastname">Nom</label>
+                                            <div class="invalid-feedback" id="lastnameError" style="display: none;">Insérez un nom valide</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12" id="roleDiv">
+                                        <select class="form-select" id="role" name="role" onchange="updateRole(this.value)" required aria-label="Sélection du rôle">
+                                            <option value="0" selected disabled>Sélectionnez le rôle</option>
+                                            <option>Adhérent</option>
+                                            <option>Référent</option>
+                                            {% if user.groups.all.0.name == "Administrateur" %}
+                                            <option>Administrateur</option>
+                                            {% endif %}
+                                        </select>
+                                            <div class="invalid-feedback" id="roleError" style="display: none;">Sélectionnez un rôle</div>
+                                    </div>
+                                    
+                                    <div class="col-12" id="referentDiv">
+                                        <select class="form-select" name="referent" id="referent" disabled aria-label="Choix du référent">
+                                            <option value="0" selected disabled>Sélectionnez le référent</option>
+                                            {% for ref in referents %}
+                                            <option value="{{ref.id}}">{{ref}}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="invalid-feedback" id="referentError" style="display: none;">Choisissez le référent</div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating" id="usernameDiv">
+                                            <input type="text" class="form-control" id="username" name="username" required placeholder="Nom d'utilisateur">
+                                            <label for="username">Nom d'utilisateur</label>
+                                            <div class="invalid-feedback" id="usernameError" style="display: none;">Insérez un nom d'utilisateur valide</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating" id="emailDiv">
+                                            <input type="email" class="form-control" id="email" name="email" placeholder="Adresse mail">
+                                            <label for="email">Adresse mail</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating" id="telephoneDiv">
+                                            <input type="phone" pattern="[0-9]{10}" class="form-control" id="telephone" name="telephone" placeholder="Téléphone">
+                                            <label for="telephone">Numéro de téléphone</label>
+                                            <div class="invalid-feedback" id="telephoneError" style="display: none;">Insérez un numéro de téléphone valide</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="button" onclick="validateForm1()" class="btn btn-primary">Suivant</button>
+                                    </div>
+                                </div>
+                                <div id="form_part2" class="row g-3" style="display:none">
+                                    <span></span>
+                                    <div class="col-12" id="resultStep1">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Création du compte...</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-primary" onclick="validateForm2()" id="buttonPart2" disabled>Création du compte...</button>
+                                    </div>
+                                </div>
+                                <div id="form_part3" class="row g-3" style="display:none">
+                                    <span></span>
+                                    <div class="camera">
+                                        <video id="video">Le flux vidéo n'est pas disponible.</video>
+                                        <button id="startbutton">Prendre une photo</button>
+                                    </div>
+                                    <canvas id="canvas" style="display:none;"> </canvas>
+                                    <div class="output">
+                                    <img id="photo" alt="L'image capturée sera affichée dans cette boîte.">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            function strRandom(o) {
+                var a = 10,
+                    b = 'abcdefghijklmnopqrstuvwxyz',
+                    c = '',
+                    d = 0,
+                    e = ''+b;
+                if (o) {
+                    if (o.startsWithLowerCase) {
+                    c = b[Math.floor(Math.random() * b.length)];
+                    d = 1;
+                    }
+                    if (o.length) {
+                    a = o.length;
+                    }
+                    if (o.includeUpperCase) {
+                    e += b.toUpperCase();
+                    }
+                    if (o.includeNumbers) {
+                    e += '1234567890';
+                    }
+                }
+                for (; d < a; d++) {
+                    c += e[Math.floor(Math.random() * e.length)];
+                }
+                return c;
+                }
+            function updateRole(role){
+                console.log(role)
+                if(role === "Adhérent"){
+                    document.getElementsByName("referent")[0].removeAttribute("disabled");
+                    document.getElementsByName("referent")[0].setAttribute("required", "required");
+                }else{
+                    document.getElementsByName("referent")[0].removeAttribute("required");
+                    document.getElementsByName("referent")[0].setAttribute("disabled", "disabled");
+                }
+            }
+            function validateForm1(){
+                if(document.getElementById("firstname").value == ""){
+                    document.getElementById("firstname").classList.add("is-invalid");
+                    document.getElementById("firstnameError").style.display = 'block';
+                    return;
+                }else{
+                    document.getElementById("firstnameError").style.display = 'none';
+                    document.getElementById("firstname").classList.remove("is-invalid");
+                }
+                if(document.getElementById("lastname").value == ""){
+                    document.getElementById("lastname").classList.add("is-invalid");
+                    document.getElementById("lastnameError").style.display = 'block';
+                    return;
+                }else{
+                    document.getElementById("lastnameError").style.display = 'none';
+                    document.getElementById("lastname").classList.remove("is-invalid");
+                }
+                if(document.getElementById("role").value == "0"){
+                    document.getElementById("role").classList.add("is-invalid");
+                    document.getElementById("roleError").style.display = 'block';
+                    return;
+                }else{
+                    document.getElementById("roleError").style.display = 'none';
+                    document.getElementById("role").classList.remove("is-invalid");
+                }
+                if(document.getElementById("referent").value == "0" && document.getElementById("role").value == "Membre"){
+                    document.getElementById("referent").classList.add("is-invalid");
+                    document.getElementById("referentError").style.display = 'block';
+                    return;
+                }else{
+                    document.getElementById("referentError").style.display = 'none';
+                    document.getElementById("referent").classList.remove("is-invalid");
+                }
+                if(document.getElementById("username").value == ""){
+                    document.getElementById("username").classList.add("is-invalid");
+                    document.getElementById("usernameError").style.display = 'block';
+                    return;
+                }else{
+                    document.getElementById("usernameError").style.display = 'none';
+                    document.getElementById("username").classList.remove("is-invalid");
+                }
+                if(document.getElementById("telephone").value == ""){
+                    document.getElementById("telephone").classList.add("is-invalid");
+                    document.getElementById("telephoneError").style.display = 'block';
+                    return;
+                }else{
+                    document.getElementById("telephoneError").style.display = 'none';
+                    document.getElementById("telephone").classList.remove("is-invalid");
+                }
+                document.getElementById("form_part1").style.display = "none";
+                document.getElementById("form_part2").style.display = "flex";
+
+                let password = strRandom({
+                    includeUpperCase: true,
+                    includeNumbers: true,
+                    length: 8,
+                    startsWithLowerCase: true
+                });
+
+                let form = new FormData();
+
+                form.append("firstname", document.getElementById("firstname").value);
+                form.append("lastname", document.getElementById("lastname").value);
+                form.append("role", document.getElementById("role").value);
+                form.append("referent", document.getElementById("referent").value);
+                form.append("username", document.getElementById("username").value);
+                form.append("email", document.getElementById("email").value);
+                form.append("telephone", document.getElementById("telephone").value);
+                form.append("password", password);
+                let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                let request = new Request("/ajax/newuser", {method: 'POST',
+                                                            step: 1,
+                                                            body: form,
+                                                            headers: {"X-CSRFToken": csrfTokenValue}})
+                fetch(request)
+                    .then(response => response.json())
+                    .then(result => {
+                        if(result.result){
+                            document.getElementById('resultStep1').innerHTML = "<span>Mot de passe : "+password+"</span>";
+                            document.getElementById('buttonPart2').innerText = "Ajouter une photo";
+                            document.getElementById('buttonPart2').removeAttribute("disabled");
+                        }
+                    });
+
+                return false;
+
+            }
+            function validateForm2(){
+                video = document.getElementById('video');
+                canvas = document.getElementById('canvas');
+                photo = document.getElementById('photo');
+                startbutton = document.getElementById('startbutton');
+
+                navigator.mediaDevices
+                    .getUserMedia({ video: true, audio: false })
+                    .then((stream) => {
+                        video.srcObject = stream;
+                        video.play();
+                    })
+                    .catch((err) => {
+                        console.error(`Une erreur est survenue : ${err}`);
+                    });
+
+                startbutton.addEventListener(
+                    "click",
+                    (ev) => {
+                        takepicture();
+                        ev.preventDefault();
+                    },
+                    false
+                );
+            }
+
+            function takepicture() {
+                const context = canvas.getContext("2d");
+                if (video.videoWidth && video.videoHeight) {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+                    video.style.display = 'none';
+                    video.srcObject.getTracks().forEach(function(track) {
+                        track.stop();
+                    });
+
+                    const data = canvas.toDataURL("image/png");
+                    photo.setAttribute("src", data);
+                }
+            }
+        </script>
+</body>
+
+</html>

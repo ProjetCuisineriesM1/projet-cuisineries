@@ -14,7 +14,10 @@ class VacationAdmin(admin.ModelAdmin):
      def complet(self, obj):
           return obj.nb_inscrits()==obj.nb_max_inscrit
 admin.site.register(Vacation,VacationAdmin)
-admin.site.register(Inscription)
+class InscriptionAdmin(admin.ModelAdmin):
+     list_display = ('membre', 'vacation', 'participation_valide')
+     list_filter = ('vacation','vacation__date_debut')
+admin.site.register(Inscription, InscriptionAdmin)
 class ReunionAdmin(admin.ModelAdmin):
      list_display = ('membre', 'referent', 'date')
 admin.site.register(Reunion, ReunionAdmin)

@@ -9,9 +9,11 @@ from .models import Membre
 from .models import Reunion
 from .models import Inscription
 from .models import Attente
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, logout, login as auth_login
 from django.utils import timezone
+from datetime import datetime
+
 
 # Create your views here.
 
@@ -20,10 +22,24 @@ def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     reunion_list=Reunion.objects.filter(membre_id=request.user.id)
-    vacation_list=Vacation.objects
+    
+    today = datetime.today()
+    date_today_b= datetime(today.year,today.month,today.day,0,0,0)
+    date_today_e= datetime(today.year,today.month,today.day,23,59,59)
+        
+    dated = str(timezone.now().strftime("%Y-%m-%d"))
+    datef7 = str((timezone.now()+timezone.timedelta(days=7)).strftime("%Y-%m-%d"))
+    datef30 = str((timezone.now()+timezone.timedelta(days=30)).strftime("%Y-%m-%d"))
+    vacation_list_today=Vacation.objects.filter(date_debut__range=[date_today_b, date_today_e])
+    vacation_list_7days=Vacation.objects.filter(date_debut__range=[dated, datef7])
+    cat = request.user.competences.all()
+    vacation_list_interested_30days=Vacation.objects.filter(date_debut__range=[dated, datef30], categorie__in=cat)
+
     context = {
         'reunion_list':reunion_list,
-        'vacation_list':vacation_list,
+        'vacation_list_7days':vacation_list_7days,
+        'vacation_list_interested_30days':vacation_list_interested_30days,
+        'vacation_list_today':vacation_list_today
     }
     return render(request, 'site_cuisineries/index.html', context)
 
@@ -39,6 +55,35 @@ def profil(request):
         'attentes_list' : membre_info.attentes.all()
     }
     return render(request, 'site_cuisineries/profil.html', context)
+
+def profil_admin(request, userid):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    #if not request.user.groups.filter(name__in=["Administrateur"]).exists() :
+    #    return HttpResponseRedirect('/')
+    membre_info= Membre.objects.get(id=userid)
+    reunion_id_list= Reunion.objects.filter(membre_id=userid)
+    context = {
+        'membre_info':  membre_info,
+        'competences_list' : membre_info.competences.all(),
+        'reunion_id_list':  reunion_id_list,
+        'attentes_list' : membre_info.attentes.all()
+    }
+    return render(request, 'site_cuisineries/profil.html', context)
+
+def adduser(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    if not request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() :
+        return HttpResponseRedirect('/')
+
+    referents = Membre.objects.filter(groups__name="Référent")
+
+    context = {
+        "referents": referents
+    }
+
+    return render(request, 'site_cuisineries/useradd.html', context)
 
 def login(request):
     if request.user.is_authenticated:
@@ -60,7 +105,7 @@ def logout_user(request):
         logout(request)
     return HttpResponseRedirect('/login')
 
-def compute(request):
+def computeCalendar(request):
     if not request.user.is_authenticated:
         return JsonResponse({})
     reponse = {}
@@ -75,6 +120,26 @@ def compute(request):
             i["membre"] = list(Membre.objects.filter(id=i["membre"]).values("first_name", "last_name"))[0]
             i["referent"] = list(Membre.objects.filter(id=i["referent"]).values("first_name", "last_name"))[0]
         reponse = {'vacations': vacation_list, 'reunions': reunion_list}
+    return JsonResponse(reponse)
+
+def ajaxNewUser(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
+    if not request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() :
+        return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
+
+    nUser = Membre.objects.create_user(username=request.POST.get('username'), email=request.POST.get('email'), first_name=request.POST.get('firstname'), last_name=request.POST.get('lastname'), telephone=request.POST.get('telephone'))
+    nUser.set_password(request.POST.get('password'))
+    if request.POST.get('role') == "Adhérent":
+        nUser.referent = Membre.objects.get(id=int(request.POST.get('referent')))
+    nUser.save()
+
+    uGroup = Group.objects.get(name=request.POST.get('role')) 
+    uGroup.user_set.add(nUser)
+
+    
+
+    reponse = {"result":True}
     return JsonResponse(reponse)
     
 def vacation(request, vacation):
@@ -134,3 +199,14 @@ def reunion(request, reunion):
     
     return render(request, 'site_cuisineries/reunion.html', context)    
 
+def viewprofile(request):
+    members_list=Membre.objects.all()
+    context = {
+        'members' : members_list.values("id", "first_name","last_name"),
+    }
+    return render(request, 'site_cuisineries/viewprofile.html', context)
+
+
+def join(request, room_name):
+        return HttpResponseRedirect('/profil/'+str(room_name))
+    

@@ -8,40 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   </head>
   <body style="background-image:url(/static/img/bg9.jpg);">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand" href="/">
-              <img src="/static/img/cropped-Logo-les-cuisineries.png" alt="Les cuisineries" height="24">
-          </a>
-          <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                  <li class="nav-item active">
-                      <a class="nav-link" href="/">Calendrier</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/chat">Chat</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Profil</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link " href="/admin">Admin</a>
-                  </li>
-              </ul>
-          </div>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link d-none d-lg-block" href="/logout" >Déconnexion</a>
-              <a class="nav-link d-lg-none" href="/logout" ><span class="material-symbols-outlined">logout</span></a>
-            </li>
-          </ul>
-          
-        </nav>
-      </div>
-  </nav>
+    {% include "site_cuisineries/navbar.html" %}
     <div class="container">
     <div class="card text-center">
         <div class="card-header">
@@ -50,10 +17,10 @@
         <div class="card-body">
           <div>
             <div>
-              <h5 class="card-title">{{request.user.first_name}}  {{request.user.last_name}}</h5>
-              <p class="card-text">Mail: {{request.user.email}}</p>
+              <h5 class="card-title">{{membre_info.first_name}}  {{membre_info.last_name}}</h5>
+              <p class="card-text">Mail: {{membre_info.email}}</p>
             </div>
-            <img class="rounded float-end" src="{{membre_info.photo}}" width="20%">
+            <img class="rounded float-end" src="/{{membre_info.photo}}" width="20%">
           </div>
           <div class="container">
           <div class="row">
@@ -93,6 +60,7 @@
             </div>
           </div>
           <p></p>
+          {% if request.user.is_superuser == 1 or membre_info.referent_id == request.user.id  %}
           <div class="row"> 
             <div class="col-sm-12 ">
                 <div class="card ">
@@ -120,6 +88,7 @@
                 </div>
               </div>
           </div>
+          {% endif %}
         </div>
         </div>
         </div>

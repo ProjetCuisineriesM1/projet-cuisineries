@@ -27,11 +27,6 @@
                         </div>
                     {% else %}
                     <div class="d-flex flex-row justify-content-start mb-3" >
-                        {% if pers1 == request.user %}
-                        <img class="rounded" src="/{{pers2.photo}}" alt="..." style="padding: .2em;" width="40" height="40" >
-                        {% else %}
-                        <img class="rounded" src="/{{pers1.photo}}" alt="..." style="padding: .2em;" width="40" height="40" >
-                        {% endif %}
                         <div class="p-1 me-1 bg-primary" style="border-radius: 15px; "><div class="small mb-0 " style="padding: .5em;">{{ txt.message}}</div></div>
                         <br></div>
                     {% endif %}

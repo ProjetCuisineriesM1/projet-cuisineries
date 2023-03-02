@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib import admin
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import BaseUserManager
 # Create your models here.
 
 class Competence(models.Model):
@@ -9,10 +10,9 @@ class Competence(models.Model):
         return self.nom
 
 class Attente(models.Model):
-    nom = models.CharField(max_length=200, null=False)
+    nom = models.CharField(max_length=200, null=False, primary_key=True)
     def __str__(self):
         return self.nom
-
         
 class Membre(AbstractUser):
     photo = models.FileField(null=True, upload_to='static/profils/', max_length=500)
@@ -33,6 +33,7 @@ class Vacation(models.Model):
     nom = models.CharField(max_length=100)
     description = models.TextField(null=True)
     nb_max_inscrit = models.IntegerField(default=0, null=True)
+    categorie = models.ForeignKey(Competence, on_delete=models.PROTECT, null=True)
     def __str__(self):
         return self.nom+" ("+self.date_debut.strftime("%d/%m/%Y")+")"
 
@@ -41,8 +42,9 @@ class Vacation(models.Model):
 
 class Contrepartie(models.Model):
     nom = models.CharField(max_length=100)
-    credits_requit = models.IntegerField(default=0, null=True)
+    credits_requis = models.IntegerField(default=0, null=True)
     quantite_dispo = models.IntegerField(default=0, null=True)
+    attente = models.ForeignKey(Attente, on_delete=models.PROTECT, null=True)
     def __str__(self):
         return self.nom+" ("+str(self.quantite_dispo)+")"
 
@@ -81,6 +83,14 @@ class Conversation(models.Model):
 
 class Message(models.Model):
     conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
+    sender=models.ForeignKey(Membre, on_delete=models.CASCADE)
+    message = models.TextField(null=True)
+    date = models.DateTimeField()
+    def __str__(self):
+        return self.conversation+" "+self.date
+
+class MessageGroup(models.Model):
+    conversation = models.ForeignKey(Vacation, on_delete=models.CASCADE)
     sender=models.ForeignKey(Membre, on_delete=models.CASCADE)
     message = models.TextField(null=True)
     date = models.DateTimeField()
