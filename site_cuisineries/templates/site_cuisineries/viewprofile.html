@@ -10,38 +10,7 @@
   </head>
   
   <body style="background-image:url(/static/img/bg9.jpg)">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand" href="/">
-              <img src="/static/img/cropped-Logo-les-cuisineries.png" alt="Les cuisineries" height="24">
-          </a>
-          <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav">
-                  <li class="nav-item active">
-                      <a class="nav-link" href="/">Calendrier</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="#">Chat</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="/profil">Profile</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link " href="/admin">Admin</a>
-                  </li>
-              </ul>
-          </div>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link d-none d-lg-block" href="/logout" >Déconnexion</a>
-              <a class="nav-link d-lg-none" href="/logout" ><span class="material-symbols-outlined">logout</span></a>
-            </li>
-          </ul>
-      </div>
-  </nav>
+    {% include "site_cuisineries/navbar.html" %}
     
   </br>
     <div class="container h-100">
@@ -51,7 +20,7 @@
             <label for="room-name-input">Choisit un profil</label>
             <div class="quantityDropdown quantityDropdown-cartItem">
                 <select name="room" id="room-name-input">
-                    {% if members %}
+                    {% if members %} 
                     <option value="">Choose </option>
                     {% for person in members %}
                     <option value='{{person.id}}'>{{ person.first_name }} {{person.last_name}}</option>

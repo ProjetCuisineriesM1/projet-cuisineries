@@ -57,12 +57,14 @@ def roomGroupe(request, room_name):
     start_date = datetime.now() - timedelta(days=30)
     message_list=MessageGroup.objects.filter(date__gte=start_date,conversation_id=room_name)
     inscription=Inscription.objects.filter(vacation_id=room_name)
+    vacation=Vacation.objects.filter(id=room_name)
     
     
     context ={
         'message_list' : message_list.values,
         "room_name": room_name,
         'inscription': inscription,
+        'vacation' : vacation.values('id','nom', 'date_debut'),
     }
     return render(request, "chat/roomGroup.html", context)
 def join2(request, room_name):

@@ -140,6 +140,10 @@ document.addEventListener('DOMContentLoaded', function(){
                     document.querySelector('#events').innerHTML += '<a href="vacations/'+element.id+'"><div class="card"><div class="card-body"><h5 class="card-title">'+element.nom+'</h5><h6 class="card-subtitle mb-2 text-muted">De '+date_vacation_debut.getHours()+'h'+(date_vacation_debut.getMinutes()<10?'0':'')+date_vacation_debut.getMinutes()+' à '+date_vacation_fin.getHours()+'h'+(date_vacation_fin.getMinutes()<10?'0':'')+date_vacation_fin.getMinutes()+'</h6></div></div></a>'
                 });
                 document.getElementById('titleH3A').innerText = "Evènements du "+o.innerHTML+" "+monthTag[month].toLowerCase();
+                document.getElementById('dayEvents').style.display = "block";
+                if(document.getElementById('titleH3A').getAttribute('aria-expanded') == "false"){
+                    document.getElementById('titleH3A').click();
+                }
             });
         
     };

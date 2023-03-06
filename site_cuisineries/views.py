@@ -13,6 +13,9 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, logout, login as auth_login
 from django.utils import timezone
 from datetime import datetime
+import subprocess
+import os
+from binascii import a2b_base64
 
 
 # Create your views here.
@@ -123,23 +126,80 @@ def computeCalendar(request):
     return JsonResponse(reponse)
 
 def ajaxNewUser(request):
+    reponse = {}
     if not request.user.is_authenticated:
         return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
     if not request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() :
         return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
-
-    nUser = Membre.objects.create_user(username=request.POST.get('username'), email=request.POST.get('email'), first_name=request.POST.get('firstname'), last_name=request.POST.get('lastname'), telephone=request.POST.get('telephone'))
-    nUser.set_password(request.POST.get('password'))
-    if request.POST.get('role') == "Adhérent":
-        nUser.referent = Membre.objects.get(id=int(request.POST.get('referent')))
-    nUser.save()
-
-    uGroup = Group.objects.get(name=request.POST.get('role')) 
-    uGroup.user_set.add(nUser)
-
     
+    if request.POST.get('step') == "1":
+        nUser = Membre.objects.create_user(username=request.POST.get('username'), email=request.POST.get('email'), first_name=request.POST.get('firstname'), last_name=request.POST.get('lastname'), telephone=request.POST.get('telephone'))
+        nUser.set_password(request.POST.get('password'))
+        if request.POST.get('role') == "Adhérent":
+            nUser.referent = Membre.objects.get(id=int(request.POST.get('referent')))
+        nUser.save()
 
-    reponse = {"result":True}
+        uGroup = Group.objects.get(name=request.POST.get('role')) 
+        uGroup.user_set.add(nUser)
+        reponse = {"result":True, "id":nUser.id}
+
+    if request.POST.get('step') == "2":
+
+        pictureFile = request.FILES.get('picture')
+
+        path_to_img = os.path.join("static/profils/", "temporary")
+
+        # Check if today_folder already exists
+        if not os.path.exists(path_to_img):
+            os.mkdir(path_to_img)
+
+        img_path = os.path.join(path_to_img, request.POST.get("id_user")+"."+pictureFile.name.split(".")[-1])
+
+        # Start writing to the disk
+        with open(img_path, 'wb+') as destination:
+
+            if pictureFile.multiple_chunks:  # size is over than 2.5 Mb
+                for chunk in pictureFile.chunks():
+                    destination.write(chunk)
+            else:
+                destination.write(pictureFile.read())
+
+        out = subprocess.run("gimp -i -b '(filterImage \"/home/debian/projet-cuisineries/static/profils/temporary/"+(request.POST.get("id_user")+"."+pictureFile.name.split(".")[-1])+"\" )' -b '(gimp-quit 0)'", shell=True)
+        print(out)
+        reponse = {"result":True, "src":"/"+img_path}
+
+    if request.POST.get('step') == "3":
+
+        pictureFile = a2b_base64(request.POST.get('picture').split(",")[1])
+
+        path_to_img = os.path.join("static/profils/", "temporary")
+
+        # Check if today_folder already exists
+        if not os.path.exists(path_to_img):
+            os.mkdir(path_to_img)
+
+        img_path = os.path.join(path_to_img, request.POST.get("id_user")+".png")
+
+        # Start writing to the disk
+        with open(img_path, 'wb+') as destination:
+            destination.write(pictureFile)
+
+        #out = subprocess.run("gimp -i -b '(filterImage \"/home/debian/projet-cuisineries/static/profils/temporary/"+request.POST.get("id_user")+".png"+"\" )' -b '(gimp-quit 0)'", shell=True)
+        #print(out)
+        reponse = {"result":True, "src":"/"+img_path}
+
+        
+    if request.POST.get('step') == "4":
+
+        os.rename("/home/debian/projet-cuisineries/static/profils/temporary/"+request.POST.get("id_user")+".png", "/home/debian/projet-cuisineries/static/profils/"+request.POST.get("id_user")+".png")
+
+        new_user = Membre.objects.get(id=int(request.POST.get("id_user")))
+        new_user.photo = "static/profils/"+request.POST.get("id_user")+".png"
+        new_user.save()
+
+        reponse = {"result":True}
+
+
     return JsonResponse(reponse)
     
 def vacation(request, vacation):

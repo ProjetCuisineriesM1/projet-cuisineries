@@ -6,11 +6,18 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Chat Room</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         
 </head>
 <body class="bg-dark mx-auto " style="position:relative; overflow: hidden;" >
-    
+    {% include "site_cuisineries/navbar.html" %}
+    <header>
+        <div>
+            <p style="color:white">Conversation entre {{ pers1.first_name }} et {{ pers2.first_name }} :</p>
+            
+        </div>
+    </header>
        
         <div class="card bg-dark mx-auto " style="overflow-y: scroll; height: 90vh;" >
             <div class="card-body" >
@@ -22,15 +29,15 @@
                     <div class="d-flex flex-row justify-content-end mb-3">
                         <div class="p-1 ms-1 bg-secondary" style="border-radius: 15px; "><div class="small mb-0" style="padding: .5em;">{{ txt.message}}</div></div>
                         
-                        <img class="rounded" src="/{{request.user.photo}}" style="padding: .2em;" alt="..." width="40" height="40">
+                        <img class="rounded" src="/static/profils/{{txt.sender_id}}.png" style="padding: .2em;" alt="..." width="40" height="40">
                     <br>
                         </div>
                     {% else %}
                     <div class="d-flex flex-row justify-content-start mb-3" >
                         {% if pers1 == request.user %}
-                        <img class="rounded" src="/{{pers2.photo}}" alt="..." style="padding: .2em;" width="40" height="40" >
+                        <img class="rounded" src="/static/profils/{{txt.sender_id}}.png" alt="..." style="padding: .2em;" width="40" height="40" >
                         {% else %}
-                        <img class="rounded" src="/{{pers1.photo}}" alt="..." style="padding: .2em;" width="40" height="40" >
+                        <img class="rounded" src="/static/profils/{{txt.sender_id}}.png" alt="..." style="padding: .2em;" width="40" height="40" >
                         {% endif %}
                         <div class="p-1 me-1 bg-primary" style="border-radius: 15px; "><div class="small mb-0 " style="padding: .5em;">{{ txt.message}}</div></div>
                         <br></div>
@@ -77,19 +84,13 @@
 
         chatSocket.onmessage = function(e) {    
             const data = JSON.parse(e.data);
-            {% if pers1 == request.user %}
-            const photoMe = "{{pers1.photo}}";
-            const photoStranger = "{{pers2.photo}}";
-            {% else %}
-            const photoMe = "{{pers2.photo}}";
-            const photoStranger = "{{pers1.photo}}";
-            {% endif %}
+            
 
             if(data.sender == {{request.user.id}}) {
-                document.querySelector('#chat-log').innerHTML +=  '<div class="d-flex flex-row justify-content-end mb-3"><div class="p-1 ms-1 bg-secondary" style="border-radius: 15px; "><div class="small mb-0" style="padding: .5em;">'+data.message+'</div></div><img class="rounded" src="/'+photoMe+'" style="padding: .2em;" alt="..." width="40" height="40"><br><div>';
+                document.querySelector('#chat-log').innerHTML +=  '<div class="d-flex flex-row justify-content-end mb-3"><div class="p-1 ms-1 bg-secondary" style="border-radius: 15px; "><div class="small mb-0" style="padding: .5em;">'+data.message+'</div></div><img class="rounded" src="/static/profils/'+data.sender+'.png" style="padding: .2em;" alt="..." width="40" height="40"><br><div>';
             }
             else {
-                document.querySelector('#chat-log').innerHTML +=  '<div class="d-flex flex-row justify-content-start mb-3" ><img class="rounded" src="/'+photoStranger+'" alt="..." style="padding: .2em;" width="40" height="40" ><div class="p-1 me-1 bg-primary" style="border-radius: 15px; "><div class="small mb-0 " style="padding: .5em;">'+data.message+'</div></div><br></div>';
+                document.querySelector('#chat-log').innerHTML +=  '<div class="d-flex flex-row justify-content-start mb-3" ><img class="rounded" src="/static/profils/'+data.sender+'.png"+" alt="..." style="padding: .2em;" width="40" height="40" ><div class="p-1 me-1 bg-primary" style="border-radius: 15px; "><div class="small mb-0 " style="padding: .5em;">'+data.message+'</div></div><br></div>';
         
             }
                 
