@@ -1,7 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler position-relative" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
+            {% if unread_messages > 0 %}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-lg-none">
+                {{unread_messages}}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+              {% endif %}
         </button>
         <a class="navbar-brand" href="/">
             <img src="/static/img/cropped-Logo-les-cuisineries.png" alt="Les cuisineries" height="24">
@@ -12,13 +18,25 @@
                     <a class="nav-link" href="/">Calendrier</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/chat">Chat</a>
+                    <a class="nav-link" href="/contrepartie">Contreparties</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profil">Profil</a>
+                <li class="nav-item position-relative">
+                    <a class="nav-link" href="/chat">Chat{% if unread_messages > 0 %} &nbsp;<span class="badge rounded-pill text-bg-danger d-none d-lg-inline-block">{{unread_messages}}</span><span class="badge text-bg-danger d-lg-none">{{unread_messages}} messages</span>{% endif %}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/viewprofile">Profil des autres utilisateurs</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Mon Compte
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/profil">Profil</a></li>
+                        <li><a class="dropdown-item" href="/myvacation">Mes vacations</a></li>
+                        <li><a class="dropdown-item" href="/mycontreparties">Mes contreparties</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="">Modifier mon profil</a></li>
+                    </ul>
                 </li>
                 {% if user.groups.all.0.name == "Référent" or user.groups.all.0.name == "Administrateur" %}
                 <li class="nav-item dropdown">
@@ -28,7 +46,10 @@
                     <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="/user/add">Ajouter un compte</a></li>
                       <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="/validation">Validation heures et contreparties</a></li>
+                      <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="/admin">Panneau d'administration</a></li>
+                      
                     </ul>
                 </li>
                 {% endif %}
