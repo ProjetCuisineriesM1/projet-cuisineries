@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib import messages
 from django.utils.translation import ngettext
+from import_export.admin import ExportActionMixin
 
 admin.site.unregister(Group)
 
@@ -17,7 +18,7 @@ class MembreAdmin(admin.ModelAdmin):
      def role(self, obj):
           return obj.groups.values_list('name',flat = True)[0]
 admin.site.register(Membre, MembreAdmin)
-class VacationAdmin(admin.ModelAdmin):
+class VacationAdmin(ExportActionMixin, admin.ModelAdmin):
      list_display = ('nom','date_debut', 'nombre_inscrits', 'complet')
      date_hierarchy = 'date_debut'
      search_fields = ("nom__icontains", )
@@ -35,7 +36,7 @@ admin.site.register(Inscription, InscriptionAdmin)
 class ReunionAdmin(admin.ModelAdmin):
      list_display = ('membre', 'referent', 'date')
 admin.site.register(Reunion, ReunionAdmin)
-class ContrepartieAdmin(admin.ModelAdmin):
+class ContrepartieAdmin(ExportActionMixin, admin.ModelAdmin):
      list_display = ('nom', 'quantite_dispo')
 admin.site.register(Contrepartie, ContrepartieAdmin)
 

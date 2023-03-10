@@ -29,7 +29,13 @@ background-position-y: bottom; background-position-x: left, right;">
                                         <label for="date">Date</label>
                                         {% if error_date == 1%}
                                             <div class="alert alert-danger" role="alert">
-                                                Problème de date
+                                                Problème de date (date déjà passée etc)
+                                            </div>
+                                            
+                                        {% endif %}
+                                        {% if error_date_dispo == 1%}
+                                            <div class="alert alert-danger" role="alert">
+                                                Référent non disponible
                                             </div>
                                             
                                         {% endif %}

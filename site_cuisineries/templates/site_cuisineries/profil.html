@@ -31,7 +31,11 @@ background-position-y: bottom; background-position-x: left, right;">
                     <div>
                         <h5 class="card-title">{{membre_info.first_name}} {{membre_info.last_name}}</h5>
                         <p class="card-text">Mail: {{membre_info.email}}</p>
-                        <p class="card-text">Nombre d'heures effectuées: {{membre_info.credits}}</p>
+                        <p class="card-text">Nombre d'heures effectuées : {{membre_info.nb_heures}}</p>
+                        <p class="card-text">Nombre de crédits : {{membre_info.credits}}</p>
+                        {% if membre_info.groups.all.0.name == "Adhérent" %}
+                        <p class="card-text">Référent: {{membre_info.referent}}</p>
+                        {%endif%}
                         <p></p>
                     </div>
                     <img class="rounded float-end" src="/{{membre_info.photo}}" width="300" height="300">
@@ -74,7 +78,7 @@ background-position-y: bottom; background-position-x: left, right;">
                     </div>
                 </div>
                 <p></p>
-                {% if request.user.is_superuser == 1 or membre_info.referent_id == request.user.id %}
+                {% if request.user.is_superuser == 1 or membre_info.referent_id == request.user.id or request.user.id == membre_info.id %}
                 <div class="row">
                     <div class="col-sm-12 ">
                         <div class="card ">

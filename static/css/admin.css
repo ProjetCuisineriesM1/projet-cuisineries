@@ -1,11 +1,58 @@
+:root{
+    --link-fg:black;
+    --primary: #943c24;
+    --secondary:#943c24;
+    --body-bg:#c99a8d;
+    --darkened-bg:#bb8170;
+    --breadcrumbs-fg:#c99a8d;
+    --selected-row:#835a4e;
+    --object-tools-bg: var(--primary);
+    --object-tools-hover-bg: var(--darkened-bg);
+    --hairline-color: transparent;
+    --body-fg:black;
+    --body-quiet-color:black;
+    --link-hover-color:var(--primary);
+    --link-selected-fg:var(--primary);
+}
+
+
 #header{
-    background-color: #f9f0e9;
+    background-color: rgba(33,37,41,1)!important;;
 }
 
 #head{
-    color: #003f49 !important;
+    color: white !important;
+    font-size:1em;
     font-weight: 600 !important;
 }
 #user-tools, #user-tools > a{
-    color: #003f49 !important;
+    color: white !important;
+    font-size:1em;
+}
+#logout-form > button{
+    color: white;
+    font-size:1em;
+    font-weight:bold;
+}
+#main{
+    
+    background-color: #E7DBCB; min-height: 100vh; background-image: url(/static/img/Ronds_petits.png), url(/static/img/Ronds_moyens.png);
+background-repeat-x: no-repeat;
+background-repeat-y: no-repeat;
+background-position-y: bottom; background-position-x: left, right;
+}
+
+#content >h1{
+    color:black;
+}
+
+#recent-actions-module>h2{
+    background-color:  #943c24;
+}
+.module, #content-related {
+    border-radius: 15px;
+    overflow: hidden;
+}
+.module.current-app {
+    border-radius: 0;
 }

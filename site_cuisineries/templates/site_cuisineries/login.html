@@ -25,6 +25,12 @@
                                 <input type="password" class="form-control" id="password" name="password" required placeholder=">Mot de passe">
                                 <label for="password">Mot de passe</label>
                             </div>
+                            {% if error == 1%}
+                                    <div class="alert alert-danger" role="alert">
+                                        Problème de login/mot de passe
+                                    </div>
+                                            
+                            {% endif %}
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary">Connexion</button>
                             </div>

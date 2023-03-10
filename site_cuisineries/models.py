@@ -75,7 +75,14 @@ class Vacation(models.Model):
     def nb_inscrits(self):
         return Inscription.objects.filter(vacation=self.id).count()
 
+    def complet(self):
+        return self.nb_inscrits()==self.nb_max_inscrit
+    def places_dispo(self):
+        return self.nb_max_inscrit-self.nb_inscrits()
+
     def credits(self):
+        return math.ceil((self.date_fin-self.date_debut).total_seconds()/3600)
+    def heures(self):
         return math.ceil((self.date_fin-self.date_debut).total_seconds()/3600)
     def inscrits(self):
         return Inscription.objects.filter(vacation=self.id).values_list('membre')

@@ -105,6 +105,7 @@ def adduser(request):
     return render(request, 'site_cuisineries/useradd.html', context)
 
 def login(request):
+    context = default_context(request)
     if request.user.is_authenticated:
         return HttpResponseRedirect('/')
     elif request.method == 'POST':
@@ -112,12 +113,15 @@ def login(request):
         password = request.POST['password']
         user = authenticate(request, username=username, password=password)
         if user is not None:
+            
             auth_login(request, user)
             return HttpResponseRedirect('/')
         else:
-            return render(request, 'site_cuisineries/login.html')
+            
+            context['error']=True
+            return render(request, 'site_cuisineries/login.html',context)
     else:
-        return render(request, 'site_cuisineries/login.html')
+        return render(request, 'site_cuisineries/login.html',context)
 
 def logout_user(request):
     if request.user.is_authenticated:
@@ -256,6 +260,7 @@ def vacation(request, vacation):
                 inscr.save()
                 if inscr.staff==True :
                     valideUser.credits = valideUser.credits+vacation_data.credits()
+                    valideUser.nb_heures = valideUser.nb_heures +vacation_data.heures()
                     valideUser.save()
                 
                 
@@ -427,14 +432,19 @@ def ask(request):
         testdate=datetime.strptime(test1,"%Y-%m-%d-%H-%M")
         if testdate < datetime.now() :
             context["error_date"] = True
+            return render(request, 'site_cuisineries/askreunion.html', context)
         else:
             for insc in inscription :
-                vacation=Inscription.objects.filter(vacation_id=insc.vacation_id)
-                if testdate>=vacation.date_debut.strftime("%Y-%m-%d-%H-%M") and request.POST['date']<=vacation.date_fin.strftime("%Y-%m-%d-%H-%M"):
-                    context["error_date"] = True
+                vacation=Vacation.objects.filter(id=insc.vacation_id)
+                for vac in vacation : 
+                
+                    if testdate.strftime("%Y-%m-%d-%H-%M")>=vac.date_debut.strftime("%Y-%m-%d-%H-%M") and testdate.strftime("%Y-%m-%d-%H-%M")<=vac.date_fin.strftime("%Y-%m-%d-%H-%M"):
+                        context["error_date_dispo"] = True
+                        return render(request, 'site_cuisineries/askreunion.html', context)
             for reunion in reunions :
                 if testdate == reunion.date.strftime("%Y-%m-%d-%H-%M"):
                     context["error_date"] = True
+                    return render(request, 'site_cuisineries/askreunion.html', context)
             reu=Reunion(referent_id=request.user.referent_id,membre_id=request.user.id,motif=request.POST['motif'],date=request.POST['date'])
             reu.save()
             context["check"] = True
@@ -539,5 +549,9 @@ def ajaxStatistiques(request):
             context["sociopro"][cat.cat_sociopro]["count"] += 1
         else:
             context["sociopro"][cat.cat_sociopro] = {"name": cat.get_cat_sociopro_display(), "count":1}
+
+    context["competences"] = list(Membre.objects.filter(groups__name="Adhérent").values("competences").annotate(dcount=Count("competences")))
+    context["attentes"] = list(Membre.objects.filter(groups__name="Adhérent").values("attentes").annotate(dcount=Count("attentes")))
+    context["contreparties"] = list(Choix.objects.all().values("contrepartie__nom").annotate(dcount=Count("contrepartie")))
 
     return JsonResponse(context)

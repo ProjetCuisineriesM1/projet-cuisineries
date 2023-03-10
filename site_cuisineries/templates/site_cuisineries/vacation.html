@@ -90,14 +90,14 @@ background-position-y: bottom; background-position-x: left, right;">
                                     {% csrf_token %}
                                     <input name="formname" type="hidden" value="validationPresence">
                                     <input name="valide" type="hidden" value="1">
-                                    <input name="user" type="hidden" value="{{request.user.id}}">
+                                    <input name="user" type="hidden" value="{{comp.membre.id}}">
                                     <button type="submit" class="btn btn-success"><span class="material-symbols-outlined d-block">done</span></button>
                                 </form>
                                 <form action="/vacations/{{vacation_data.id}}" method="post" class="d-inline-block">
                                     {% csrf_token %}
                                     <input name="formname" type="hidden" value="validationPresence">
                                     <input name="valide" type="hidden" value="0">
-                                    <input name="user" type="hidden" value="{{request.user.id}}">
+                                    <input name="user" type="hidden" value="{{comp.membre.id}}">
                                     <button type="submit" class="btn btn-danger"><span class="material-symbols-outlined d-block">close</span></button>
                                 </form>
                                 {% endif %}

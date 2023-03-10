@@ -20,18 +20,40 @@ background-repeat-y: no-repeat;
 background-position-y: bottom; background-position-x: left, right;">
     {% include "site_cuisineries/navbar.html" %}
     <div class="container d-lg-flex " style="margin-top: 3rem;">
-        <div class="col col-lg-2"></div>
-        <div class="col col-lg-8">
+        <div class="col col-lg-1"></div>
+        <div class="col col-lg-10">
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <div class="col">
-                    <canvas id="chart1"></canvas>
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="chart1"></canvas>
+                        </div>
+                    </div>
                 </div>
                 <div class="col">
-                    <canvas id="chart2"></canvas>
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="chart2"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="chart3"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <canvas id="chart4"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col col-lg-2"></div>
+        <div class="col col-lg-1"></div>
         {% csrf_token %}
     </div>
 
@@ -47,6 +69,7 @@ background-position-y: bottom; background-position-x: left, right;">
             fetch(request)
                 .then(response => response.json())
                 .then(result => {
+                    console.log(result)
                     data = []
                     labels = []
                     Object.entries(result.sociopro).forEach((key, value) => {
@@ -64,6 +87,96 @@ background-position-y: bottom; background-position-x: left, right;">
                             },
                             legend:{
                                 display:false
+                            }
+                        },
+                        data: {
+                            datasets: [{
+                                data: data,
+                                backgroundColor: ["#ea5545", "#f46a9b", "#ef9b20", "#edbf33", "#ede15b", "#bdcf32", "#87bc45", "#27aeef", "#b33dc6"]
+                            }],
+                            labels: labels
+                        }
+                    });
+
+                    data = []
+                    labels = []
+                    result.competences.forEach(value => {
+                        data.push(value.dcount)
+                        labels.push(value.competences)
+                    });
+
+                    var chart2 = new Chart("chart2", {
+                        type: "doughnut",
+                        options: {
+                            responsive: true,
+                            title: {
+                                display: true,
+                                text: 'Compétences des adhérents'
+                            },
+                            legend:{
+                                display:false
+                            }
+                        },
+                        data: {
+                            datasets: [{
+                                data: data,
+                                backgroundColor: ["#ea5545", "#f46a9b", "#ef9b20", "#edbf33", "#ede15b", "#bdcf32", "#87bc45", "#27aeef", "#b33dc6"]
+                            }],
+                            labels: labels
+                        }
+                    });
+                    data = []
+                    labels = []
+                    result.attentes.forEach(value => {
+                        data.push(value.dcount)
+                        labels.push(value.attentes)
+                    });
+
+                    var chart3 = new Chart("chart3", {
+                        type: "doughnut",
+                        options: {
+                            responsive: true,
+                            title: {
+                                display: true,
+                                text: 'Attentes des adhérents'
+                            },
+                            legend:{
+                                display:false
+                            }
+                        },
+                        data: {
+                            datasets: [{
+                                data: data,
+                                backgroundColor: ["#ea5545", "#f46a9b", "#ef9b20", "#edbf33", "#ede15b", "#bdcf32", "#87bc45", "#27aeef", "#b33dc6"]
+                            }],
+                            labels: labels
+                        }
+                    });
+                    data = []
+                    labels = []
+                    result.contreparties.forEach(value => {
+                        data.push(value.dcount)
+                        labels.push(value.contrepartie__nom)
+                    });
+
+                    var chart4 = new Chart("chart4", {
+                        type: "bar",
+                        options: {
+                            responsive: true,
+                            title: {
+                                display: true,
+                                text: 'Choix des adhérents en contrepartie'
+                            },
+                            legend:{
+                                display:false
+                            },
+                            scales: {
+                                yAxes: [{
+                                    display : true,
+                                    ticks:{
+                                        beginAtZero: true
+                                    }
+                                }]
                             }
                         },
                         data: {

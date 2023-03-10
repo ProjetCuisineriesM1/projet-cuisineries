@@ -101,7 +101,7 @@ background-position-y: bottom; background-position-x: left, right;">
                         </table>
                     </div>
                 </div>
-                <div class="col position-relative">
+                <div class="col position-relative" style="display: grid;align-items: center;">
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item" id="dayEvents" style="display: none;">
                             <h2 class="accordion-header" id="headingThree">
@@ -114,12 +114,12 @@ background-position-y: bottom; background-position-x: left, right;">
                                 <div class="row row-cols-1 row-cols-xl-2 g-4" id="events">
                                     
                                     {% for event in vacation_list_today %}
-                                    <div class="col">
+                                    <div class="col" >
                                         <a style="text-decoration: none !important; color: initial !important;" href="vacations/{{event.id}}">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="card-title">{{event.nom}}</h5>
-                                                    <h6 class="card-subtitle mb-2 text-muted">Du {{event.date_debut}} au {{event.date_fin}}</h6>
+                                                    <h6 class="card-subtitle mb-2 text-muted">Du {{event.date_debut}} au {{event.date_fin}}<br>{% if event.complet %}<span class="text-danger">Evènement complet</span>{%else%}<span class="text-success">{{event.places_dispo}} places disponibles</span>{%endif%} </h6>
                                                 </div>
                                             </div>
                                         </a>
@@ -144,7 +144,7 @@ background-position-y: bottom; background-position-x: left, right;">
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">{{event.nom}}</h5>
-                                                        <h6 class="card-subtitle mb-2 text-muted">Du {{event.date_debut}} au {{event.date_fin}}</h6>
+                                                        <h6 class="card-subtitle mb-2 text-muted">Du {{event.date_debut}} au {{event.date_fin}}<br>{% if event.complet %}<span class="text-danger">Evènement complet</span>{%else%}<span class="text-success">{{event.places_dispo}} places disponibles</span>{%endif%} </h6>
                                                     </div>
                                                 </div>
                                             </a>
@@ -169,7 +169,7 @@ background-position-y: bottom; background-position-x: left, right;">
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">{{event.nom}}</h5>
-                                                        <h6 class="card-subtitle mb-2 text-muted">Du {{event.date_debut}} au {{event.date_fin}}</h6>
+                                                        <h6 class="card-subtitle mb-2 text-muted">Du {{event.date_debut}} au {{event.date_fin}}<br>{% if event.complet %}<span class="text-danger">Evènement complet</span>{%else%}<span class="text-success">{{event.places_dispo}} places disponibles</span>{%endif%} </h6>
                                                     </div>
                                                 </div>
                                             </a>
