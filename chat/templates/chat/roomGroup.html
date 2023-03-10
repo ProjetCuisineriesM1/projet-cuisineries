@@ -15,7 +15,7 @@
     {% include "site_cuisineries/navbar.html" %}
     <header>
         <div>
-            <h5 class="text-center" style="color:white">Conversation pour la vacation " {{ vacation.nom }} " du {{vacation.date_debut}} :</h5>
+            <h5 class="text-center" style="color: #b0cfc0;">Conversation pour la vacation " {{ vacation.nom }} " du {{vacation.date_debut}} :</h5>
             
         </div>
     </header>
@@ -28,7 +28,7 @@
                     {% if txt.sender_id == request.user.id %}
                     
                     <div class="d-flex flex-row justify-content-end mb-3">
-                        <div class="p-1 ms-1 bg-secondary" style="border-radius: 15px; "><div class="small mb-0" style="padding: .5em;">{{ txt.message}}</div></div>
+                        <div class="p-1 ms-1 bg-secondary" style="border-radius: 15px;color:white; "><div class="small mb-0" style="padding: .5em;">{{ txt.message}}</div></div>
                         
                         <img class="rounded" src="/static/profils/{{txt.sender_id}}.png" style="padding: .2em;" alt="..." width="40" height="40">
                     <br>
@@ -36,7 +36,7 @@
                     {% else %}
                     <div class="d-flex flex-row justify-content-start mb-3" >
                         <img class="rounded" src="/static/profils/{{txt.sender_id}}.png" style="padding: .2em;" alt="..." width="40" height="40">
-                        <div class="p-1 me-1 bg-primary" style="border-radius: 15px; "><div class="small mb-0 " style="padding: .5em;">{{ txt.message}}</div></div>
+                        <div class="p-1 me-1 " style="border-radius: 15px; background-color: #b0cfc0;"><span class="small mb-0" style="font-weight:bold;color:black;">{{txt.sender}} </span><div class="small mb-0 " style="padding: .5em;">{{ txt.message}}</div></div>
                         <br></div>
                     {% endif %}
                 {% endfor %}
@@ -84,10 +84,10 @@
             
 
             if(data.sender == {{request.user.id}}) {
-                document.querySelector('#chat-log').innerHTML +=  '<div class="d-flex flex-row justify-content-end mb-3"><div class="p-1 ms-1 bg-secondary" style="border-radius: 15px; "><div class="small mb-0" style="padding: .5em;">'+data.message+'</div></div><img class="rounded" src="/static/profils/'+data.sender+'.png" style="padding: .2em;" alt="..." width="40" height="40"><br><div>';
+                document.querySelector('#chat-log').innerHTML +=  '<div class="d-flex flex-row justify-content-end mb-3"><div class="p-1 ms-1 bg-secondary" style="border-radius: 15px; "><div class="small mb-0" style="padding: .5em;color:white;">'+data.message+'</div></div><img class="rounded" src="/static/profils/'+data.sender+'.png" style="padding: .2em;" alt="..." width="40" height="40"><br><div>';
             }
             else {
-                document.querySelector('#chat-log').innerHTML +=  '<div class="d-flex flex-row justify-content-start mb-3" ><img class="rounded" src="/static/profils/'+data.sender+'.png" alt="..." style="padding: .2em;" width="40" height="40" ><div class="p-1 me-1 bg-primary" style="border-radius: 15px; "><div class="small mb-0 " style="padding: .5em;">'+data.message+'</div></div><br></div>';
+                document.querySelector('#chat-log').innerHTML +=  '<div class="d-flex flex-row justify-content-start mb-3" ><img class="rounded" src="/static/profils/'+data.sender+'.png" alt="..." style="padding: .2em;" width="40" height="40" ><div class="p-1 me-1 " style="border-radius: 15px;background-color:#b0cfc0; "><span class="small mb-0" style="font-weight:bold;color:black;">'+data.first_name+' </span><div class="small mb-0 " style="padding: .5em;">'+data.message+'</div></div><br></div>';
                 chatSocket.send(JSON.stringify({
                     'type':'read',
                     'message': data.id,

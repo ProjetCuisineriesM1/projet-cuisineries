@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.template import loader
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.core import serializers
 
 from .models import Vacation , Choix, ConversationRead1o1, ConversationReadGroup
@@ -336,13 +336,13 @@ def mes_contreparties(request):
     dic1 = {}
     for choix in contrepartie_id_list :
         for con in contrepartie_list :
-            if choix.contrepartie_id==con.id and choix.recupere==0:
+            if choix.contrepartie_id==con.id and choix.recupere==False:
                 if con.id in dic.keys() :
                     dic[con.id]+=1    
                 else  :
                      dic[con.id]=1
-            elif choix.contrepartie_id==con.id and choix.recupere==1:
-                if con.id in dic.keys() :
+            elif choix.contrepartie_id==con.id and choix.recupere==True:
+                if con.id in dic1.keys() :
                     dic1[con.id]+=1    
                 else  :
                     dic1[con.id]=1
@@ -516,3 +516,28 @@ def save_user_infos(request, user):
             return False
     return True
         
+def statistiques(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    if not request.user.groups.filter(name="Administrateur").exists() :
+        return HttpResponseRedirect('/')
+
+    context = default_context(request)
+    return render(request, 'site_cuisineries/stat.html', context)
+
+def ajaxStatistiques(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
+    if not request.user.groups.filter(name="Administrateur").exists() :
+        return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
+
+    users = Membre.objects.filter(groups__name="Adhérent")
+    context = {}
+    context["sociopro"] = {}
+    for cat in users:
+        if cat.cat_sociopro in context["sociopro"].keys():
+            context["sociopro"][cat.cat_sociopro]["count"] += 1
+        else:
+            context["sociopro"][cat.cat_sociopro] = {"name": cat.get_cat_sociopro_display(), "count":1}
+
+    return JsonResponse(context)

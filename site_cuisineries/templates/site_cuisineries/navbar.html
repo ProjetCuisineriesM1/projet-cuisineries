@@ -48,12 +48,14 @@
                         Admin
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/user/add">Ajouter un compte</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="/validation">Validation heures et contreparties</a></li>
-                      <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="/admin">Panneau d'administration</a></li>
-                      
+                        <li><a class="dropdown-item" href="/user/add">Ajouter un compte</a></li>
+                        <li><a class="dropdown-item" href="/validation">Validation heures et contreparties</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="/admin">Panneau d'administration</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        {% if user.groups.all.0.name == "Administrateur" %}
+                        <li><a class="dropdown-item" href="/statistiques">Statistiques</a></li>
+                        {% endif %}
                     </ul>
                 </li>
                 {% endif %}

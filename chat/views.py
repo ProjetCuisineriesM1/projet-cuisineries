@@ -100,7 +100,7 @@ def roomGroupe(request, room_name):
     convRead.save()
     
     context = default_context(request)
-    context['message_list']= message_list.values
+    context['message_list']= message_list
     context["room_name"]= room_name
     context['inscription']= inscription
     context['vacation']= vacation

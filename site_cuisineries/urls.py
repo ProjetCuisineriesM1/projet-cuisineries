@@ -23,4 +23,6 @@ urlpatterns = [
     path('mycontreparties', views.mes_contreparties, name='mes contreparties'),
     path('validation', views.validation, name='valdiations'),
     path('askreunion', views.ask, name='demander reunion'),
+    path('statistiques', views.statistiques, name='Statistiques'),
+    path('ajax/statistiques', views.ajaxStatistiques, name='Statistiques'),
 ]

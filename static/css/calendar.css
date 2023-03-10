@@ -31,7 +31,7 @@
      content: none;
  }
  table {
-     border-spacing: 2px;
+     border-spacing: 5px;
  }
  .clearfix:before,
  .clearfix:after {
@@ -66,8 +66,9 @@
  }
  
  .elegant-calencar {
+    border-radius:15px;
      width: 25em;
-     height: 31em;
+     height: 22em;
      border: 1px solid #c9c9c9;
      -webkit-box-shadow: 0 0 5px #c9c9c9;
      box-shadow: 0 0 5px #c9c9c9;
@@ -78,22 +79,24 @@
  }
  
  #header {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
      font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif;
-     height: 14em;
-     background-color: #2a3246;
-     margin-bottom: 1em;
+     height: 3em;
+     background-color: #943c24;
+     margin-bottom: 0.1em;
  }
  
  .pre-button, .next-button {
-     margin-top: 2em;
-     font-size: 3em;
+     margin-top: 0.5em;
+     font-size: 2em;
      -webkit-transition: -webkit-transform 0.5s;
      transition: transform 0.5s;
      cursor: pointer;
      width: 1em;
      height: 1em;
      line-height: 1em;
-     color: #e66b6b;
+     color: white ;
      border-radius: 50%;
  }
  
@@ -125,20 +128,24 @@
  }
  
  .head-day {
-     margin-top: 30px;
-     font-size: 8em;
+     display:inline-block;
+     margin-top: 0.5em;
+     font-size: 1.8em;
      line-height: 1;
      color: #fff;
  }
  
  .head-month {
-     margin-top: 20px;
-     font-size: 2em;
+    display:inline-block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+     font-size: 1.8em;
      line-height: 1;
      color: #fff;
  }
  
  #calendar {
+    font-size:1.2em;
      width: 90%;
      margin: 0 auto;
  }
@@ -149,35 +156,43 @@
  }
  
  thead tr {
-     color: #e66b6b;
-     font-weight: 700;
+     color: #943c24;
+     font-size:1.35em;
+     font-weight: bolder;
      text-transform: uppercase;
  }
  
  tbody tr {
-     color: #252a25;
+     color: #bb8170;
+     font-weight: bold;
  }
  
  tbody td{
+    color: #963b22;
+
      width: 14%;
-     border-radius: 50%;
+     border-radius: 100%;
      cursor: pointer;
      -webkit-transition:all 0.2s ease-in;
      transition:all 0.2s ease-in;
+     
  }
  
  tbody td:hover, .selected {
      color: #fff;
-     background-color: #2a3246;
+     background-color: #963b22;
      border: none;
  }
 
  .vacation{
-    background-color: green;
+    background-color: #f7b057;
+    
  }
 
  .reunion{
-    background-color: #e97027;
+    
+    background-color: #e87333;
+    
  }
  
  tbody td:active {
@@ -234,6 +249,7 @@
 .calendrier-container {
     padding: 0 !important;
     overflow-x: hidden;
+    border-radius:30px;
 }
 
 

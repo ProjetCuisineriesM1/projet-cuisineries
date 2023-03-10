@@ -43,7 +43,7 @@ class Membre(AbstractUser):
         ('62', 'Ouvriers qualifiés de type industriel'),
         ('63', 'Ouvriers qualifiés de type artisanal'),
         ('64', 'Conducteurs du transport'),
-        ('65', 'Conducteurs d’engins et magasiniers'),
+        ('65', 'Conducteurs d\'engins et magasiniers'),
         ('67', 'Ouvriers peu qualifiés de type industriel'),
         ('68', 'Ouvriers peu qualifiés de type artisanal'),
         ('69', 'Ouvriers agricoles'),
