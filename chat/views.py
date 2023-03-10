@@ -21,9 +21,25 @@ def index(request):
     vacation_list=Vacation.objects.all()
     context = default_context(request)
     
+    context['result']=True
+    context['debut']=True
     context['members']=members_list.values("id","last_name", "first_name")
     context['vacation_list']=vacation_list
     context['inscription_list']= inscription_list
+    context['verif']=False
+    if request.method == 'POST':
+        lastname=request.POST['nom']
+        firstname=request.POST['prenom']
+        member=Membre.objects.filter(first_name__icontains=firstname,last_name__icontains=lastname)
+        if member.exists():
+            context['debut']=False
+            context['result']=True
+            context['resultsearch']=member
+            return render(request, 'chat/index.html', context)
+        else :
+            context['debut']=False
+            context['result']=False
+            return render(request, 'chat/index.html', context)
     
     return render(request, 'chat/index.html', context)
 

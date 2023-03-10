@@ -4,11 +4,11 @@ from django.template import loader
 from django.db.models import Q
 from django.core import serializers
 
-from .models import Vacation , Choix, ConversationRead1o1
+from .models import Vacation , Choix, ConversationRead1o1, ConversationReadGroup
 from .models import Membre
 from .models import Reunion
 from .models import Inscription
-from .models import Attente
+from .models import Attente, Competence
 from .models import Contrepartie
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate, logout, login as auth_login
@@ -17,7 +17,7 @@ from datetime import datetime
 import subprocess
 import os
 import json
-from binascii import a2b_base64
+from .slic import SLICProcessor
 
 
 # Create your views here.
@@ -76,8 +76,8 @@ def profil(request):
 def profil_admin(request, userid):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
-    #if not request.user.groups.filter(name__in=["Administrateur"]).exists() :
-    #    return HttpResponseRedirect('/')
+    if not request.user.groups.filter(name__in=["Administrateur", "Référent"]).exists() :
+        return HttpResponseRedirect('/')
     membre_info= Membre.objects.get(id=userid)
     reunion_id_list= Reunion.objects.filter(membre_id=userid)
     context = default_context(request)
@@ -99,7 +99,7 @@ def adduser(request):
 
     context = default_context(request)
     
-    context["referents":]= referents
+    context["referents"]= referents
     
 
     return render(request, 'site_cuisineries/useradd.html', context)
@@ -180,29 +180,9 @@ def ajaxNewUser(request):
             else:
                 destination.write(pictureFile.read())
 
-        out = subprocess.run("gimp -i -b '(filterImage \"/home/debian/projet-cuisineries/static/profils/temporary/"+(request.POST.get("id_user")+"."+pictureFile.name.split(".")[-1])+"\" )' -b '(gimp-quit 0)'", shell=True)
-        print(out)
-        reponse = {"result":True, "src":"/"+img_path}
-
-    if request.POST.get('step') == "3":
-
-        pictureFile = a2b_base64(request.POST.get('picture').split(",")[1])
-
-        path_to_img = os.path.join("static/profils/", "temporary")
-
-        # Check if today_folder already exists
-        if not os.path.exists(path_to_img):
-            os.mkdir(path_to_img)
-
-        img_path = os.path.join(path_to_img, request.POST.get("id_user")+".png")
-
-        # Start writing to the disk
-        with open(img_path, 'wb+') as destination:
-            destination.write(pictureFile)
-
-        #out = subprocess.run("gimp -i -b '(filterImage \"/home/debian/projet-cuisineries/static/profils/temporary/"+request.POST.get("id_user")+".png"+"\" )' -b '(gimp-quit 0)'", shell=True)
-        #print(out)
-        reponse = {"result":True, "src":"/"+img_path}
+        p = SLICProcessor("/home/debian/projet-cuisineries/static/profils/temporary/"+(request.POST.get("id_user")+"."+pictureFile.name.split(".")[-1]), 300, 10)
+        p.run_filter()
+        reponse = {"result":True, "src":"/"+img_path.replace(pictureFile.name.split(".")[-1], "png")}
 
         
     if request.POST.get('step') == "4":
@@ -224,7 +204,7 @@ def vacation(request, vacation):
 
     vacation_data=Vacation.objects.get(id=vacation)
     inscrit = Inscription.objects.filter(vacation=vacation_data, membre=request.user).exists()
-
+    
     membre = Membre.objects.get(id=request.user.id)
     
     context = default_context(request)
@@ -239,10 +219,13 @@ def vacation(request, vacation):
 
 
     if request.method == 'POST':
+        verif=Inscription.objects.filter(vacation=vacation_data, membre=request.user)
         if request.POST['formname'] == "inscription":
-            if request.POST['status'] == "0" and vacation_data.nb_inscrits() < vacation_data.nb_max_inscrit:
-                Inscription(vacation=vacation_data, membre=request.user).save()
+           
+            if request.POST['status'] == "0" and vacation_data.nb_inscrits() < vacation_data.nb_max_inscrit and not verif.exists():
+                Inscription(vacation=vacation_data, membre=request.user,staff=False).save()
                 ConversationReadGroup(conversation=vacation_data, membre=request.user).save()
+                context["staff"] = False
                 context["inscrit"] = True
             elif request.POST['status'] == "1":
                 Inscription.objects.get(vacation=vacation_data, membre=request.user).delete()
@@ -251,14 +234,31 @@ def vacation(request, vacation):
             else:
                 context["error_message"] = "Erreur lors de l'inscription"
                 return render(request, 'site_cuisineries/vacation.html', context)
+
+        if request.POST['formname'] == "inscription_staff":
+            if request.POST['status'] == "0" and vacation_data.nb_inscrits() < vacation_data.nb_max_inscrit and not verif.exists():
+                Inscription(vacation=vacation_data, membre=request.user,staff=True).save()
+                ConversationReadGroup(conversation=vacation_data, membre=request.user).save()
+                context["inscrit"] = True
+                context["staff"] = True
+            else:
+                context["staff"] = False
+                context["error_message"] = "Erreur lors de l'inscription"
+                return render(request, 'site_cuisineries/vacation.html', context)
+
         if request.POST['formname'] == "validationPresence":
             if request.POST['valide'] == "1":
                 valideUser = Membre.objects.get(id=request.POST['user'])
+                
+
                 inscr = Inscription.objects.get(vacation=vacation_data, membre=valideUser)
                 inscr.participation_valide = True
                 inscr.save()
-                valideUser.credits = valideUser.credits+vacation_data.credits()
-                valideUser.save()
+                if inscr.staff==True :
+                    valideUser.credits = valideUser.credits+vacation_data.credits()
+                    valideUser.save()
+                
+                
             if request.POST['valide'] == "0":
                 valideUser = Membre.objects.get(id=request.POST['user'])
                 inscr = Inscription.objects.get(vacation=vacation_data, membre=valideUser)
@@ -275,17 +275,22 @@ def reunion(request, reunion):
     reunion_data=Reunion.objects.get(id=reunion)
     
     context = default_context(request)
-    
+    if request.method == 'POST':
+        reunion_data.contenu=request.POST['contenu']
+        reunion_data.save()
     context['reunion_data']=reunion_data
     
     
     return render(request, 'site_cuisineries/reunion.html', context)    
 
 def viewprofile(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
     members_list=Membre.objects.all()
     context = default_context(request)
     
-    context['members']= members_list.values("id", "first_name","last_name"),
+    context['members']= members_list
+    context['userGroup']= request.user.groups.values_list('name',flat = True)
     
     return render(request, 'site_cuisineries/viewprofile.html', context)
 
@@ -322,9 +327,6 @@ def ajaxChoixContrepartie(request):
 
     return JsonResponse({"result": True})
 
-def join(request, room_name):
-        return HttpResponseRedirect('/profil/'+str(room_name))
-
 def mes_contreparties(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
@@ -358,7 +360,8 @@ def mes_vacations(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     inscription_list=Inscription.objects.filter(membre_id=request.user.id)
-    vacations=Vacation.objects.all()
+    debut=str(timezone.now()-timezone.timedelta(days=7))
+    vacations=Vacation.objects.filter(date_debut__gte=debut)
     context = default_context(request)
     
     context['inscription']=inscription_list
@@ -371,7 +374,9 @@ def validation(request):
     if not request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() :
         return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
 
-    vacation_list=Vacation.objects.all()
+    debut=str(timezone.now()-timezone.timedelta(days=7))
+    fin=str(timezone.now()+timezone.timedelta(days=2))
+    vacation_list=Vacation.objects.filter(date_debut__range=[debut, fin])
     contrepartie_list=Contrepartie.objects.all()
     choix_list=Choix.objects.filter(recupere=0).all()
     membre_list=Membre.objects.all()
@@ -379,22 +384,22 @@ def validation(request):
     if request.method == 'POST':
         if request.POST['formname2'] == "validation":
 
-                if request.POST['valide'] == "1":
-                    chooses=Choix.objects.get(id=request.POST['choisir'])
-                    chooses.recupere = True
-                    chooses.save()
-                    
-                if request.POST['valide'] == "0":
-                    chooses=Choix.objects.get(id=request.POST['choisir'])
-                    
-                    membre=Membre.objects.get(id=chooses.membre_id)
-                    contrepartie=Contrepartie.objects.get(id=chooses.contrepartie_id)
-                    membre.credits = membre.credits + contrepartie.credits_requis
-                    contrepartie.quantite_dispo = contrepartie.quantite_dispo + 1 
+            if request.POST['valide'] == "1":
+                chooses=Choix.objects.get(id=request.POST['choisir'])
+                chooses.recupere = True
+                chooses.save()
+                
+            if request.POST['valide'] == "0":
+                chooses=Choix.objects.get(id=request.POST['choisir'])
+                
+                membre=Membre.objects.get(id=chooses.membre_id)
+                contrepartie=Contrepartie.objects.get(id=chooses.contrepartie_id)
+                membre.credits = membre.credits + contrepartie.credits_requis
+                contrepartie.quantite_dispo = contrepartie.quantite_dispo + 1 
 
-                    membre.save()
-                    contrepartie.save()
-                    chooses.delete()
+                membre.save()
+                contrepartie.save()
+                chooses.delete()
                 
     context = default_context(request)
     
@@ -403,4 +408,111 @@ def validation(request):
     context['vacation_list']= vacation_list
     context['membre']= membre_list
     return render(request, 'site_cuisineries/validation.html', context)
+
+def ask(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    context = default_context(request)
+    context["error_date"] = False
+    context["check"] = False
+    referent_id=request.user.referent_id
+    referent=Membre.objects.filter(id=referent_id)
+    reunions=Reunion.objects.filter(referent_id=referent_id)
+    inscription=Inscription.objects.filter(membre_id=referent_id)
     
+    if request.method == 'POST':
+        context["error_date"] = False
+        test1=request.POST['date'].replace('T','-')
+        test1=test1.replace(':','-')
+        testdate=datetime.strptime(test1,"%Y-%m-%d-%H-%M")
+        if testdate < datetime.now() :
+            context["error_date"] = True
+        else:
+            for insc in inscription :
+                vacation=Inscription.objects.filter(vacation_id=insc.vacation_id)
+                if testdate>=vacation.date_debut.strftime("%Y-%m-%d-%H-%M") and request.POST['date']<=vacation.date_fin.strftime("%Y-%m-%d-%H-%M"):
+                    context["error_date"] = True
+            for reunion in reunions :
+                if testdate == reunion.date.strftime("%Y-%m-%d-%H-%M"):
+                    context["error_date"] = True
+            reu=Reunion(referent_id=request.user.referent_id,membre_id=request.user.id,motif=request.POST['motif'],date=request.POST['date'])
+            reu.save()
+            context["check"] = True
+    
+    return render(request, 'site_cuisineries/askreunion.html', context)
+
+def editProfil(request):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    context = default_context(request)
+
+    if request.method == 'POST':
+        context['result'] = save_user_infos(request, request.user)
+    
+    context['data']= request.user
+    context['categories'] = Membre.cat_sociopro.field.choices
+    context['attentes'] = Attente.objects.all()
+    context['competences'] = Competence.objects.all()
+    
+    return render(request, 'site_cuisineries/editProfil.html', context)
+def editProfilAdmin(request, userid):
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect('/login')
+    if not request.user.groups.filter(name__in=["Administrateur", "Référent"]).exists() :
+        return HttpResponseRedirect('/')
+    context = default_context(request)
+    
+    if request.method == 'POST':
+        context['result'] = save_user_infos(request, Membre.objects.get(id=userid))
+    
+    context['data']= Membre.objects.get(id=userid)
+    context['userGroup']= Membre.objects.get(id=userid).groups.values_list('name',flat = True)
+    context['categories'] = Membre.cat_sociopro.field.choices
+    context['attentes'] = Attente.objects.all()
+    context['competences'] = Competence.objects.all()
+
+    if request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() and request.user.id is not userid :
+        context['referents']= Membre.objects.filter(groups__name="Référent")
+    
+    return render(request, 'site_cuisineries/editProfil.html', context)
+
+def save_user_infos(request, user):
+    if request.POST["part"] == "1":
+        if request.user == user:
+            user.username = request.POST["username"]
+        elif request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() :
+            if not user.groups.filter(name=request.POST.get('role')).exists():
+                oldGroup = user.groups.all()[0]
+                oldGroup.user_set.remove(user)
+                uGroup = Group.objects.get(name=request.POST.get('role')) 
+                uGroup.user_set.add(user)
+            if request.POST.get('role') == "Adhérent":
+                user.referent = Membre.objects.get(id=int(request.POST.get('referent')))
+            user.credits = int(request.POST["credits"])
+        user.email = request.POST["email"]
+        user.telephone = request.POST["telephone"]
+        if request.POST.get("catSocio"):
+            user.cat_sociopro = request.POST["catSocio"]
+        user.save()
+
+    if request.POST["part"] == "3":
+        user.attentes.clear()
+        for att in request.POST.getlist("attentes[]"):
+            user.attentes.add(Attente.objects.get(nom=att))
+        user.save()
+
+    if request.POST["part"] == "4":
+        user.competences.clear()
+        for comp in request.POST.getlist("competences[]"):
+            user.competences.add(Competence.objects.get(nom=comp))
+        user.save()
+
+    if request.POST["part"] == "password":
+        if user.check_password(request.POST.get("oldpassword")):
+            if request.POST.get("newpassword") == request.POST.get("newpassword2"):
+                user.set_password(request.POST.get("newpassword"))
+                user.save()
+        else:
+            return False
+    return True
+        

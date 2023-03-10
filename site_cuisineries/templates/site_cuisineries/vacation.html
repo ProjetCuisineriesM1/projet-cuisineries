@@ -22,19 +22,34 @@
                 <div class="card-body">
                     <h6 class="card-subtitle mb-2 text-muted d-flex"><span>{% if vacation_data.date_debut.date == vacation_data.date_fin.date %} Le {{vacation_data.date_debut.date}} de {{vacation_data.date_debut|date:'H:i'}} à {{vacation_data.date_fin|date:'H:i'}} {% else %} Du {{vacation_data.date_debut.date}} à {{vacation_data.date_debut|date:'H:i'}}<br> au {{vacation_data.date_fin.date}} à {{vacation_data.date_fin|date:'H:i'}} {% endif %}</span><span class="ms-auto">{{vacation_data.nb_inscrits}}/{{vacation_data.nb_max_inscrit}} inscrits</span></h6>
                     <p class="card-text">{{vacation_data.description}}</p>
-                    <form action="/vacations/{{vacation_data.id}}" method="post">
-                        {% csrf_token %}
+  
                         {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
                         <div class="text-end">
                             {% if inscrit %}
-                            <input name="formname" type="hidden" value="inscription">
-                            <input name="status" type="hidden" value="1">
-                            <input type="submit" href="#" class="btn btn-outline-danger" value="Se désinscrire">
+                            <form action="/vacations/{{vacation_data.id}}" method="post">
+                                {% csrf_token %}
+                                <input name="formname" type="hidden" value="inscription">
+                                <input name="status" type="hidden" value="1">
+                                <input type="submit" href="#" class="btn btn-outline-danger" value="Se désinscrire">
+                            </form>
+                            
+                            
                             {% else %}
                             {% if vacation_data.nb_inscrits < vacation_data.nb_max_inscrit %}
-                            <input name="formname" type="hidden" value="inscription">
-                            <input name="status" type="hidden" value="0">
-                            <input type="submit" href="#" class="btn btn-danger" value="S'inscrire">
+                            <form action="/vacations/{{vacation_data.id}}" method="post">
+                                {% csrf_token %}
+                                 <input name="formname" type="hidden" value="inscription">
+                                <input name="status" type="hidden" value="0">
+                                <input type="submit" href="#" class="btn btn-danger" value="S'inscrire">
+                            </form>
+                            <br>
+                            <form action="/vacations/{{vacation_data.id}}" method="post">
+                                {% csrf_token %}
+                                <input name="formname" type="hidden" value="inscription_staff">
+                                <input name="status" type="hidden" value="0">
+                                <input type="submit" href="#" class="btn btn-danger" value="S'inscrire en tant que staff">
+                            </form>
+                            
                             {% else %}
                             <input disabled class="btn btn-outline-secondary" value="Complet">
                             {% endif %}
@@ -57,6 +72,9 @@
                     <li class="list-group-item">
                         <div class="row">
                             <div class="d-flex col align-items-center"><span>{{ comp.membre }}</span></div>
+                                {% if comp.staff == 1 %}
+                                <div class="d-flex col align-items-center"><span>Est membre du staff</span></div>
+                                {% endif %}
                             
                             <div class="col text-end">
                                 {% if validation %}

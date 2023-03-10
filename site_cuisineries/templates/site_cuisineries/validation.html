@@ -14,91 +14,116 @@
     {% include "site_cuisineries/navbar.html" %}
     
   </br>
-  <div class="row">
-    <div class="col">
-        <div class="container h-50">
-        
-      <div class="card mx-auto my-auto" >
-        <div class="card-body">
-            <h5 class="card-title">Valider les participations :</h5>
-            <label for="room-name-input"> Choisissez la vacation correspondante </label>
-           
-                    {% if vacation_list %}
-                      
-                        {% for vacation in vacation_list %}
-                        <div class="col">
-                        <a style="text-decoration: none !important; color: initial !important;" href="vacations/{{vacation.id}}">
-                            <div class="card">
-                                <div class="card-body row  ">
-                                    <h5 class="card-title">{{vacation.nom}}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">Du {{vacation.date_debut}} au {{vacation.date_fin}}</h6>
-                                </div>
-                            </div>
-                        </a>
-                        </div>
-                              
-
-                        {% endfor %}
-                        {% else %}
-                         
-                    {% endif %}
+  
+  <div class="container d-lg-flex">
+    <div class="col col-lg-2"></div>
+    <div class="col col-lg-8">
+        <div class="card" style="margin-top: 1rem;">
+            <div class="card-header" style="display: block; overflow-x: auto; min-width: 100%; overflow-y: hidden;">
+            <ul class="nav nav-tabs  card-header-tabs" id="myTab" role="tablist" style="white-space: nowrap; display: inline-block; min-width: 100%;">
                
+                <li class="nav-item" role="presentation" style="display: inline-block;">
+                    <button class="nav-link active" id="participation-tab" data-bs-toggle="tab" data-bs-target="#participation-pane"
+                        type="button" role="tab" aria-controls="participation-pane" aria-selected="false">Participations</button>
+                </li>
+                <li class="nav-item" role="presentation" style="display: inline-block;">
+                    <button class="nav-link" id="contrepartie-tab" data-bs-toggle="tab" data-bs-target="#contrepartie-pane"
+                        type="button" role="tab" aria-controls="contrepartie-pane" aria-selected="false">Contreparties</button>
+                </li>
+                
+            </ul>
         </div>
-      </div>
-    </div>
-    </div>
-    <div class="col">
-         <div class="container h-50">
+        <div class="card-body">
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="participation-pane" role="tabpanel" aria-labelledby="participation-tab" tabindex="0">
+                <div class="container h-50">
         
-        <div class="card mx-auto my-auto" >
-          <div class="card-body">
-              <h5 class="card-title">Valider les contreparties  :</h5>
-              <label for="room-name-input"> Voici la liste des contreparties à valider </label>
-             
-                    {% if choix %}
-                        
-                        {% for choose in choix %}
-                        
-                            
-                                <div class="col">
-                                    <div class="card">
-                                        <div class="card-body row  ">
-                                            <div class="col"><h5 class="card-title">{{choose}}</h5></div>
-                                            <div class="col-2">
-                                                <form action="/validation" method="post" class="d-inline-block">
-                                                {% csrf_token %}
-                                                <input name="formname2" type="hidden" value="validation">
-                                                <input name="valide" type="hidden" value="1">
-                                                <input name="choisir" type="hidden" value="{{choose.id}}">
-                                                <button type="submit" class="btn btn-success"><span class="material-symbols-outlined d-block">done</span></button>
-                                            </form>
-                                            <form action="/validation" method="post" class="d-inline-block">
-                                                {% csrf_token %}
-                                                <input name="formname2" type="hidden" value="validation">
-                                                <input name="valide" type="hidden" value="0">
-                                                <input name="choisir" type="hidden" value="{{choose.id}}">
-                                                <button type="submit" class="btn btn-danger"><span class="material-symbols-outlined d-block">close</span></button>
-                                            </form>
-                                        </div>
+                  <div class="card mx-auto my-auto border-0" >
+                    <div class="card-body ">
+                        <h5 class="card-title">Valider les participations :</h5>
+                        <label for="room-name-input"> Choisissez la vacation correspondante </label>
+                       
+                                {% if vacation_list %}
+                                  
+                                    {% for vacation in vacation_list %}
+                                    <div class="col ">
+                                    <a style="text-decoration: none !important; color: initial !important;" href="vacations/{{vacation.id}}">
+                                        <div class="card">
+                                            <div class="card-body row  ">
+                                                <h5 class="card-title">{{vacation.nom}}</h5>
+                                                <h6 class="card-subtitle mb-2 text-muted">Du {{vacation.date_debut}} au {{vacation.date_fin}}</h6>
+                                            </div>
                                             
-                                            </div>
-                                            </div>
+                                        </div><br>
+                                    </a>
                                     </div>
-                                
-                                
-                            
-                              
-                        {% endfor %}
-                    {% else %}
+                                          
+            
+                                    {% endfor %}
+                                    {% else %}
+                                     
+                                {% endif %}
                            
-                    {% endif %}
-                 
-          </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="contrepartie-pane" role="tabpanel" aria-labelledby="contrepartie-tab" tabindex="0">
+                <div class="container h-50">
+        
+                  <div class="card mx-auto my-auto border-0" >
+                    <div class="card-body">
+                        <h5 class="card-title">Valider les contreparties  :</h5>
+                        <label for="room-name-input"> Voici la liste des contreparties à valider </label>
+                       
+                              {% if choix %}
+                                  
+                                  {% for choose in choix %}
+                                  
+                                      
+                                          <div class="col">
+                                              <div class="card">
+                                                  <div class="card-body row  ">
+                                                      <div class="col"><h5 class="card-title">{{choose}}</h5></div>
+                                                      <div class="col-3">
+                                                          <form action="/validation" method="post" class="d-inline-block">
+                                                          {% csrf_token %}
+                                                          <input name="formname2" type="hidden" value="validation">
+                                                          <input name="valide" type="hidden" value="1">
+                                                          <input name="choisir" type="hidden" value="{{choose.id}}">
+                                                          <button type="submit" class="btn btn-success"><span class="material-symbols-outlined d-block">done</span></button>
+                                                      </form>
+                                                      <form action="/validation" method="post" class="d-inline-block">
+                                                          {% csrf_token %}
+                                                          <input name="formname2" type="hidden" value="validation">
+                                                          <input name="valide" type="hidden" value="0">
+                                                          <input name="choisir" type="hidden" value="{{choose.id}}">
+                                                          <button type="submit" class="btn btn-danger"><span class="material-symbols-outlined d-block">close</span></button>
+                                                      </form>
+                                                  </div>
+                                                      
+                                                      </div>
+                                                      </div><br>
+                                              </div>
+                                          
+                                          
+                                      
+                                        
+                                  {% endfor %}
+                              {% else %}
+                                     
+                              {% endif %}
+                           
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
         </div>
       </div>
     </div>
-  </div>
-    
+
    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 

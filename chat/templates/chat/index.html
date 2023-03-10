@@ -10,58 +10,87 @@
     <link rel="icon" href="/static/img/cropped-favicon-192x192.webp">
   </head>
   
-  <body style="background-image:url(/static/img/bg9.jpg)">
+  <body style="background-color: #E7DBCB;">
     {% include "site_cuisineries/navbar.html" %}
     
   </br>
-    <div class="container h-50">
-        <div class="card mx-auto my-auto" style="height: 15rem;">
-        <div class="card-body">
-            <h5 class="card-title">Bienvenue dans votre lieu de discussion :</h5>
-            <label for="room-name-input"> Avez qui voulez vous parler ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
-                <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
-              </svg></label>
-            <div class="quantityDropdown quantityDropdown-cartItem">
-                <select name="room" id="room-name-input" class="form-select">
-                    {% if members %}
-                    <option value="">Choisir </option>
-                    {% for person in members %}
-                    <option value='{{person.id}}'>{{ person.first_name }} {{person.last_name}}</option>
-                    {% endfor %}
-                    {% else %}
-                    <option value="empty">Il n'y a aucun membre.</option>
-                    {% endif %}
-                </select>
-                <input id="room-name-submit" type="button" value="Enter" class="btn btn-primary">
+    <div class="container " >
+        <div class="row row-cols-1 row-cols-md-2" >
+          <div class="col">
+            <div class="card mx-auto my-auto" >
+              <div class="card-body" style ="height:35em; overflow: scroll;">
+                  <h5 class="card-title">Bienvenue dans votre lieu de discussion :</h5>
+                  <label for="room-name-input"> Avez qui voulez vous parler ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
+                      <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
+                    </svg></label>
+                  <div class="list-group list-group-flush ">
+                      
+                          {% if members %}
+                          <form class="form-inline d-flex justify-content-center md-form form-sm mt-0" method="POST" action="#">
+                            {% csrf_token %}
+                            <div>
+                            <input type="text" class="form-control" id="nom" name="nom" placeholder="nom" required >
+                            
+                            </div>
+                            <div>
+                              <input type="text" class="form-control" id="prenom" name="prenom" placeholder="prénom"required >
+                            
+                              </div>
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                          </form>
+                          {%if result == 1 and debut == 0 %}
+                            <h6>Résultats de la recherche</h6>
+                            {% for res in resultsearch %}
+                            <a href="/chat/join/{{res.id}}/" class="list-group-item list-group-item-action "><img class="rounded" src="/static/profils/{{res.id}}.png" style="padding: .2em;" alt="..." width="40" height="40">  {{res.last_name}} {{ res.first_name }}</a>
+                            {% endfor %}
+                          {%elif result == 0 and debut == 0 %}
+                            <h6>Résultats de la recherche :</h6>
+                            <p>Il n'y a pas de membres à ce nom</p>
+                          {%endif%}
+                          <h6>Liste des membres:</h6>
+                          {% for person in members %}
+                          {% if person.id != request.user.id %}
+                            <a href="/chat/join/{{person.id}}/" class="list-group-item list-group-item-action "><img class="rounded" src="/static/profils/{{person.id}}.png" style="padding: .2em;" alt="..." width="40" height="40"> {{person.last_name}} {{ person.first_name }} </a>
+                          {% endif %}
+                          {% endfor %}
+                          {% else %}
+                          <a href="#" class="list-group-item list-group-item-action">Il n'y a aucun membre.</a>
+                          {% endif %}
+                      
+                      
+                  </div>
+              </div>
             </div>
-        </div>
-      </div>
-      <div class="card mx-auto my-auto" style="height: 15rem;">
-        <div class="card-body">
+          </div>
+          <div class="col">
+            <div class="card mx-auto my-auto" >
+        <div class="card-body" style ="height:35em; overflow-y: scroll;">
             <h5 class="card-title">Rejoignez la conversation de groupe de vos vacations :</h5>
-            <label for="room-name-input"> Avez qui voulez vous parler ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
-                <path d="M2.678 11.894a1 1 0 0 1 .287.801 10.97 10.97 0 0 1-.398 2c1.395-.323 2.247-.697 2.634-.893a1 1 0 0 1 .71-.074A8.06 8.06 0 0 0 8 14c3.996 0 7-2.807 7-6 0-3.192-3.004-6-7-6S1 4.808 1 8c0 1.468.617 2.83 1.678 3.894zm-.493 3.905a21.682 21.682 0 0 1-.713.129c-.2.032-.352-.176-.273-.362a9.68 9.68 0 0 0 .244-.637l.003-.01c.248-.72.45-1.548.524-2.319C.743 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.52.263-1.639.742-3.468 1.105z"/>
-              </svg></label>
-            <div class="quantityDropdown quantityDropdown-cartItem">
-                <select name="room" id="room-name-input2" class="form-select">
-                    {% if vacation_list %}
-                      <option value="">Choisir </option>
+            
+            <div class="list-group list-group-flush">
+                
+                    {% if inscription_list %}
                       {% for vacation in vacation_list %}
                           {% for inscription in inscription_list %}
                               {% if inscription.vacation_id == vacation.id %}
-                              <option value='{{vacation.id}}'>{{ vacation.nom }} </option>
-                            
+                              <a href="/chat/join2/{{vacation.id}}/" class="list-group-item list-group-item-action">{{ vacation.nom }} ({{vacation.date_debut}})  </a>
+                              
                               {% endif %}
                           {% endfor %}
-                          {% endfor %}
-                          {% else %}
-                          <option value="empty">Il n'y a aucun membre.</option>
+                        {% endfor %}
+                        
+                    {%else%}
+                    <a href="#" class="list-group-item list-group-item-action"><h6>Vous n'êtes inscrit à aucune vacation.</h6></a>    
                     {% endif %}
-                </select>
-                <input id="room-name-submit2" type="button" value="Enter" class="btn btn-primary">
+                    
+                
             </div>
         </div>
       </div>
+          </div>
+        </div>
+        
+      
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 

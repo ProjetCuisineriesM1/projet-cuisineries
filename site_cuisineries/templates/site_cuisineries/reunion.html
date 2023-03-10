@@ -21,7 +21,43 @@
                 <h5 class="card-header text-center">{{reunion_data}}</h5>
                 <div class="card-body">
                     <h6 class="card-subtitle mb-2 text-muted d-flex"><span>Le {{reunion_data.date.date}} à {{reunion_data.date|date:'H:i'}} </h6>
-                    <p class="card-text">{{reunion_data.contenu}}</p>
+                    <p class="card-text">Motif de la réunion : {{reunion_data.motif}}</p>
+                    <p class="card-text">Contenu de la réunion : {{reunion_data.contenu}}</p>
+                    
+                    {% if reunion_data.referent_id == request.user.id %}
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6 mb-3 mb-sm-0  text-center">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Modifier le contenu de la réunion : </h5>
+                                            <form action="#" method="POST">
+                                                {% csrf_token %}
+                                                <div id="form_part1" class="row g-3" style="display: flex;">
+                                                    
+                                                    <div class="row g-3">
+                                                        <div class="form-floating" id="raison">
+                                                            <input type="text" class="form-control" id="contenu" name="contenu" required >
+                                                            <label for="contenu">Contenu de la réunion</label>
+                                                            </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <button type="submit" class="btn btn-primary">Valider</button>
+                                                    </div>
+                                                    
+                                                
+                                                
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3"></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
                 </div>
             </div>
         </div>

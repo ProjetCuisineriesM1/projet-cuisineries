@@ -1,103 +1,122 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Profil</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="icon" href="/static/img/cropped-favicon-192x192.webp">
-  </head>
-  <body style="background-color: #E7DBCB;">
+</head>
+
+<body style="background-color: #E7DBCB;">
     {% include "site_cuisineries/navbar.html" %}
     <div class="container">
-    <div class="card text-center">
-        <div class="card-header">
-          Profil
-        </div>
-        <div class="card-body">
-          <div>
-            <div>
-              <h5 class="card-title">{{membre_info.first_name}}  {{membre_info.last_name}}</h5>
-              <p class="card-text">Mail: {{membre_info.email}}</p>
-              <p class="card-text">Nombre d'heures effectuées: {{membre_info.credits}}</p>
-              <p></p>
+        <div class="card text-center">
+            <div class="card-header position-relative">
+                Profil
+                <a href="/profil/{{membre_info.id}}/edit" class="btn btn-primary position-absolute" style="right: 0; top: 0; border-bottom-left-radius: 0; border-top-left-radius: 0; border-bottom-right-radius: 0; height: 100%;">
+                    <span class="nav-link d-none d-lg-block">Editer le profil</span>
+                    <span class="nav-link d-lg-none"><span class="material-symbols-outlined">edit</span></span>
+                </a>
             </div>
-            <img class="rounded float-end" src="/{{membre_info.photo}}" width="20%">
-          </div>
-          <div class="container">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-body bg-light">
-                  <h5 class="card-title">Compétences</h5>
-                    {% if competences_list %}
-                    <ul class="list-group">
-                    {% for comp in competences_list %}
-                        <li class="list-group-item">{{ comp }}</li>
-                    {% endfor %}
-                    </ul>
-                    {% else %}
-                        <p>Aucunes compétences renseignées.</p>
-                    {% endif %}
+            <div class="card-body">
+                <div>
+                    <div>
+                        <h5 class="card-title">{{membre_info.first_name}} {{membre_info.last_name}}</h5>
+                        <p class="card-text">Mail: {{membre_info.email}}</p>
+                        <p class="card-text">Nombre d'heures effectuées: {{membre_info.credits}}</p>
+                        <p></p>
+                    </div>
+                    <img class="rounded float-end" src="/{{membre_info.photo}}" width="200" height="300">
                 </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-body bg-light">
+                                    <h5 class="card-title">Compétences</h5>
+                                    {% if competences_list %}
+                                    <ul class="list-group">
+                                        {% for comp in competences_list %}
+                                        <li class="list-group-item">{{ comp }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% else %}
+                                    <p>Aucunes compétences renseignées.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <div class="card  bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title">Mes Attentes</h5>
+                                    {% if attentes_list %}
+                                    <ul class="list-group">
+                                        {% for comp in attentes_list %}
+                                        <li class="list-group-item">{{ comp }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% else %}
+                                    <p>Aucunes attentes renseignées.</p>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-sm-6 ">
-                <div class="card  bg-light">
-                  <div class="card-body">
-                    <h5 class="card-title">Mes Attentes</h5>
-                    {% if attentes_list %}
-                    <ul class="list-group">
-                    {% for comp in attentes_list %}
-                        <li class="list-group-item">{{ comp }}</li>
-                    {% endfor %}
-                    </ul>
-                    {% else %}
-                        <p>Aucunes attentes renseignées.</p>
-                    {% endif %}
-                    
-                  </div>
+                <p></p>
+                {% if request.user.is_superuser == 1 or membre_info.referent_id == request.user.id %}
+                <div class="row">
+                    <div class="col-sm-12 ">
+                        <div class="card ">
+                            <div class="card-body bg-light">
+                                <h5 class="card-title">Réunions de suivis</h5>
+                                {% if reunion_id_list %}
+
+                                <dl class="row ">
+                                    {% for date in reunion_id_list %}
+
+                                    <dt class="col-sm-5 ">
+                                        <h6>Date de la réunion</h6>
+                                    </dt>
+                                    <dd class="col-sm-6 ">
+                                        <h6>{{ date.date }}</h6>
+                                    </dd>
+
+                                    <dt class="col-sm-5">
+                                        <h6>Contenu de la réunion</h6>
+                                    </dt>
+                                    <dd class="col-sm-6 ">
+                                        <h6>{{ date.contenu }}</h6>
+                                    </dd>
+                                    <p class="border-bottom"></p>
+                                    {% endfor %}
+                                </dl>
+
+
+                                {% else %}
+                                <p>Aucunes réunions de suivis effectuées.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+                {% endif %}
             </div>
-          </div>
-          <p></p>
-          {% if request.user.is_superuser == 1 or membre_info.referent_id == request.user.id  %}
-          <div class="row"> 
-            <div class="col-sm-12 ">
-                <div class="card ">
-                  <div class="card-body bg-light">
-                    <h5 class="card-title">Réunions de suivis</h5>
-                      {% if reunion_id_list %}
-                      
-                      <dl class="row ">
-                        {% for date in reunion_id_list %}
-                        
-                        <dt class="col-sm-5 "><h6 >Date de la réunion</h6></dt>
-                        <dd class="col-sm-6 "><h6 >{{ date.date }}</h6></dd>
-                        
-                        <dt class="col-sm-5"><h6 >Contenu de la réunion</h6></dt>
-                        <dd class="col-sm-6 "><h6>{{ date.contenu }}</h6></dd>
-                        <p class="border-bottom"></p>
-                        {% endfor %}
-                      </dl>
-                    
-                      
-                      {% else %}
-                          <p>Aucunes réunions de suivis effectuées.</p>
-                      {% endif %}
-                  </div>
-                </div>
-              </div>
-          </div>
-          {% endif %}
         </div>
-        </div>
-        </div>
-          
     </div>
-    
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    </body>
-  </html>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

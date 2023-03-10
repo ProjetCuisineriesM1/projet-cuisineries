@@ -96,15 +96,7 @@
                                 </div>
                                 <div id="form_part3" class="row g-3" style="display:none">
                                     <input type="hidden" name="id_newUser" id="id_newUser" value="0">
-                                    <span></span>
-                                    <div class="col-12">
-                                        <div id="camera" style="display: none;">
-                                            <video id="video" width="100%">Le flux vidéo n'est pas disponible.</video>
-                                            <button class="btn btn-success" id="startbutton">Prendre une photo</button>
-                                        </div>
-                                    </div>
                                     <div class="col-12" style="position: relative;">
-                                        <canvas id="canvas" style="display:none;"> </canvas>
                                         <img id="photo" style="display: none;" width="90%" alt="L'image capturée sera affichée dans cette boîte.">
                                         <div id="resultStep3" style="display: none; position: absolute;height: 100%;width: 90%;top: 46%;left: 5%;">
                                             <div class="spinner-border text-primary" role="status">
@@ -114,22 +106,14 @@
                                         <button type="button" id="valid_photo" class="btn btn-success" onclick="validatePicture()" style="display: none;">Valider</button>
                                     </div>
                                     <span></span>
-                                    <div class="col-md-6">
+                                    <div class="col-12">
                                         <input type="file" onchange="traiterImageUpload()" name="profil_picture" id="profil_picture" accept="image/png, image/jpeg" style="width: 0.1px;height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;">
                                         <label for="profil_picture" class="btn btn-outline-secondary">
                                             <span class="material-symbols-outlined" style="vertical-align: middle;">download</span>
                                             <span style="vertical-align: middle;">Importer une photo</span>
                                         </label>
                                     </div>
-
-                                    <div class="col-md-6">
-                                        <button type="button" class="btn btn-outline-secondary" onclick="enableVideo()">
-                                            <span class="material-symbols-outlined" style="vertical-align: middle;">photo_camera</span>
-                                            <span style="vertical-align: middle;">Prendre une photo</span>
-                                        </button>
-                                    </div>
-
-                                    
+                                    <span></span>
                                     
                                 </div>
                             </form>

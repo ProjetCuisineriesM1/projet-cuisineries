@@ -131,6 +131,7 @@ function validateForm2(){
 }
 
 function traiterImageUpload(){
+    document.getElementById('photo').src = URL.createObjectURL(document.getElementById("profil_picture").files[0]);
     document.getElementById('resultStep3').style.display = "block";
     let form = new FormData();
 
@@ -155,79 +156,6 @@ function traiterImageUpload(){
                 alert("Une erreur est survenue !");
             }
         });
-}
-
-function enableVideo(){
-    video = document.getElementById('video');
-    canvas = document.getElementById('canvas');
-    photo = document.getElementById('photo');
-    camera = document.getElementById('camera');
-    startbutton = document.getElementById('startbutton');
-    photo.style.display = 'none';
-
-    navigator.mediaDevices
-        .getUserMedia({ video: {facingMode: { ideal: "environment" }}, audio: false })
-        .then((stream) => {
-            video.srcObject = stream;
-            video.play();
-            camera.style.display = "block";
-        })
-        .catch((err) => {
-            console.error(`Une erreur est survenue : ${err}`);
-        });
-
-    startbutton.addEventListener(
-        "click",
-        (ev) => {
-            takepicture();
-            ev.preventDefault();
-        },
-        false
-    );
-}
-
-function takepicture() {
-    const context = canvas.getContext("2d");
-    if (video.videoWidth && video.videoHeight) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-        camera.style.display = 'none';
-        video.srcObject.getTracks().forEach(function(track) {
-            track.stop();
-        });
-
-        const data = canvas.toDataURL("image/png");
-        photo.setAttribute("src", data);
-        photo.style.display = "inline";
-        photo.style.opacity = "0.5";
-        document.getElementById('resultStep3').style.display = "block";
-
-        let form = new FormData();
-
-        form.append("picture", data);
-        form.append("step", 3)
-        form.append("id_user", document.getElementById('id_newUser').value);
-
-        let csrfTokenValue = document.querySelector('[name=csrfmiddlewaretoken]').value;
-        let request = new Request("/ajax/newuser", {method: 'POST',
-                                                    body: form,
-                                                    headers: {"X-CSRFToken": csrfTokenValue}})
-        fetch(request)
-            .then(response => response.json())
-            .then(result => {
-                if(result.result){
-                    document.getElementById('photo').setAttribute('src', result.src);
-                    document.getElementById('resultStep3').style.display = "none";
-                    document.getElementById('photo').style.opacity = "1";
-                    document.getElementById('photo').style.display = "inline";
-                    document.getElementById('valid_photo').style.display = "inline-block";
-                }else{
-                alert("Une erreur est survenue !");
-            }
-            });
-
-    }
 }
 
 function validatePicture(){
