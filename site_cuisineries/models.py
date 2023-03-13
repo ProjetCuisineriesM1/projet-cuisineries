@@ -60,6 +60,9 @@ class Membre(AbstractUser):
     pass
     def __str__(self):
         return self.first_name+" "+self.last_name
+    @property
+    def is_staff(self):
+        return self.groups.filter(name__in=["Référent", "Administrateur"]).exists()
 
 class Vacation(models.Model):
     date_debut = models.DateTimeField()

@@ -12,6 +12,7 @@ urlpatterns = [
     path('logout', views.logout_user, name='Déconnexion'),
     path('ajax/calendar', views.computeCalendar, name="computeCalendar"),
     path('ajax/newuser', views.ajaxNewUser, name="ajaxNewUser"),
+    path('ajax/edituser', views.ajaxEditUser, name="ajaxEditUser"),
     path('ajax/choixContrepartie', views.ajaxChoixContrepartie, name="ajaxChoixContrepartie"),
     path('contrepartie', views.listeContrepartie),
     path('vacations/<int:vacation>', views.vacation),

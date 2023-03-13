@@ -92,12 +92,12 @@
             }
             else {
                 document.querySelector('#chat-log').innerHTML +=  '<div class="d-flex flex-row justify-content-start mb-3" ><img class="rounded" src="/static/profils/'+data.sender+'.png"+" alt="..." style="padding: .2em;" width="40" height="40" ><div class="p-1 me-1 " style="border-radius: 15px;background-color: #b0cfc0; "><div class="small mb-0 " style="padding: .5em;">'+data.message+'</div></div><br></div>';
-                chatSocket.send(JSON.stringify({
+            }
+            chatSocket.send(JSON.stringify({
                     'type':'read',
                     'message': data.id,
                     'id' : {{request.user.id}}
                 }));
-            }
                 
 
 

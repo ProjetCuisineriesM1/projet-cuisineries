@@ -49,12 +49,16 @@ def index(request):
     vacation_list_7days=Vacation.objects.filter(date_debut__range=[dated, datef7])
     cat = request.user.competences.all()
     vacation_list_interested_30days=Vacation.objects.filter(date_debut__range=[dated, datef30], categorie__in=cat)
-
+    liste = []
+    for vac in vacation_list_interested_30days :
+        if vac not in liste :
+            liste.append(vac)
+            
     context = default_context(request)
     
     context['reunion_list']=reunion_list
     context['vacation_list_7days'] = vacation_list_7days
-    context['vacation_list_interested_30days']=vacation_list_interested_30days
+    context['vacation_list_interested_30days']=liste
     context['vacation_list_today']=vacation_list_today
 
     return render(request, 'site_cuisineries/index.html', context)
@@ -190,6 +194,52 @@ def ajaxNewUser(request):
 
         
     if request.POST.get('step') == "4":
+
+        os.rename("/home/debian/projet-cuisineries/static/profils/temporary/"+request.POST.get("id_user")+".png", "/home/debian/projet-cuisineries/static/profils/"+request.POST.get("id_user")+".png")
+
+        new_user = Membre.objects.get(id=int(request.POST.get("id_user")))
+        new_user.photo = "static/profils/"+request.POST.get("id_user")+".png"
+        new_user.save()
+
+        reponse = {"result":True}
+
+
+    return JsonResponse(reponse)
+
+def ajaxEditUser(request):
+    reponse = {}
+    if not request.user.is_authenticated:
+        return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
+    if not request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() and request.user.id is not int(request.POST.get("id_user")) :
+        return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
+    
+    if request.POST.get('step') == "1":
+        
+        pictureFile = request.FILES.get('picture')
+
+        path_to_img = os.path.join("static/profils/", "temporary")
+
+        # Check if today_folder already exists
+        if not os.path.exists(path_to_img):
+            os.mkdir(path_to_img)
+
+        img_path = os.path.join(path_to_img, request.POST.get("id_user")+"."+pictureFile.name.split(".")[-1])
+
+        # Start writing to the disk
+        with open(img_path, 'wb+') as destination:
+
+            if pictureFile.multiple_chunks:  # size is over than 2.5 Mb
+                for chunk in pictureFile.chunks():
+                    destination.write(chunk)
+            else:
+                destination.write(pictureFile.read())
+
+        p = SLICProcessor("/home/debian/projet-cuisineries/static/profils/temporary/"+(request.POST.get("id_user")+"."+pictureFile.name.split(".")[-1]), 300, 10)
+        p.run_filter()
+        reponse = {"result":True, "src":"/"+img_path.replace(pictureFile.name.split(".")[-1], "png")}
+
+        
+    if request.POST.get('step') == "2":
 
         os.rename("/home/debian/projet-cuisineries/static/profils/temporary/"+request.POST.get("id_user")+".png", "/home/debian/projet-cuisineries/static/profils/"+request.POST.get("id_user")+".png")
 
