@@ -17,19 +17,34 @@ background-repeat-x: no-repeat;
 background-repeat-y: no-repeat;
 background-position-y: bottom; background-position-x: left, right;">
     {% include "site_cuisineries/navbar.html" %}
+<<<<<<< HEAD
     <div class="container">
         <div class="card text-center">
             <div class="card-header position-relative">
                 Profil
                 <a href="/profil/{{membre_info.id}}/edit" class="btn btn-primary position-absolute" style="right: 0; top: 0; border-bottom-left-radius: 0; border-top-left-radius: 0; border-bottom-right-radius: 0; height: 100%;">
+=======
+    <div class="container" >
+        <div class="card text-center" >
+            <div class="card-header position-relative" style="background-color :#963b22;">
+                Profil
+                <a href="/profil/{{membre_info.id}}/edit" class="btn btn-dark position-absolute" style="right: 0; top: 0; border-bottom-left-radius: 0; border-top-left-radius: 0; border-bottom-right-radius: 0; height: 100%;">
+>>>>>>> 9f339c9 (Mise à jour des fichiers)
                     <span class="nav-link d-none d-lg-block">Editer le profil</span>
                     <span class="nav-link d-lg-none"><span class="material-symbols-outlined">edit</span></span>
                 </a>
             </div>
+<<<<<<< HEAD
             <div class="card-body">
                 <div>
                     <div>
                         <h5 class="card-title">{{membre_info.first_name}} {{membre_info.last_name}}</h5>
+=======
+            <div class="card-body text-nowrap" style="color:black;background-color: #bb8170;">
+                <div>
+                    <div >
+                        <h5 class="card-title " >{{membre_info.first_name}} {{membre_info.last_name}}</h5>
+>>>>>>> 9f339c9 (Mise à jour des fichiers)
                         <p class="card-text">Mail: {{membre_info.email}}</p>
                         <p class="card-text">Nombre d'heures effectuées : {{membre_info.nb_heures}}</p>
                         <p class="card-text">Nombre de crédits : {{membre_info.credits}}</p>
@@ -38,16 +53,27 @@ background-position-y: bottom; background-position-x: left, right;">
                         {%endif%}
                         <p></p>
                     </div>
+<<<<<<< HEAD
                     <img class="rounded float-end" src="/{{membre_info.photo}}" width="300" height="300">
+=======
+                    <img class="rounded float-end" src="/{{membre_info.photo}}" width="20%" height="20%">
+>>>>>>> 9f339c9 (Mise à jour des fichiers)
                 </div>
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="card">
+<<<<<<< HEAD
                                 <div class="card-body bg-light">
                                     <h5 class="card-title">Compétences</h5>
                                     {% if competences_list %}
                                     <ul class="list-group">
+=======
+                                <div class="card-body  overflow-auto" style="height:8em;">
+                                    <h5 class="card-title">Compétences</h5>
+                                    {% if competences_list %}
+                                    <ul class="list-group list-group-flush">
+>>>>>>> 9f339c9 (Mise à jour des fichiers)
                                         {% for comp in competences_list %}
                                         <li class="list-group-item">{{ comp }}</li>
                                         {% endfor %}
@@ -59,11 +85,19 @@ background-position-y: bottom; background-position-x: left, right;">
                             </div>
                         </div>
                         <div class="col-sm-6 ">
+<<<<<<< HEAD
                             <div class="card  bg-light">
                                 <div class="card-body">
                                     <h5 class="card-title">Mes Attentes</h5>
                                     {% if attentes_list %}
                                     <ul class="list-group">
+=======
+                            <div class="card  ">
+                                <div class="card-body  " style="height:8em;overflow-y:scroll;">
+                                    <h5 class="card-title">Mes Attentes</h5>
+                                    {% if attentes_list %}
+                                    <ul class="list-group list-group-flush">
+>>>>>>> 9f339c9 (Mise à jour des fichiers)
                                         {% for comp in attentes_list %}
                                         <li class="list-group-item">{{ comp }}</li>
                                         {% endfor %}
@@ -82,7 +116,11 @@ background-position-y: bottom; background-position-x: left, right;">
                 <div class="row">
                     <div class="col-sm-12 ">
                         <div class="card ">
+<<<<<<< HEAD
                             <div class="card-body bg-light">
+=======
+                            <div class="card-body bg-light overflow-auto" style="height:15em;">
+>>>>>>> 9f339c9 (Mise à jour des fichiers)
                                 <h5 class="card-title">Réunions de suivis</h5>
                                 {% if reunion_id_list %}
 

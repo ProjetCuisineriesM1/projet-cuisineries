@@ -64,9 +64,21 @@ class SLICProcessor(object):
         self.filename = filename
 
         self.data = self.open_image(filename)
+<<<<<<< HEAD
         self.image_height = self.data.shape[0]*400//self.data.shape[1]
         self.image_width = 400
         self.data = resize(self.data, (self.image_height, 400), anti_aliasing=True)
+=======
+        if self.data.shape[0] > self.data.shape[1]:
+            self.image_height = self.data.shape[0]*400//self.data.shape[1]
+            self.image_width = 400
+            self.data = resize(self.data, (self.image_height, 400), anti_aliasing=True)[((self.image_height-400)/2):(self.image_height-(self.image_height-400)/2),0:400]
+        else:
+            self.image_height = 400
+            self.image_width = self.data.shape[1]*400//self.data.shape[0]
+            self.data = resize(self.data, (400, self.image_width), anti_aliasing=True)[0:400,((self.image_width-400)/2):(self.image_width-(self.image_width-400)/2)]
+
+>>>>>>> 9f339c9 (Mise à jour des fichiers)
         self.N = self.image_height * self.image_width
         self.S = int(math.sqrt(self.N / self.K))
 

@@ -4,7 +4,11 @@ from django.contrib import messages
 from django.utils.translation import ngettext
 from import_export.admin import ExportActionMixin
 
+<<<<<<< HEAD
 admin.site.unregister(Group)
+=======
+#admin.site.unregister(Group)
+>>>>>>> 9f339c9 (Mise à jour des fichiers)
 
 # Register your models here.
 from .models import Membre, Vacation, Inscription, Reunion, Contrepartie, Choix, Attente, Competence

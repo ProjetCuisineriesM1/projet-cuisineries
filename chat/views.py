@@ -15,7 +15,11 @@ def index(request):
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
         
+<<<<<<< HEAD
     members_list=Membre.objects.all()
+=======
+    members_list=Membre.objects.raw('SELECT * FROM (SELECT DISTINCT ON (m.id) m.id, m.first_name, m.last_name, s.last_date FROM site_cuisineries_membre m LEFT JOIN site_cuisineries_conversation c ON (c.pers1_id='+str(request.user.id)+' OR c.pers2_id='+str(request.user.id)+') AND m.id = (CASE WHEN c.pers1_id='+str(request.user.id)+' THEN c.pers2_id ELSE c.pers1_id END) LEFT JOIN (SELECT x.conversation_id, MAX(x.date) as last_date FROM site_cuisineries_message x GROUP BY x.conversation_id) s ON s.conversation_id = c.id GROUP BY s.conversation_id, m.id, s.last_date) d ORDER BY d.last_date DESC NULLS LAST')
+>>>>>>> 9f339c9 (Mise à jour des fichiers)
     
     inscription_list=Inscription.objects.filter(membre_id=request.user.id)
     vacation_list=Vacation.objects.all()
@@ -23,7 +27,11 @@ def index(request):
     
     context['result']=True
     context['debut']=True
+<<<<<<< HEAD
     context['members']=members_list.values("id","last_name", "first_name")
+=======
+    context['members']=members_list
+>>>>>>> 9f339c9 (Mise à jour des fichiers)
     context['vacation_list']=vacation_list
     context['inscription_list']= inscription_list
     context['verif']=False
