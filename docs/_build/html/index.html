@@ -18,7 +18,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Recherche" href="search.html" />
-    <link rel="next" title="Views" href="chat_views.html" /> 
+    <link rel="next" title="Views (views.py)" href="chat/views.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,12 +42,14 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Chat:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="chat_views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chat/views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chat/urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Site_Cuisineries:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="site_cuisineries_views.html">Views</a></li>
-<li class="toctree-l1"><a class="reference internal" href="site_cuisineries_models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries/views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries/models.html">Models (<code class="docutils literal notranslate"><span class="pre">models.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries/urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
 </ul>
 
         </div>
@@ -79,32 +81,64 @@
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Chat:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="chat_views.html">Views</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="chat_views.html#chat.views.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="chat/views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="chat/views.html#chat.views.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="chat/views.html#chat.views.join"><code class="docutils literal notranslate"><span class="pre">join()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="chat/views.html#chat.views.join2"><code class="docutils literal notranslate"><span class="pre">join2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="chat/views.html#chat.views.room"><code class="docutils literal notranslate"><span class="pre">room()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="chat/views.html#chat.views.roomGroupe"><code class="docutils literal notranslate"><span class="pre">roomGroupe()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="chat/urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Site_Cuisineries:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="site_cuisineries_views.html">Views</a></li>
-<li class="toctree-l1"><a class="reference internal" href="site_cuisineries_models.html">Models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.Membre"><code class="docutils literal notranslate"><span class="pre">Membre</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.Competence"><code class="docutils literal notranslate"><span class="pre">Competence</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.Attente"><code class="docutils literal notranslate"><span class="pre">Attente</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.Vacation"><code class="docutils literal notranslate"><span class="pre">Vacation</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.Contrepartie"><code class="docutils literal notranslate"><span class="pre">Contrepartie</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.Reunion"><code class="docutils literal notranslate"><span class="pre">Reunion</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.Inscription"><code class="docutils literal notranslate"><span class="pre">Inscription</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.Choix"><code class="docutils literal notranslate"><span class="pre">Choix</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.Conversation"><code class="docutils literal notranslate"><span class="pre">Conversation</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.Message"><code class="docutils literal notranslate"><span class="pre">Message</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.MessageGroup"><code class="docutils literal notranslate"><span class="pre">MessageGroup</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.ConversationRead1o1"><code class="docutils literal notranslate"><span class="pre">ConversationRead1o1</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="site_cuisineries_models.html#site_cuisineries.models.ConversationReadGroup"><code class="docutils literal notranslate"><span class="pre">ConversationReadGroup</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries/views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.adduser"><code class="docutils literal notranslate"><span class="pre">adduser()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.ajaxChoixContrepartie"><code class="docutils literal notranslate"><span class="pre">ajaxChoixContrepartie()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.ajaxEditUser"><code class="docutils literal notranslate"><span class="pre">ajaxEditUser()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.ajaxNewUser"><code class="docutils literal notranslate"><span class="pre">ajaxNewUser()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.ajaxStatistiques"><code class="docutils literal notranslate"><span class="pre">ajaxStatistiques()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.ask"><code class="docutils literal notranslate"><span class="pre">ask()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.computeCalendar"><code class="docutils literal notranslate"><span class="pre">computeCalendar()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.default_context"><code class="docutils literal notranslate"><span class="pre">default_context()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.editProfil"><code class="docutils literal notranslate"><span class="pre">editProfil()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.editProfilAdmin"><code class="docutils literal notranslate"><span class="pre">editProfilAdmin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.listeContrepartie"><code class="docutils literal notranslate"><span class="pre">listeContrepartie()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.login"><code class="docutils literal notranslate"><span class="pre">login()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.logout_user"><code class="docutils literal notranslate"><span class="pre">logout_user()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.mes_contreparties"><code class="docutils literal notranslate"><span class="pre">mes_contreparties()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.mes_vacations"><code class="docutils literal notranslate"><span class="pre">mes_vacations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.profil"><code class="docutils literal notranslate"><span class="pre">profil()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.profil_admin"><code class="docutils literal notranslate"><span class="pre">profil_admin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.reunion"><code class="docutils literal notranslate"><span class="pre">reunion()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.save_user_infos"><code class="docutils literal notranslate"><span class="pre">save_user_infos()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.statistiques"><code class="docutils literal notranslate"><span class="pre">statistiques()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.vacation"><code class="docutils literal notranslate"><span class="pre">vacation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.validation"><code class="docutils literal notranslate"><span class="pre">validation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/views.html#site_cuisineries.views.viewprofile"><code class="docutils literal notranslate"><span class="pre">viewprofile()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries/models.html">Models (<code class="docutils literal notranslate"><span class="pre">models.py</span></code>)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-membre">Classe <code class="docutils literal notranslate"><span class="pre">Membre</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-competence">Classe <code class="docutils literal notranslate"><span class="pre">Competence</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-attente">Classe <code class="docutils literal notranslate"><span class="pre">Attente</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-vacation">Classe <code class="docutils literal notranslate"><span class="pre">Vacation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-contrepartie">Classe <code class="docutils literal notranslate"><span class="pre">Contrepartie</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-reunion">Classe <code class="docutils literal notranslate"><span class="pre">Reunion</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-inscription">Classe <code class="docutils literal notranslate"><span class="pre">Inscription</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-choix">Classe <code class="docutils literal notranslate"><span class="pre">Choix</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-conversation">Classe <code class="docutils literal notranslate"><span class="pre">Conversation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-message">Classe <code class="docutils literal notranslate"><span class="pre">Message</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-messagegroup">Classe <code class="docutils literal notranslate"><span class="pre">MessageGroup</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-conversationread1o1">Classe <code class="docutils literal notranslate"><span class="pre">ConversationRead1o1</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="site_cuisineries/models.html#classe-conversationreadgroup">Classe <code class="docutils literal notranslate"><span class="pre">ConversationReadGroup</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries/urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
 </ul>
 </div>
 </section>
@@ -121,7 +155,7 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
-        <a href="chat_views.html" class="btn btn-neutral float-right" title="Views" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="chat/views.html" class="btn btn-neutral float-right" title="Views (views.py)" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

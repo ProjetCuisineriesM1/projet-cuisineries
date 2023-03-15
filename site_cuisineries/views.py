@@ -23,6 +23,13 @@ from .slic import SLICProcessor
 # Create your views here.
 
 def default_context(request):
+    """Contexte par défaut
+
+    :param request: Données de la requête HTTP.
+
+    :return: Contexte initial
+    :rtype: list
+    """
     context = {}
     if request.user.is_authenticated:
         conv = ConversationRead1o1.objects.filter(membre=request.user)
@@ -34,6 +41,12 @@ def default_context(request):
 
 
 def index(request):
+    """Page d'accueil
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/index.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     reunion_list=Reunion.objects.filter(membre_id=request.user.id)
@@ -64,6 +77,12 @@ def index(request):
     return render(request, 'site_cuisineries/index.html', context)
 
 def profil(request):
+    """Page d'affichage du profil
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/profil.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     membre_info= Membre.objects.get(email=request.user.email)
@@ -78,6 +97,13 @@ def profil(request):
     return render(request, 'site_cuisineries/profil.html', context)
 
 def profil_admin(request, userid):
+    """Page d'affichage du profil d'un autre utilisateur
+    
+    :param request: Données de la requête HTTP.
+    :param int userid: ID de l'utilisateur
+
+    :returns: le rendu de la page html ``site_cuisineries/profil.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     if not request.user.groups.filter(name__in=["Administrateur", "Référent"]).exists() :
@@ -94,6 +120,12 @@ def profil_admin(request, userid):
     return render(request, 'site_cuisineries/profil.html', context)
 
 def adduser(request):
+    """Page de création d'un nouveau membre
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/useradd.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     if not request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() :
@@ -109,6 +141,12 @@ def adduser(request):
     return render(request, 'site_cuisineries/useradd.html', context)
 
 def login(request):
+    """Page de connexion
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/login.html`` avec les données associées.
+    """
     context = default_context(request)
     if request.user.is_authenticated:
         return HttpResponseRedirect('/')
@@ -128,11 +166,24 @@ def login(request):
         return render(request, 'site_cuisineries/login.html',context)
 
 def logout_user(request):
+    """Déconnexion de l'utilisateur
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: Redirection vers la page de connexion
+    """
     if request.user.is_authenticated:
         logout(request)
     return HttpResponseRedirect('/login')
 
 def computeCalendar(request):
+    """Récupération des données du calendrier
+    
+    :param request: Données de la requête HTTP.
+
+    :rtype: json
+    :returns: Ensemble des évènements sous le format JSON
+    """
     if not request.user.is_authenticated:
         return JsonResponse({})
     reponse = {}
@@ -150,6 +201,13 @@ def computeCalendar(request):
     return JsonResponse(reponse)
 
 def ajaxNewUser(request):
+    """Création d'un nouvel utilisateur
+    
+    :param request: Données de la requête HTTP.
+
+    :rtype: bool
+    :returns: Etat de la création de l'utilisateur sous le format JSON
+    """
     reponse = {}
     if not request.user.is_authenticated:
         return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
@@ -209,6 +267,13 @@ def ajaxNewUser(request):
     return JsonResponse(reponse)
 
 def ajaxEditUser(request):
+    """Edition des informations de l'utilisateur
+    
+    :param request: Données de la requête HTTP.
+
+    :rtype: json
+    :returns: Etat de la modification des informations de l'utilisateur sous le format JSON
+    """
     reponse = {}
     if not request.user.is_authenticated:
         return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
@@ -255,6 +320,13 @@ def ajaxEditUser(request):
     return JsonResponse(reponse)
     
 def vacation(request, vacation):
+    """Page d'information sur une vacation
+    
+    :param request: Données de la requête HTTP.
+    :param int vacation: ID de la vacation
+
+    :returns: le rendu de la page html ``site_cuisineries/vacation.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
 
@@ -326,6 +398,13 @@ def vacation(request, vacation):
 
 
 def reunion(request, reunion):
+    """Page d'information sur une vacation
+    
+    :param request: Données de la requête HTTP.
+    :param int reunion: ID de la réunion
+
+    :returns: le rendu de la page html ``site_cuisineries/reunion.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
 
@@ -341,6 +420,12 @@ def reunion(request, reunion):
     return render(request, 'site_cuisineries/reunion.html', context)    
 
 def viewprofile(request):
+    """Page d'affichage de la liste des utilisateurs
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/viewprofile.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     members_list=Membre.objects.all()
@@ -353,6 +438,12 @@ def viewprofile(request):
 
 
 def listeContrepartie(request):
+    """Page d'affichage de la liste des contreparties
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/listeContrepartie.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     contrepartie_data = Contrepartie.objects.filter(quantite_dispo__gt=0)
@@ -363,6 +454,13 @@ def listeContrepartie(request):
     return render(request, 'site_cuisineries/listeContrepartie.html', context)
 
 def ajaxChoixContrepartie(request):
+    """Sélection d'une contrepartie
+    
+    :param request: Données de la requête HTTP.
+
+    :rtype: json
+    :returns: Validation ou non du choix
+    """
     if not request.user.is_authenticated:
         return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
 
@@ -385,6 +483,12 @@ def ajaxChoixContrepartie(request):
     return JsonResponse({"result": True})
 
 def mes_contreparties(request):
+    """Page d'affichage des contreparties sélectionnées
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/mycontreparties.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     contrepartie_id_list = Choix.objects.filter(membre_id=request.user.id)
@@ -414,6 +518,12 @@ def mes_contreparties(request):
     return render(request, 'site_cuisineries/mycontreparties.html', context)
 
 def mes_vacations(request):
+    """Page d'affichage des vacations sélectionnées
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/myvacation.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     inscription_list=Inscription.objects.filter(membre_id=request.user.id)
@@ -425,11 +535,18 @@ def mes_vacations(request):
     context['vacation']=vacations
     
     return render(request, 'site_cuisineries/myvacation.html', context)
+
 def validation(request):
+    """Page de validation des vacations et des contreparties
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/validation.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     if not request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() :
-        return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
+        return HttpResponseRedirect('/')
 
     debut=str(timezone.now()-timezone.timedelta(days=7))
     fin=str(timezone.now()+timezone.timedelta(days=2))
@@ -467,6 +584,12 @@ def validation(request):
     return render(request, 'site_cuisineries/validation.html', context)
 
 def ask(request):
+    """Page de demande de réunion avec son référent
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/askreunion.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     context = default_context(request)
@@ -504,6 +627,12 @@ def ask(request):
     return render(request, 'site_cuisineries/askreunion.html', context)
 
 def editProfil(request):
+    """Page d'édition du profil
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/editProfil.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     context = default_context(request)
@@ -517,7 +646,15 @@ def editProfil(request):
     context['competences'] = Competence.objects.all()
     
     return render(request, 'site_cuisineries/editProfil.html', context)
+
 def editProfilAdmin(request, userid):
+    """Page d'édition du profil d'un autre utilisateur
+    
+    :param request: Données de la requête HTTP.
+    :param int userid: ID de l'utilisateur
+
+    :returns: le rendu de la page html ``site_cuisineries/editProfil.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     if not request.user.groups.filter(name__in=["Administrateur", "Référent"]).exists() :
@@ -539,6 +676,14 @@ def editProfilAdmin(request, userid):
     return render(request, 'site_cuisineries/editProfil.html', context)
 
 def save_user_infos(request, user):
+    """Enregistrement des informations d'un utilisateur
+    
+    :param request: Données de la requête HTTP.
+    :param Membre user: Utilisateur à modifier
+
+    :rtype: bool
+    :returns: True si la modification à été effectuée
+    """
     if request.POST["part"] == "1":
         if request.user == user:
             user.username = request.POST["username"]
@@ -581,6 +726,12 @@ def save_user_infos(request, user):
     return True
         
 def statistiques(request):
+    """Page de statistiques
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html ``site_cuisineries/stat.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     if not request.user.groups.filter(name="Administrateur").exists() :
@@ -590,6 +741,13 @@ def statistiques(request):
     return render(request, 'site_cuisineries/stat.html', context)
 
 def ajaxStatistiques(request):
+    """Chargement des données des statistiques
+    
+    :param request: Données de la requête HTTP.
+
+    :rtype: json
+    :returns: Données des statistiques
+    """
     if not request.user.is_authenticated:
         return JsonResponse({"Erreur": "Vous n'êtes pas autorisés à accéder à cete page !"})
     if not request.user.groups.filter(name="Administrateur").exists() :

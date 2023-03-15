@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URLs (urls.py) &mdash; Documentation Projet M1 Les Cuisineries 1.0</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="prev" title="Models (models.py)" href="models.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Projet M1 Les Cuisineries
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Chat:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../chat/views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chat/urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Site_Cuisineries:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models (<code class="docutils literal notranslate"><span class="pre">models.py</span></code>)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Projet M1 Les Cuisineries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/site_cuisineries/urls.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="urls-urls-py">
+<h1>URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)<a class="headerlink" href="#urls-urls-py" title="Lien permanent vers cette rubrique"></a></h1>
+<p>Lien entre l’url entrée et les fonctions du views.py</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;profil&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">profil</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;profil&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;profil/&lt;int:userid&gt;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">profil_admin</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;profil admin&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;profil/edit&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">editProfil</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;édition du profil&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;profil/&lt;int:userid&gt;/edit&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">editProfilAdmin</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;édition du profil admin&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">login</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Connecter&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;logout&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">logout_user</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Déconnexion&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;ajax/calendar&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">computeCalendar</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;computeCalendar&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;ajax/newuser&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">ajaxNewUser</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ajaxNewUser&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;ajax/edituser&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">ajaxEditUser</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ajaxEditUser&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;ajax/choixContrepartie&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">ajaxChoixContrepartie</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;ajaxChoixContrepartie&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;contrepartie&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">listeContrepartie</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;vacations/&lt;int:vacation&gt;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">vacation</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;reunions/&lt;int:reunion&gt;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">reunion</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;chat/&quot;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s2">&quot;chat.urls&quot;</span><span class="p">)),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;profils&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">viewprofile</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;ViewProfile&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s2">&quot;user/add&quot;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">adduser</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Ajouter un utilisateur&quot;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;myvacation&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">mes_vacations</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;mes vacations&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;mycontreparties&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">mes_contreparties</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;mes contreparties&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;validation&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">validation</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;valdiations&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;askreunion&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">ask</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;demander reunion&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;statistiques&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">statistiques</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Statistiques&#39;</span><span class="p">),</span>
+    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;ajax/statistiques&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">ajaxStatistiques</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;Statistiques&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="models.html" class="btn btn-neutral float-left" title="Models (models.py)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Justin Bossis &amp; Jessica Rolo.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

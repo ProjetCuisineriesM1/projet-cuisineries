@@ -6,7 +6,7 @@ from django.utils.timezone import now
 import math
 # Create your models here.
 
-"""Définition des différentes classes/tables du projet"""
+
 
 class Competence(models.Model):
     """ Compétences d'un membre
@@ -247,6 +247,14 @@ class Conversation(models.Model):
         return str(self.pers1)+" "+str(self.pers2)
 
 class Message(models.Model):
+    """ Définition d'un message 1o1
+
+    :param Conversation conversation: Conversation contenant le message
+    :param Membre sender: Membre ayant envoyé le message
+    :param str message: Contenu du message
+    :param date date: Date et heure d'envoi du message
+
+    """
     conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
     sender=models.ForeignKey(Membre, null=True, on_delete=models.SET_NULL)
     message = models.TextField(null=True)
@@ -256,6 +264,14 @@ class Message(models.Model):
         return str(self.conversation)+" "+str(self.date)
 
 class MessageGroup(models.Model):
+    """ Définition d'un message de groupe
+
+    :param Vacation conversation: Vacation liée à la conversation contenant le message
+    :param Membre sender: Membre ayant envoyé le message
+    :param str message: Contenu du message
+    :param date date: Date et heure d'envoi du message
+
+    """
     conversation = models.ForeignKey(Vacation, on_delete=models.CASCADE)
     sender=models.ForeignKey(Membre, null=True, on_delete=models.SET_NULL)
     message = models.TextField(null=True)
@@ -265,30 +281,64 @@ class MessageGroup(models.Model):
         return str(self.conversation)+" "+str(self.date)
 
 class ConversationRead1o1(models.Model):
+    """ Définition de l'état de lecture d'une conversation 1o1
+
+    :param Conversation conversation: Conversation liée au statut de lecture
+    :param Membre membre: Membre lié au statut de lecture
+    :param Message message: Dernier message lu par l'utilisateur
+
+    """
     conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
     membre = models.ForeignKey(Membre, on_delete=models.CASCADE)
     message = models.ForeignKey(Message, null=True, on_delete=models.SET_NULL)
     def is_new_message(self):
+        """Détecte si un nouveau message est arrivé
+        
+        :returns: état de lecture de la conversation
+        :rtype: bool
+        """
         last_message = Message.objects.filter(conversation=self.conversation).exclude(sender=self.membre).last()
         if last_message.id is not self.message.id:
             return True
         return False
     def nb_not_read(self):
+        """Compte le nombre de messages non lus
+        
+        :returns: nombre de messages non lus
+        :rtype: int
+        """
         if self.message:
             return Message.objects.filter(conversation=self.conversation, id__gt=self.message.id).exclude(sender=self.membre).count()
         else:
             return Message.objects.filter(conversation=self.conversation).exclude(sender=self.membre).count()
 
 class ConversationReadGroup(models.Model):
+    """ Définition de l'état de lecture d'une conversation de groupe
+
+    :param Vacation conversation: Conversation liée au statut de lecture
+    :param Membre membre: Membre lié au statut de lecture
+    :param MessageGroup message: Dernier message lu par l'utilisateur
+
+    """
     conversation = models.ForeignKey(Vacation, on_delete=models.CASCADE)
     membre = models.ForeignKey(Membre, on_delete=models.CASCADE)
     message = models.ForeignKey(MessageGroup, null=True, on_delete=models.SET_NULL)
     def is_new_message(self):
+        """Détecte si un nouveau message est arrivé
+        
+        :returns: état de lecture de la conversation
+        :rtype: bool
+        """
         last_message = MessageGroup.objects.filter(conversation=self.conversation).exclude(sender=self.membre).last()
         if last_message.id is not self.message.id:
             return True
         return False
     def nb_not_read(self):
+        """Compte le nombre de messages non lus
+        
+        :returns: nombre de messages non lus
+        :rtype: int
+        """
         if self.message:
             return MessageGroup.objects.filter(conversation=self.conversation, id__gt=self.message.id).exclude(sender=self.membre).count()
         else:

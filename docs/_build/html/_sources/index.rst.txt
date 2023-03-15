@@ -10,14 +10,16 @@ Welcome to Projet M1 Les Cuisineries's documentation!
    :maxdepth: 2
    :caption: Chat:
 
-   ./chat_views.rst
+   ./chat/views.rst
+   ./chat/urls.rst
 
 .. toctree::
    :maxdepth: 2
    :caption: Site_Cuisineries:
 
-   ./site_cuisineries_views.rst
-   ./site_cuisineries_models.rst
+   ./site_cuisineries/views.rst
+   ./site_cuisineries/models.rst
+   ./site_cuisineries/urls.rst
 
 
 
