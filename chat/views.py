@@ -11,7 +11,19 @@ from site_cuisineries.models import MessageGroup
 from site_cuisineries.models import ConversationRead1o1, ConversationReadGroup
 from site_cuisineries.views import default_context
 
+"""
+views.py
+=========================================
+Outils de récupération des données en base de données et affichage du rendu des pages
+"""
+
 def index(request):
+    """Page de sélection du chat
+    
+    :param request: Données de la requête HTTP.
+
+    :returns: le rendu de la page html index.html avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
         

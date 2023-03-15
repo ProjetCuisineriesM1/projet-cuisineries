@@ -29,11 +29,13 @@ background-position-y: bottom; background-position-x: left, right;">
                                 data-bs-target="#infos-tab-pane" type="button" role="tab" aria-controls="infos-tab-pane"
                                 aria-selected="true">Informations</button>
                         </li>
+                        {% if user.groups.all.0.name == "Administrateur" or user.groups.all.0.name == "Référent" and not data.id == user.id %}
                         <li class="nav-item" role="presentation" style="display: inline-block;">
                             <button class="nav-link" id="photo-tab" data-bs-toggle="tab"
                                 data-bs-target="#photo-tab-pane" type="button" role="tab" aria-controls="photo-tab-pane"
                                 aria-selected="false">Photo</button>
                         </li>
+                        {% endif %}
                         <li class="nav-item" role="presentation" style="display: inline-block;">
                             <button class="nav-link" id="attentes-tab" data-bs-toggle="tab"
                                 data-bs-target="#attentes-tab-pane" type="button" role="tab"
@@ -83,7 +85,7 @@ background-position-y: bottom; background-position-x: left, right;">
                                         </div>
                                     </div>
 
-                                    {% if referents %}
+                                    {% if user.groups.all.0.name == "Administrateur" and not data.id == user.id or user.groups.all.0.name == "Référent" and not data.id == user.id %}
                                     <div class="col-md-6" id="roleDiv">
                                         <select class="form-select" id="role" name="role"
                                             onchange="updateRole(this.value)" required aria-label="Sélection du rôle">
@@ -113,7 +115,7 @@ background-position-y: bottom; background-position-x: left, right;">
 
                                     <div class="col-md-8">
                                         <div class="form-floating" id="emailDiv">
-                                            <input type="email" class="form-control" id="email" name="email"
+                                            <input type="email" class="form-control" id="email" required name="email"
                                                 value="{{data.email}}" placeholder="Adresse mail">
                                             <label for="email">Adresse mail</label>
                                         </div>
@@ -156,6 +158,7 @@ background-position-y: bottom; background-position-x: left, right;">
                                 </div>
                             </form>
                         </div>
+                        {% if user.groups.all.0.name == "Administrateur" or user.groups.all.0.name == "Référent" and not data.id == user.id %}
                         <div class="tab-pane fade" id="photo-tab-pane" role="tabpanel" aria-labelledby="photo-tab" tabindex="0">
                             <div class="row g-3 text-center">
                                 <div class="col-12 ">
@@ -232,6 +235,7 @@ background-position-y: bottom; background-position-x: left, right;">
                                     });
                             }
                         </script>
+                        {% endif %}
                         <div class="tab-pane fade" id="attentes-tab-pane" role="tabpanel" aria-labelledby="attentes-tab" tabindex="0">
                             <form method="POST">
                                 {% csrf_token %}

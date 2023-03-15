@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Models &mdash; Documentation Projet M1 Les Cuisineries 1.0</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="prev" title="Views" href="site_cuisineries_views.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Projet M1 Les Cuisineries
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Chat:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chat_views.html">Views</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Site_Cuisineries:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries_views.html">Views</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.Membre"><code class="docutils literal notranslate"><span class="pre">Membre</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Membre.__str__"><code class="docutils literal notranslate"><span class="pre">Membre.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.Competence"><code class="docutils literal notranslate"><span class="pre">Competence</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Competence.__str__"><code class="docutils literal notranslate"><span class="pre">Competence.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.Attente"><code class="docutils literal notranslate"><span class="pre">Attente</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Attente.__str__"><code class="docutils literal notranslate"><span class="pre">Attente.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.Vacation"><code class="docutils literal notranslate"><span class="pre">Vacation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Vacation.__str__"><code class="docutils literal notranslate"><span class="pre">Vacation.__str__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Vacation.complet"><code class="docutils literal notranslate"><span class="pre">Vacation.complet()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Vacation.credits"><code class="docutils literal notranslate"><span class="pre">Vacation.credits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Vacation.heures"><code class="docutils literal notranslate"><span class="pre">Vacation.heures()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Vacation.inscrits"><code class="docutils literal notranslate"><span class="pre">Vacation.inscrits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Vacation.nb_inscrits"><code class="docutils literal notranslate"><span class="pre">Vacation.nb_inscrits()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Vacation.places_dispo"><code class="docutils literal notranslate"><span class="pre">Vacation.places_dispo()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.Contrepartie"><code class="docutils literal notranslate"><span class="pre">Contrepartie</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Contrepartie.__str__"><code class="docutils literal notranslate"><span class="pre">Contrepartie.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.Reunion"><code class="docutils literal notranslate"><span class="pre">Reunion</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Reunion.__str__"><code class="docutils literal notranslate"><span class="pre">Reunion.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.Inscription"><code class="docutils literal notranslate"><span class="pre">Inscription</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Inscription.__str__"><code class="docutils literal notranslate"><span class="pre">Inscription.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.Choix"><code class="docutils literal notranslate"><span class="pre">Choix</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Choix.__str__"><code class="docutils literal notranslate"><span class="pre">Choix.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.Conversation"><code class="docutils literal notranslate"><span class="pre">Conversation</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Conversation.__str__"><code class="docutils literal notranslate"><span class="pre">Conversation.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.Message"><code class="docutils literal notranslate"><span class="pre">Message</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.Message.__str__"><code class="docutils literal notranslate"><span class="pre">Message.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.MessageGroup"><code class="docutils literal notranslate"><span class="pre">MessageGroup</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.MessageGroup.__str__"><code class="docutils literal notranslate"><span class="pre">MessageGroup.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.ConversationRead1o1"><code class="docutils literal notranslate"><span class="pre">ConversationRead1o1</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.models.ConversationRead1o1.__str__"><code class="docutils literal notranslate"><span class="pre">ConversationRead1o1.__str__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#site_cuisineries.models.ConversationReadGroup"><code class="docutils literal notranslate"><span class="pre">ConversationReadGroup</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Projet M1 Les Cuisineries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Models</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/site_cuisineries_models.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="models">
+<h1>Models<a class="headerlink" href="#models" title="Lien permanent vers cette rubrique"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.Membre">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">Membre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Membre" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Compte d’un utilisateur</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – ID de l’utilisateur.</p></li>
+<li><p><strong>email</strong> (<em>str</em>) – Email de l’utilisateur.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – Mot de passe haché de l’utilisateur.</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – Nom d’utilisateur.</p></li>
+<li><p><strong>first_name</strong> (<em>str</em>) – Prénom de l’utilisateur.</p></li>
+<li><p><strong>last_name</strong> (<em>str</em>) – Nom de famille de l’utilisateur.</p></li>
+<li><p><strong>photo</strong> (<em>str</em>) – URL de la photo de profil.</p></li>
+<li><p><strong>cat_sociopro</strong> (<em>str</em>) – Catégorie socioprofessionnelle.</p></li>
+<li><p><strong>phone</strong> (<em>str</em>) – Numéro de téléphone.</p></li>
+<li><p><strong>nb_heures</strong> (<em>float</em>) – Nombre d’heures effectuées.</p></li>
+<li><p><strong>credits</strong> (<em>int</em>) – Nombre de crédits possédés.</p></li>
+<li><p><strong>referent</strong> (<a class="reference internal" href="#site_cuisineries.models.Membre" title="site_cuisineries.models.Membre"><em>Membre</em></a>) – ID du référent si l’utilisateur est adhérent.</p></li>
+<li><p><strong>last_login</strong> (<em>date</em>) – Date de dernière connexion.</p></li>
+<li><p><strong>date_join</strong> (<em>date</em>) – Date de création du compte.</p></li>
+<li><p><strong>is_superuser</strong> (<em>bool</em>) – Est super-utilisateur ?</p></li>
+<li><p><strong>is_staff</strong> (<em>bool</em>) – Peut accéder au panneau d’administration ?</p></li>
+<li><p><strong>is_active</strong> (<em>bool</em>) – Le compte est activé ?</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Membre.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Membre.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Affichage par défaut du membre</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.Competence">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">Competence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Competence" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Compétences d’un membre</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nom</strong> – Nom de la compétence</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Competence.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Competence.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Affichage par défaut de la compétence</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.Attente">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">Attente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Attente" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Attentes d’un membre</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>nom</strong> – Nom de l’attente</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Attente.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Attente.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Affichage par défaut de l’attente</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.Vacation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">Vacation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Vacation" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Définition d’une vacation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date_debut</strong> (<em>date</em>) – Date et heure de début</p></li>
+<li><p><strong>date_fin</strong> (<em>date</em>) – Date et heure de fin</p></li>
+<li><p><strong>nom</strong> (<em>str</em>) – Nom de la vacation</p></li>
+<li><p><strong>description</strong> (<em>str</em>) – Description de la vacation</p></li>
+<li><p><strong>nb_max_inscrit</strong> (<em>int</em>) – Nombre maximum d’inscription</p></li>
+<li><p><strong>categorie</strong> (<a class="reference internal" href="#site_cuisineries.models.Competence" title="site_cuisineries.models.Competence"><em>Competence</em></a>) – Compétences liées à la vacation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Vacation.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Vacation.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Affichage par défaut d’une vacation</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Vacation.complet">
+<span class="sig-name descname"><span class="pre">complet</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Vacation.complet" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Indique si la vacation est complète</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Vacation.credits">
+<span class="sig-name descname"><span class="pre">credits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Vacation.credits" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Renvoi le nombre de crédits que va rapporter la vacation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Vacation.heures">
+<span class="sig-name descname"><span class="pre">heures</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Vacation.heures" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Renvoi la durée de la vacation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Vacation.inscrits">
+<span class="sig-name descname"><span class="pre">inscrits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Vacation.inscrits" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Renvoi la liste des inscrits à la vacation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Vacation.nb_inscrits">
+<span class="sig-name descname"><span class="pre">nb_inscrits</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Vacation.nb_inscrits" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Renvoi le nombre de personnes inscrites à la vacation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Vacation.places_dispo">
+<span class="sig-name descname"><span class="pre">places_dispo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Vacation.places_dispo" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Renvoi le nombre de places disponibles</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.Contrepartie">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">Contrepartie</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Contrepartie" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Définition d’une contrepartie</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nom</strong> (<em>str</em>) – Nom de la contrepartie</p></li>
+<li><p><strong>details</strong> (<em>str</em>) – Description de la contrepartie</p></li>
+<li><p><strong>credits_requis</strong> (<em>int</em>) – Nombre de crédits requis pour récupérer la contrepartie</p></li>
+<li><p><strong>quantite_dispo</strong> (<em>int</em>) – Quantité disponible de la contrepartie</p></li>
+<li><p><strong>attente</strong> (<a class="reference internal" href="#site_cuisineries.models.Attente" title="site_cuisineries.models.Attente"><em>Attente</em></a>) – Attentes liées à la contrepartie</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Contrepartie.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Contrepartie.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Affichage par défaut d’une contrepartie</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.Reunion">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">Reunion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Reunion" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Définition d’une réunion</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>date</strong> (<em>date</em>) – Date et heure de la réunion</p></li>
+<li><p><strong>referent</strong> (<a class="reference internal" href="#site_cuisineries.models.Membre" title="site_cuisineries.models.Membre"><em>Membre</em></a>) – Référent lié à la réunion</p></li>
+<li><p><strong>membre</strong> (<a class="reference internal" href="#site_cuisineries.models.Membre" title="site_cuisineries.models.Membre"><em>Membre</em></a>) – Adhérent lié à la réunion</p></li>
+<li><p><strong>contenu</strong> (<em>str</em>) – Contenu de la réunion</p></li>
+<li><p><strong>motif</strong> (<em>str</em>) – Motif de la réunion</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Reunion.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Reunion.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Affichage par défaut d’une réunion</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.Inscription">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">Inscription</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Inscription" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Définition d’une incription à une vacation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vacation</strong> (<a class="reference internal" href="#site_cuisineries.models.Vacation" title="site_cuisineries.models.Vacation"><em>Vacation</em></a>) – Vacation liée à l’inscription</p></li>
+<li><p><strong>membre</strong> (<a class="reference internal" href="#site_cuisineries.models.Membre" title="site_cuisineries.models.Membre"><em>Membre</em></a>) – Membre lié à l’inscription</p></li>
+<li><p><strong>participation_valide</strong> (<em>bool</em>) – Indique si la participation à été validée ou non</p></li>
+<li><p><strong>staff</strong> (<em>bool</em>) – Indique si l’inscription est de type staff ou non</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Inscription.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Inscription.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Affichage par défaut d’une inscription</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.Choix">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">Choix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Choix" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Définition d’un choix de contrepartie</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contrepartie</strong> (<a class="reference internal" href="#site_cuisineries.models.Contrepartie" title="site_cuisineries.models.Contrepartie"><em>Contrepartie</em></a>) – Contrepartie liée au choix</p></li>
+<li><p><strong>membre</strong> (<a class="reference internal" href="#site_cuisineries.models.Membre" title="site_cuisineries.models.Membre"><em>Membre</em></a>) – Membre lié au choix</p></li>
+<li><p><strong>recupere</strong> (<em>bool</em>) – Indique si la contrepartie à été récupérée</p></li>
+<li><p><strong>date</strong> (<em>date</em>) – Date du choix de la contrepartie</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Choix.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Choix.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Affichage par défaut d’un choix</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.Conversation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">Conversation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Conversation" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Définition d’une conversation 1o1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pers1</strong> (<a class="reference internal" href="#site_cuisineries.models.Membre" title="site_cuisineries.models.Membre"><em>Membre</em></a>) – Membre de la conversation</p></li>
+<li><p><strong>pers2</strong> (<a class="reference internal" href="#site_cuisineries.models.Membre" title="site_cuisineries.models.Membre"><em>Membre</em></a>) – Membre de la conversation</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Conversation.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Conversation.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Affichage par défaut d’une conversation</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.Message">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">Message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Message" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.Message.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.Message.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Affichage par défaut d’un message</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.MessageGroup">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">MessageGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sender</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.MessageGroup" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.MessageGroup.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.MessageGroup.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Affichage par défaut d’un message de groupe</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.ConversationRead1o1">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">ConversationRead1o1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">membre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.ConversationRead1o1" title="Lien permanent vers cette définition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.models.ConversationRead1o1.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.ConversationRead1o1.__str__" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.models.ConversationReadGroup">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.models.</span></span><span class="sig-name descname"><span class="pre">ConversationReadGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">membre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.models.ConversationReadGroup" title="Lien permanent vers cette définition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="site_cuisineries_views.html" class="btn btn-neutral float-left" title="Views" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Justin Bossis &amp; Jessica Rolo.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

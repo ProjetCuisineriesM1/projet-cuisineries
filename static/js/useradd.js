@@ -83,6 +83,14 @@ function validateForm1(){
         document.getElementById("telephoneError").style.display = 'none';
         document.getElementById("telephone").classList.remove("is-invalid");
     }
+    if(document.getElementById("email").value == ""){
+        document.getElementById("email").classList.add("is-invalid");
+        document.getElementById("emailError").style.display = 'block';
+        return;
+    }else{
+        document.getElementById("emailError").style.display = 'none';
+        document.getElementById("email").classList.remove("is-invalid");
+    }
     document.getElementById("form_part1").style.display = "none";
     document.getElementById("form_part2").style.display = "flex";
 

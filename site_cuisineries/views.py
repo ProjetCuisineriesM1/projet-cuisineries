@@ -99,7 +99,7 @@ def adduser(request):
     if not request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() :
         return HttpResponseRedirect('/')
 
-    referents = Membre.objects.filter(groups__name="Référent")
+    referents = Membre.objects.filter(groups__name__in=["Référent", "Administrateur"])
 
     context = default_context(request)
     
@@ -165,6 +165,8 @@ def ajaxNewUser(request):
 
         uGroup = Group.objects.get(name=request.POST.get('role')) 
         uGroup.user_set.add(nUser)
+        nUser.is_staff = nUser.groups.filter(name__in=["Référent", "Administrateur"]).exists()
+        nUser.save()
         reponse = {"result":True, "id":nUser.id}
 
     if request.POST.get('step') == "2":
@@ -532,7 +534,7 @@ def editProfilAdmin(request, userid):
     context['competences'] = Competence.objects.all()
 
     if request.user.groups.filter(name__in=["Référent", "Administrateur"]).exists() and request.user.id is not userid :
-        context['referents']= Membre.objects.filter(groups__name="Référent")
+        context['referents']= Membre.objects.filter(groups__name__in=["Référent", "Administrateur"])
     
     return render(request, 'site_cuisineries/editProfil.html', context)
 
@@ -546,6 +548,8 @@ def save_user_infos(request, user):
                 oldGroup.user_set.remove(user)
                 uGroup = Group.objects.get(name=request.POST.get('role')) 
                 uGroup.user_set.add(user)
+                user.is_staff = user.groups.filter(name__in=["Référent", "Administrateur"]).exists()
+                user.save()
             if request.POST.get('role') == "Adhérent":
                 user.referent = Membre.objects.get(id=int(request.POST.get('referent')))
             user.credits = int(request.POST["credits"])

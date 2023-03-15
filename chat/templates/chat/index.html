@@ -44,7 +44,7 @@ background-position-y: bottom; background-position-x: left, right;">
                           {%if result == 1 and debut == 0 %}
                             <h6>Résultats de la recherche</h6>
                             {% for res in resultsearch %}
-                            <a href="/chat/join/{{res.id}}/" class="list-group-item list-group-item-action "><img class="rounded" src="/static/profils/{{res.id}}.png" style="padding: .2em;" alt="..." width="40" height="40">  {{res.last_name}} {{ res.first_name }}  {% if person.id == request.user.referent_id %} (Référent) {% endif %}</a>
+                            <a href="/chat/join/{{res.id}}/" class="list-group-item list-group-item-action "><img class="rounded" src="/static/profils/{{res.id}}.png" style="padding: .2em;" alt="..." width="40" height="40">  {{res.last_name}} {{ res.first_name }}  {% if res.id == request.user.referent_id %} (Référent) {% endif %}</a>
                             {% endfor %}
                           {%elif result == 0 and debut == 0 %}
                             <h6>Résultats de la recherche :</h6>
@@ -53,7 +53,7 @@ background-position-y: bottom; background-position-x: left, right;">
                           <h6>Liste des membres:</h6>
                           {% for person in members %}
                           {% if person.id != request.user.id %}
-                            <a href="/chat/join/{{person.id}}/" class="list-group-item list-group-item-action "><img class="rounded" src="/static/profils/{{person.id}}.png" style="padding: .2em;" alt="..." width="40" height="40"> {{person.last_name}} {{ person.first_name }}  {% if person.id == request.user.referent_id %} (Référent) {% endif %}</a>
+                            <a href="/chat/join/{{person.id}}/" class="list-group-item list-group-item-action "><img class="rounded" src="/static/profils/{{person.id}}.png" style="padding: .2em;" alt="..." width="40" height="40"> {{person.last_name}} {{ person.first_name }}  {% if person.id == request.user.referent_id %} (Référent) {% endif %} {% if person.unread_messages %} &nbsp;<span class="badge rounded-pill text-bg-danger d-none d-lg-inline-block">Nouveaux messages</span><span class="badge rounded-pill text-bg-danger d-lg-none">&nbsp;&nbsp;</span>{% endif %}</a>
                           {% endif %}
                           {% endfor %}
                           {% else %}

@@ -29,12 +29,17 @@ class VacationAdmin(ExportActionMixin, admin.ModelAdmin):
      def complet(self, obj):
           return obj.nb_inscrits()==obj.nb_max_inscrit
 admin.site.register(Vacation,VacationAdmin)
-class InscriptionAdmin(admin.ModelAdmin):
+class InscriptionAdmin(ExportActionMixin, admin.ModelAdmin):
      list_display = ('membre', 'vacation', 'participation_valide')
-     list_filter = ('vacation','vacation__date_debut')
+     list_filter = ('vacation','vacation__date_debut', 'participation_valide')
 admin.site.register(Inscription, InscriptionAdmin)
 class ReunionAdmin(admin.ModelAdmin):
      list_display = ('membre', 'referent', 'date')
+     def get_queryset(self, request):
+          if request.user.groups.filter(name="Administrateur").exists():
+               return super().get_queryset(request)
+          else:
+               return super().get_queryset(request).filter(referent=request.user)
 admin.site.register(Reunion, ReunionAdmin)
 class ContrepartieAdmin(ExportActionMixin, admin.ModelAdmin):
      list_display = ('nom', 'quantite_dispo')
