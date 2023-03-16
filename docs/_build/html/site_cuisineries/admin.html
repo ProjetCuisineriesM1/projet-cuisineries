@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin (admin.py) &mdash; Documentation Projet M1 Les Cuisineries 1.0</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="prev" title="URLs (urls.py)" href="urls.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Projet M1 Les Cuisineries
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Chat:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../chat/views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chat/urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../chat/consumers.html">Consumers (<code class="docutils literal notranslate"><span class="pre">consumers.py</span></code>)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Site_Cuisineries:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models (<code class="docutils literal notranslate"><span class="pre">models.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Admin (<code class="docutils literal notranslate"><span class="pre">admin.py</span></code>)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#classe-membreadmin">Classe <code class="docutils literal notranslate"><span class="pre">MembreAdmin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.admin.MembreAdmin"><code class="docutils literal notranslate"><span class="pre">MembreAdmin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.MembreAdmin.fields"><code class="docutils literal notranslate"><span class="pre">MembreAdmin.fields</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.MembreAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">MembreAdmin.list_display</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.MembreAdmin.list_filter"><code class="docutils literal notranslate"><span class="pre">MembreAdmin.list_filter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.MembreAdmin.role"><code class="docutils literal notranslate"><span class="pre">MembreAdmin.role()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.MembreAdmin.search_fields"><code class="docutils literal notranslate"><span class="pre">MembreAdmin.search_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#classe-vacationadmin">Classe <code class="docutils literal notranslate"><span class="pre">VacationAdmin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.admin.VacationAdmin"><code class="docutils literal notranslate"><span class="pre">VacationAdmin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.VacationAdmin.complet"><code class="docutils literal notranslate"><span class="pre">VacationAdmin.complet()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.VacationAdmin.date_hierarchy"><code class="docutils literal notranslate"><span class="pre">VacationAdmin.date_hierarchy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.VacationAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">VacationAdmin.list_display</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.VacationAdmin.nombre_inscrits"><code class="docutils literal notranslate"><span class="pre">VacationAdmin.nombre_inscrits()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.VacationAdmin.search_fields"><code class="docutils literal notranslate"><span class="pre">VacationAdmin.search_fields</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#classe-inscriptionadmin">Classe <code class="docutils literal notranslate"><span class="pre">InscriptionAdmin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.admin.InscriptionAdmin"><code class="docutils literal notranslate"><span class="pre">InscriptionAdmin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.InscriptionAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">InscriptionAdmin.list_display</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.InscriptionAdmin.list_filter"><code class="docutils literal notranslate"><span class="pre">InscriptionAdmin.list_filter</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#classe-reunionadmin">Classe <code class="docutils literal notranslate"><span class="pre">ReunionAdmin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.admin.ReunionAdmin"><code class="docutils literal notranslate"><span class="pre">ReunionAdmin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.ReunionAdmin.get_queryset"><code class="docutils literal notranslate"><span class="pre">ReunionAdmin.get_queryset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.ReunionAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">ReunionAdmin.list_display</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#classe-contrepartieadmin">Classe <code class="docutils literal notranslate"><span class="pre">ContrepartieAdmin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.admin.ContrepartieAdmin"><code class="docutils literal notranslate"><span class="pre">ContrepartieAdmin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.ContrepartieAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">ContrepartieAdmin.list_display</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#classe-choixadmin">Classe <code class="docutils literal notranslate"><span class="pre">ChoixAdmin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#site_cuisineries.admin.ChoixAdmin"><code class="docutils literal notranslate"><span class="pre">ChoixAdmin</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.ChoixAdmin.actions"><code class="docutils literal notranslate"><span class="pre">ChoixAdmin.actions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.ChoixAdmin.list_display"><code class="docutils literal notranslate"><span class="pre">ChoixAdmin.list_display</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.ChoixAdmin.list_filter"><code class="docutils literal notranslate"><span class="pre">ChoixAdmin.list_filter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#site_cuisineries.admin.ChoixAdmin.mark_recupere"><code class="docutils literal notranslate"><span class="pre">ChoixAdmin.mark_recupere()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Projet M1 Les Cuisineries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Admin (<code class="docutils literal notranslate"><span class="pre">admin.py</span></code>)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/site_cuisineries/admin.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="admin-admin-py">
+<h1>Admin (<code class="docutils literal notranslate"><span class="pre">admin.py</span></code>)<a class="headerlink" href="#admin-admin-py" title="Lien permanent vers cette rubrique"></a></h1>
+<p>Définition des paramètres du panneau d’administration</p>
+<p>Les différentes classes d’administrations sont enregistrés dans le système et liées avec les classes <a class="reference internal" href="models.html"><span class="doc">Models</span></a> avec la ligne suivante :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Model</span><span class="p">,</span> <span class="n">ModelAdmin</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="classe-membreadmin">
+<h2>Classe <code class="docutils literal notranslate"><span class="pre">MembreAdmin</span></code><a class="headerlink" href="#classe-membreadmin" title="Lien permanent vers cette rubrique"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.admin.MembreAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.admin.</span></span><span class="sig-name descname"><span class="pre">MembreAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.admin.MembreAdmin" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelAdmin</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.MembreAdmin.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('username',</span> <span class="pre">'first_name',</span> <span class="pre">'last_name',</span> <span class="pre">'groups',</span> <span class="pre">'email',</span> <span class="pre">'telephone',</span> <span class="pre">'cat_sociopro',</span> <span class="pre">'referent',</span> <span class="pre">'competences',</span> <span class="pre">'attentes')</span></em><a class="headerlink" href="#site_cuisineries.admin.MembreAdmin.fields" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Ensemble des valeurs à afficher dans le panneau d’administration</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.MembreAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('__str__',</span> <span class="pre">'role')</span></em><a class="headerlink" href="#site_cuisineries.admin.MembreAdmin.list_display" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Eléments à afficher dans le tableau récapitulatif des utilisateurs</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.MembreAdmin.list_filter">
+<span class="sig-name descname"><span class="pre">list_filter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('groups__name',)</span></em><a class="headerlink" href="#site_cuisineries.admin.MembreAdmin.list_filter" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Catégories de filtre</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.admin.MembreAdmin.role">
+<span class="sig-name descname"><span class="pre">role</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.admin.MembreAdmin.role" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Renvoie le nom du groupe auquel l’utilisateur appartient.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.MembreAdmin.search_fields">
+<span class="sig-name descname"><span class="pre">search_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('last_name__icontains',</span> <span class="pre">'first_name__icontains')</span></em><a class="headerlink" href="#site_cuisineries.admin.MembreAdmin.search_fields" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Eléments servant à la recherche de données</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="classe-vacationadmin">
+<h2>Classe <code class="docutils literal notranslate"><span class="pre">VacationAdmin</span></code><a class="headerlink" href="#classe-vacationadmin" title="Lien permanent vers cette rubrique"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.admin.VacationAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.admin.</span></span><span class="sig-name descname"><span class="pre">VacationAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.admin.VacationAdmin" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ExportActionMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelAdmin</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.admin.VacationAdmin.complet">
+<span class="sig-name descname"><span class="pre">complet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.admin.VacationAdmin.complet" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Indique si la vacation est complète ou non.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.VacationAdmin.date_hierarchy">
+<span class="sig-name descname"><span class="pre">date_hierarchy</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'date_debut'</span></em><a class="headerlink" href="#site_cuisineries.admin.VacationAdmin.date_hierarchy" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Tri par défaut des vacations</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.VacationAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('nom',</span> <span class="pre">'date_debut',</span> <span class="pre">'nombre_inscrits',</span> <span class="pre">'complet')</span></em><a class="headerlink" href="#site_cuisineries.admin.VacationAdmin.list_display" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Eléments à afficher dans le tableau récapitulatif des vacations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.admin.VacationAdmin.nombre_inscrits">
+<span class="sig-name descname"><span class="pre">nombre_inscrits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.admin.VacationAdmin.nombre_inscrits" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Renvoie le nombre de membre inscrits sur le nombre de places disponibles</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type renvoyé<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.VacationAdmin.search_fields">
+<span class="sig-name descname"><span class="pre">search_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('nom__icontains',)</span></em><a class="headerlink" href="#site_cuisineries.admin.VacationAdmin.search_fields" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Eléments servant à la recherche de données</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="classe-inscriptionadmin">
+<h2>Classe <code class="docutils literal notranslate"><span class="pre">InscriptionAdmin</span></code><a class="headerlink" href="#classe-inscriptionadmin" title="Lien permanent vers cette rubrique"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.admin.InscriptionAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.admin.</span></span><span class="sig-name descname"><span class="pre">InscriptionAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.admin.InscriptionAdmin" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ExportActionMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelAdmin</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.InscriptionAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('membre',</span> <span class="pre">'vacation',</span> <span class="pre">'participation_valide')</span></em><a class="headerlink" href="#site_cuisineries.admin.InscriptionAdmin.list_display" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Eléments à afficher dans le tableau récapitulatif des inscriptions</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.InscriptionAdmin.list_filter">
+<span class="sig-name descname"><span class="pre">list_filter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('vacation',</span> <span class="pre">'vacation__date_debut',</span> <span class="pre">'participation_valide')</span></em><a class="headerlink" href="#site_cuisineries.admin.InscriptionAdmin.list_filter" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Catégories de filtre</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="classe-reunionadmin">
+<h2>Classe <code class="docutils literal notranslate"><span class="pre">ReunionAdmin</span></code><a class="headerlink" href="#classe-reunionadmin" title="Lien permanent vers cette rubrique"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.admin.ReunionAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.admin.</span></span><span class="sig-name descname"><span class="pre">ReunionAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.admin.ReunionAdmin" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelAdmin</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.admin.ReunionAdmin.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.admin.ReunionAdmin.get_queryset" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Autorise l’affichage des réunions seulement aux référents participants à la réunion.
+Les administrateurs ont la visibilité sur toutes les réunions.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.ReunionAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('membre',</span> <span class="pre">'referent',</span> <span class="pre">'date')</span></em><a class="headerlink" href="#site_cuisineries.admin.ReunionAdmin.list_display" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Eléments à afficher dans le tableau récapitulatif des réunions</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="classe-contrepartieadmin">
+<h2>Classe <code class="docutils literal notranslate"><span class="pre">ContrepartieAdmin</span></code><a class="headerlink" href="#classe-contrepartieadmin" title="Lien permanent vers cette rubrique"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.admin.ContrepartieAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.admin.</span></span><span class="sig-name descname"><span class="pre">ContrepartieAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.admin.ContrepartieAdmin" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ExportActionMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelAdmin</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.ContrepartieAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('nom',</span> <span class="pre">'quantite_dispo')</span></em><a class="headerlink" href="#site_cuisineries.admin.ContrepartieAdmin.list_display" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Eléments à afficher dans le tableau récapitulatif des contreparties</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="classe-choixadmin">
+<h2>Classe <code class="docutils literal notranslate"><span class="pre">ChoixAdmin</span></code><a class="headerlink" href="#classe-choixadmin" title="Lien permanent vers cette rubrique"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="site_cuisineries.admin.ChoixAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">site_cuisineries.admin.</span></span><span class="sig-name descname"><span class="pre">ChoixAdmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_site</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.admin.ChoixAdmin" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Bases : <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelAdmin</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.ChoixAdmin.actions">
+<span class="sig-name descname"><span class="pre">actions</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['mark_recupere']</span></em><a class="headerlink" href="#site_cuisineries.admin.ChoixAdmin.actions" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Actions exécutables dans le panneau d’administration</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.ChoixAdmin.list_display">
+<span class="sig-name descname"><span class="pre">list_display</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('membre',</span> <span class="pre">'contrepartie',</span> <span class="pre">'recupere',</span> <span class="pre">'date')</span></em><a class="headerlink" href="#site_cuisineries.admin.ChoixAdmin.list_display" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Eléments à afficher dans le tableau récapitulatif des choix</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="site_cuisineries.admin.ChoixAdmin.list_filter">
+<span class="sig-name descname"><span class="pre">list_filter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('membre',</span> <span class="pre">'contrepartie',</span> <span class="pre">'recupere')</span></em><a class="headerlink" href="#site_cuisineries.admin.ChoixAdmin.list_filter" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Catégories de filtre</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="site_cuisineries.admin.ChoixAdmin.mark_recupere">
+<span class="sig-name descname"><span class="pre">mark_recupere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#site_cuisineries.admin.ChoixAdmin.mark_recupere" title="Lien permanent vers cette définition"></a></dt>
+<dd><p>Modifie les choix sélectionnés afin d’indiquer qu’ils ont étés récupérés</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="urls.html" class="btn btn-neutral float-left" title="URLs (urls.py)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Justin Bossis &amp; Jessica Rolo.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

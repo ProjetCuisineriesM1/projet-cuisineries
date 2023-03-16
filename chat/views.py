@@ -15,14 +15,20 @@ from site_cuisineries.views import default_context
 views.py
 =========================================
 Outils de récupération des données en base de données et affichage du rendu des pages
+
+Le lien entre l'url demandée et la fonction utilisée se fait dans le fichier :doc:`urls.py </chat/urls>`
 """
 
 def index(request):
     """Page de sélection du chat
-    
+
+    Cette page affiche la liste des conversations d'un utilisateurs avec une partie chat 1o1 et une partie chat de groupe.
+    Les conversations 1o1 sont triés par dernier message reçu et une notification apparaît lors de nouveaux messages.
+    Les conversations de groupes qui sont affichés sont celles où l'utilisateur est inscrit aux vacations.
+
     :param request: Données de la requête HTTP.
 
-    :returns: le rendu de la page html index.html avec les données associées.
+    :returns: le rendu de la page html ``chat/index.html`` avec les données associées.
     """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
@@ -56,6 +62,14 @@ def index(request):
     return render(request, 'chat/index.html', context)
 
 def room(request, room_name):
+    """Page de chat 1o1
+
+    
+    :param request: Données de la requête HTTP.
+    :param str room_name: ID de la conversation
+
+    :returns: le rendu de la page html ``chat/room.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     start_date = datetime.now() - timedelta(days=30)
@@ -79,6 +93,15 @@ def room(request, room_name):
 
 
 def join(request, room_name):
+    """Page servant de lien entre l'utilisateur et sa conversation
+
+    
+    :param request: Données de la requête HTTP.
+    :param int room_name: ID de l'utilisateur auquel on veut parler
+
+    Renvoie vers la page ``/chat/<id>`` avec id l'id de la conversation
+    """
+
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     value=Membre.objects.get(id=room_name)
@@ -100,6 +123,14 @@ def join(request, room_name):
     return redirect('/chat/'+str(conv_id.id))
 
 def roomGroupe(request, room_name):
+    """Page de chat de groupe
+
+    
+    :param request: Données de la requête HTTP.
+    :param str room_name: ID de la vacation associée à la conversation
+
+    :returns: le rendu de la page html ``chat/roomGroup.html`` avec les données associées.
+    """
     if not request.user.is_authenticated:
         return HttpResponseRedirect('/login')
     start_date = datetime.now() - timedelta(days=30)
@@ -118,7 +149,3 @@ def roomGroupe(request, room_name):
     context['vacation']= vacation
     
     return render(request, "chat/roomGroup.html", context)
-def join2(request, room_name):
-   
-    return redirect('/chat/group/'+str(room_name))
-    

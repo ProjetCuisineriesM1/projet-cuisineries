@@ -182,6 +182,7 @@ function validatePicture(){
         .then(result => {
             if(result.result){
                 document.getElementById("form_part3").style.display = "none";
+                window.location.href = "/profil/"+document.getElementById('id_newUser').value;
             }else{
                 alert("Une erreur est survenue !");
             }

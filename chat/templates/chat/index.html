@@ -76,7 +76,7 @@ background-position-y: bottom; background-position-x: left, right;">
                       {% for vacation in vacation_list %}
                           {% for inscription in inscription_list %}
                               {% if inscription.vacation_id == vacation.id %}
-                              <a href="/chat/join2/{{vacation.id}}/" class="list-group-item list-group-item-action">{{ vacation.nom }} ({{vacation.date_debut}})  </a>
+                              <a href="/chat/group/{{vacation.id}}/" class="list-group-item list-group-item-action">{{ vacation.nom }} ({{vacation.date_debut}})  </a>
                               
                               {% endif %}
                           {% endfor %}

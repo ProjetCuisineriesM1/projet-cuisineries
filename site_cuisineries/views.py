@@ -19,8 +19,13 @@ import os
 import json
 from .slic import SLICProcessor
 
+"""
+views.py
+=========================================
+Outils de récupération des données en base de données et affichage du rendu des pages
 
-# Create your views here.
+Le lien entre l'url demandée et la fonction utilisée se fait dans le fichier :doc:`urls.py </site_cuisineries/urls>`
+"""
 
 def default_context(request):
     """Contexte par défaut

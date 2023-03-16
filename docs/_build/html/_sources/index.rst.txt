@@ -12,6 +12,7 @@ Welcome to Projet M1 Les Cuisineries's documentation!
 
    ./chat/views.rst
    ./chat/urls.rst
+   ./chat/consumers.rst
 
 .. toctree::
    :maxdepth: 2
@@ -20,6 +21,7 @@ Welcome to Projet M1 Les Cuisineries's documentation!
    ./site_cuisineries/views.rst
    ./site_cuisineries/models.rst
    ./site_cuisineries/urls.rst
+   ./site_cuisineries/admin.rst
 
 
 

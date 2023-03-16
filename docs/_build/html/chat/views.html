@@ -46,18 +46,19 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#chat.views.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#chat.views.join"><code class="docutils literal notranslate"><span class="pre">join()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#chat.views.join2"><code class="docutils literal notranslate"><span class="pre">join2()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#chat.views.room"><code class="docutils literal notranslate"><span class="pre">room()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#chat.views.roomGroupe"><code class="docutils literal notranslate"><span class="pre">roomGroupe()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumers.html">Consumers (<code class="docutils literal notranslate"><span class="pre">consumers.py</span></code>)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Site_Cuisineries:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../site_cuisineries/views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../site_cuisineries/models.html">Models (<code class="docutils literal notranslate"><span class="pre">models.py</span></code>)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../site_cuisineries/urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../site_cuisineries/admin.html">Admin (<code class="docutils literal notranslate"><span class="pre">admin.py</span></code>)</a></li>
 </ul>
 
         </div>
@@ -91,12 +92,15 @@
 <dt class="sig sig-object py" id="chat.views.index">
 <span class="sig-prename descclassname"><span class="pre">chat.views.</span></span><span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chat.views.index" title="Lien permanent vers cette définition"></a></dt>
 <dd><p>Page de sélection du chat</p>
+<p>Cette page affiche la liste des conversations d’un utilisateurs avec une partie chat 1o1 et une partie chat de groupe.
+Les conversations 1o1 sont triés par dernier message reçu et une notification apparaît lors de nouveaux messages.
+Les conversations de groupes qui sont affichés sont celles où l’utilisateur est inscrit aux vacations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Paramètres<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>request</strong> – Données de la requête HTTP.</p>
 </dd>
 <dt class="field-even">Renvoie<span class="colon">:</span></dt>
-<dd class="field-even"><p>le rendu de la page html index.html avec les données associées.</p>
+<dd class="field-even"><p>le rendu de la page html <code class="docutils literal notranslate"><span class="pre">chat/index.html</span></code> avec les données associées.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -104,22 +108,51 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="chat.views.join">
 <span class="sig-prename descclassname"><span class="pre">chat.views.</span></span><span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">room_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chat.views.join" title="Lien permanent vers cette définition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="chat.views.join2">
-<span class="sig-prename descclassname"><span class="pre">chat.views.</span></span><span class="sig-name descname"><span class="pre">join2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">room_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chat.views.join2" title="Lien permanent vers cette définition"></a></dt>
-<dd></dd></dl>
+<dd><p>Page servant de lien entre l’utilisateur et sa conversation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Données de la requête HTTP.</p></li>
+<li><p><strong>room_name</strong> (<em>int</em>) – ID de l’utilisateur auquel on veut parler</p></li>
+</ul>
+</dd>
+</dl>
+<p>Renvoie vers la page <code class="docutils literal notranslate"><span class="pre">/chat/&lt;id&gt;</span></code> avec id l’id de la conversation</p>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="chat.views.room">
 <span class="sig-prename descclassname"><span class="pre">chat.views.</span></span><span class="sig-name descname"><span class="pre">room</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">room_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chat.views.room" title="Lien permanent vers cette définition"></a></dt>
-<dd></dd></dl>
+<dd><p>Page de chat 1o1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Données de la requête HTTP.</p></li>
+<li><p><strong>room_name</strong> (<em>str</em>) – ID de la conversation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>le rendu de la page html <code class="docutils literal notranslate"><span class="pre">chat/room.html</span></code> avec les données associées.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="chat.views.roomGroupe">
 <span class="sig-prename descclassname"><span class="pre">chat.views.</span></span><span class="sig-name descname"><span class="pre">roomGroupe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">room_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chat.views.roomGroupe" title="Lien permanent vers cette définition"></a></dt>
-<dd></dd></dl>
+<dd><p>Page de chat de groupe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Paramètres<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Données de la requête HTTP.</p></li>
+<li><p><strong>room_name</strong> (<em>str</em>) – ID de la vacation associée à la conversation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Renvoie<span class="colon">:</span></dt>
+<dd class="field-even"><p>le rendu de la page html <code class="docutils literal notranslate"><span class="pre">chat/roomGroup.html</span></code> avec les données associées.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 

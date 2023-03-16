@@ -42,12 +42,14 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="chat/views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="chat/urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chat/consumers.html">Consumers (<code class="docutils literal notranslate"><span class="pre">consumers.py</span></code>)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Site_Cuisineries:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="site_cuisineries/views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="site_cuisineries/models.html">Models (<code class="docutils literal notranslate"><span class="pre">models.py</span></code>)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="site_cuisineries/urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries/admin.html">Admin (<code class="docutils literal notranslate"><span class="pre">admin.py</span></code>)</a></li>
 </ul>
 
         </div>
@@ -82,6 +84,8 @@
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
  | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
  | <a href="#I"><strong>I</strong></a>
  | <a href="#J"><strong>J</strong></a>
@@ -127,6 +131,8 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.ChoixAdmin.actions">actions (attribut site_cuisineries.admin.ChoixAdmin)</a>
+</li>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.adduser">adduser() (dans le module site_cuisineries.views)</a>
 </li>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.ajaxChoixContrepartie">ajaxChoixContrepartie() (dans le module site_cuisineries.views)</a>
@@ -156,17 +162,41 @@
         <li><a href="chat/views.html#module-chat.views">module</a>
 </li>
       </ul></li>
+      <li><a href="chat/consumers.html#chat.consumers.ChatConsumer.chat_message">chat_message() (méthode chat.consumers.ChatConsumer)</a>
+
+      <ul>
+        <li><a href="chat/consumers.html#chat.consumers.ChatConsumer2.chat_message">(méthode chat.consumers.ChatConsumer2)</a>
+</li>
+      </ul></li>
+      <li><a href="chat/consumers.html#chat.consumers.ChatConsumer">ChatConsumer (classe dans chat.consumers)</a>
+</li>
+      <li><a href="chat/consumers.html#chat.consumers.ChatConsumer2">ChatConsumer2 (classe dans chat.consumers)</a>
+</li>
       <li><a href="site_cuisineries/models.html#site_cuisineries.models.Choix">Choix (classe dans site_cuisineries.models)</a>
+</li>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.ChoixAdmin">ChoixAdmin (classe dans site_cuisineries.admin)</a>
 </li>
       <li><a href="site_cuisineries/models.html#site_cuisineries.models.Competence">Competence (classe dans site_cuisineries.models)</a>
 </li>
-      <li><a href="site_cuisineries/models.html#site_cuisineries.models.Vacation.complet">complet() (méthode site_cuisineries.models.Vacation)</a>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.VacationAdmin.complet">complet() (méthode site_cuisineries.admin.VacationAdmin)</a>
+
+      <ul>
+        <li><a href="site_cuisineries/models.html#site_cuisineries.models.Vacation.complet">(méthode site_cuisineries.models.Vacation)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.computeCalendar">computeCalendar() (dans le module site_cuisineries.views)</a>
 </li>
+      <li><a href="chat/consumers.html#chat.consumers.ChatConsumer.connect">connect() (méthode chat.consumers.ChatConsumer)</a>
+
+      <ul>
+        <li><a href="chat/consumers.html#chat.consumers.ChatConsumer2.connect">(méthode chat.consumers.ChatConsumer2)</a>
+</li>
+      </ul></li>
       <li><a href="site_cuisineries/models.html#site_cuisineries.models.Contrepartie">Contrepartie (classe dans site_cuisineries.models)</a>
+</li>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.ContrepartieAdmin">ContrepartieAdmin (classe dans site_cuisineries.admin)</a>
 </li>
       <li><a href="site_cuisineries/models.html#site_cuisineries.models.Conversation">Conversation (classe dans site_cuisineries.models)</a>
 </li>
@@ -182,8 +212,18 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.VacationAdmin.date_hierarchy">date_hierarchy (attribut site_cuisineries.admin.VacationAdmin)</a>
+</li>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.default_context">default_context() (dans le module site_cuisineries.views)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="chat/consumers.html#chat.consumers.ChatConsumer.disconnect">disconnect() (méthode chat.consumers.ChatConsumer)</a>
+
+      <ul>
+        <li><a href="chat/consumers.html#chat.consumers.ChatConsumer2.disconnect">(méthode chat.consumers.ChatConsumer2)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -195,6 +235,22 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.editProfilAdmin">editProfilAdmin() (dans le module site_cuisineries.views)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.MembreAdmin.fields">fields (attribut site_cuisineries.admin.MembreAdmin)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.ReunionAdmin.get_queryset">get_queryset() (méthode site_cuisineries.admin.ReunionAdmin)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -220,6 +276,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.InscriptionAdmin">InscriptionAdmin (classe dans site_cuisineries.admin)</a>
+</li>
       <li><a href="site_cuisineries/models.html#site_cuisineries.models.Vacation.inscrits">inscrits() (méthode site_cuisineries.models.Vacation)</a>
 </li>
       <li><a href="site_cuisineries/models.html#site_cuisineries.models.ConversationRead1o1.is_new_message">is_new_message() (méthode site_cuisineries.models.ConversationRead1o1)</a>
@@ -237,19 +295,37 @@
       <li><a href="chat/views.html#chat.views.join">join() (dans le module chat.views)</a>
 </li>
   </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="chat/views.html#chat.views.join2">join2() (dans le module chat.views)</a>
-</li>
-  </ul></td>
 </tr></table>
 
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="site_cuisineries/views.html#site_cuisineries.views.listeContrepartie">listeContrepartie() (dans le module site_cuisineries.views)</a>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.ChoixAdmin.list_display">list_display (attribut site_cuisineries.admin.ChoixAdmin)</a>
+
+      <ul>
+        <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.ContrepartieAdmin.list_display">(attribut site_cuisineries.admin.ContrepartieAdmin)</a>
 </li>
+        <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.InscriptionAdmin.list_display">(attribut site_cuisineries.admin.InscriptionAdmin)</a>
+</li>
+        <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.MembreAdmin.list_display">(attribut site_cuisineries.admin.MembreAdmin)</a>
+</li>
+        <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.ReunionAdmin.list_display">(attribut site_cuisineries.admin.ReunionAdmin)</a>
+</li>
+        <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.VacationAdmin.list_display">(attribut site_cuisineries.admin.VacationAdmin)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.ChoixAdmin.list_filter">list_filter (attribut site_cuisineries.admin.ChoixAdmin)</a>
+
+      <ul>
+        <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.InscriptionAdmin.list_filter">(attribut site_cuisineries.admin.InscriptionAdmin)</a>
+</li>
+        <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.MembreAdmin.list_filter">(attribut site_cuisineries.admin.MembreAdmin)</a>
+</li>
+      </ul></li>
+      <li><a href="site_cuisineries/views.html#site_cuisineries.views.listeContrepartie">listeContrepartie() (dans le module site_cuisineries.views)</a>
+</li>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.login">login() (dans le module site_cuisineries.views)</a>
 </li>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.logout_user">logout_user() (dans le module site_cuisineries.views)</a>
@@ -260,16 +336,20 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.ChoixAdmin.mark_recupere">mark_recupere() (méthode site_cuisineries.admin.ChoixAdmin)</a>
+</li>
       <li><a href="site_cuisineries/models.html#site_cuisineries.models.Membre">Membre (classe dans site_cuisineries.models)</a>
+</li>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.MembreAdmin">MembreAdmin (classe dans site_cuisineries.admin)</a>
 </li>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.mes_contreparties">mes_contreparties() (dans le module site_cuisineries.views)</a>
 </li>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.mes_vacations">mes_vacations() (dans le module site_cuisineries.views)</a>
 </li>
-      <li><a href="site_cuisineries/models.html#site_cuisineries.models.Message">Message (classe dans site_cuisineries.models)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="site_cuisineries/models.html#site_cuisineries.models.Message">Message (classe dans site_cuisineries.models)</a>
+</li>
       <li><a href="site_cuisineries/models.html#site_cuisineries.models.MessageGroup">MessageGroup (classe dans site_cuisineries.models)</a>
 </li>
       <li>
@@ -289,14 +369,16 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="site_cuisineries/models.html#site_cuisineries.models.Vacation.nb_inscrits">nb_inscrits() (méthode site_cuisineries.models.Vacation)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="site_cuisineries/models.html#site_cuisineries.models.ConversationRead1o1.nb_not_read">nb_not_read() (méthode site_cuisineries.models.ConversationRead1o1)</a>
 
       <ul>
         <li><a href="site_cuisineries/models.html#site_cuisineries.models.ConversationReadGroup.nb_not_read">(méthode site_cuisineries.models.ConversationReadGroup)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.VacationAdmin.nombre_inscrits">nombre_inscrits() (méthode site_cuisineries.admin.VacationAdmin)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -317,12 +399,22 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="chat/consumers.html#chat.consumers.ChatConsumer.receive">receive() (méthode chat.consumers.ChatConsumer)</a>
+
+      <ul>
+        <li><a href="chat/consumers.html#chat.consumers.ChatConsumer2.receive">(méthode chat.consumers.ChatConsumer2)</a>
+</li>
+      </ul></li>
       <li><a href="site_cuisineries/models.html#site_cuisineries.models.Reunion">Reunion (classe dans site_cuisineries.models)</a>
 </li>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.reunion">reunion() (dans le module site_cuisineries.views)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.ReunionAdmin">ReunionAdmin (classe dans site_cuisineries.admin)</a>
+</li>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.MembreAdmin.role">role() (méthode site_cuisineries.admin.MembreAdmin)</a>
+</li>
       <li><a href="chat/views.html#chat.views.room">room() (dans le module chat.views)</a>
 </li>
       <li><a href="chat/views.html#chat.views.roomGroupe">roomGroupe() (dans le module chat.views)</a>
@@ -335,6 +427,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.save_user_infos">save_user_infos() (dans le module site_cuisineries.views)</a>
 </li>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.MembreAdmin.search_fields">search_fields (attribut site_cuisineries.admin.MembreAdmin)</a>
+
+      <ul>
+        <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.VacationAdmin.search_fields">(attribut site_cuisineries.admin.VacationAdmin)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     site_cuisineries.views
 
@@ -342,8 +442,6 @@
         <li><a href="site_cuisineries/views.html#module-site_cuisineries.views">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.statistiques">statistiques() (dans le module site_cuisineries.views)</a>
 </li>
   </ul></td>
@@ -358,6 +456,8 @@
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="site_cuisineries/admin.html#site_cuisineries.admin.VacationAdmin">VacationAdmin (classe dans site_cuisineries.admin)</a>
+</li>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.validation">validation() (dans le module site_cuisineries.views)</a>
 </li>
       <li><a href="site_cuisineries/views.html#site_cuisineries.views.viewprofile">viewprofile() (dans le module site_cuisineries.views)</a>

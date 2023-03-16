@@ -1,5 +1,0 @@
-URLs (``urls.py``)
-==================
-
-Lien entre l'url entrée et les fonctions du views.py
-

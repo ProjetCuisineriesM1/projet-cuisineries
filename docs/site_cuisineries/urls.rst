@@ -1,7 +1,7 @@
 URLs (``urls.py``)
 ==================
 
-Lien entre l'url entrée et les fonctions du views.py
+Lien entre l'url entrée et les fonctions du :doc:`views.py </site_cuisineries/views>`
 
 .. code-block:: python
 
