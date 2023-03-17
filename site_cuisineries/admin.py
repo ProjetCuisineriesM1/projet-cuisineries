@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.utils.translation import ngettext
 from import_export.admin import ExportActionMixin
 
-admin.site.unregister(Group)
+#admin.site.unregister(Group)
 
 # Register your models here.
 from .models import Membre, Vacation, Inscription, Reunion, Contrepartie, Choix, Attente, Competence
@@ -25,7 +25,10 @@ class MembreAdmin(admin.ModelAdmin):
      @admin.display(description="Rôle")
      def role(self, obj):
           """Renvoie le nom du groupe auquel l'utilisateur appartient."""
-          return obj.groups.values_list('name',flat = True)[0]
+          if obj.groups.count() > 0:
+               return obj.groups.values_list('name',flat = True)[0]
+          else:
+               return "Aucun rôle"
 admin.site.register(Membre, MembreAdmin)
 
 class VacationAdmin(ExportActionMixin, admin.ModelAdmin):

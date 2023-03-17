@@ -80,7 +80,8 @@ class Membre(AbstractUser):
         ('68', 'Ouvriers peu qualifiés de type artisanal'),
         ('69', 'Ouvriers agricoles'),
     ]
-
+    REQUIRED_FIELDS = ['first_name', 'last_name']
+    
     photo = models.FileField(null=True, upload_to='static/profils/', max_length=500)
     cat_sociopro = models.CharField(null=True, choices=CAT_SOCIOPROFESSIONNEL, max_length=2)
     telephone = models.CharField(max_length=10, null=True)
