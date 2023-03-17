@@ -8,6 +8,12 @@ Welcome to Projet M1 Les Cuisineries's documentation!
 
 .. toctree::
    :maxdepth: 2
+   :caption: Installation:
+   
+   ./installation.rst
+
+.. toctree::
+   :maxdepth: 2
    :caption: Chat:
 
    ./chat/views.rst
