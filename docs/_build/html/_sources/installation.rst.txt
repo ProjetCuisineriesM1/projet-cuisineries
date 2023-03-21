@@ -39,7 +39,7 @@ Création du projet
 Paramétrage
 ***************
 
-Créer un .env contenant les données suivantes:
+Créer un fichier nommé ``.env`` contenant les données suivantes:
 
 .. code-block:: bash
 
