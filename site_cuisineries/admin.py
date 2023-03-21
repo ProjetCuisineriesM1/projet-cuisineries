@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.utils.translation import ngettext
 from import_export.admin import ExportActionMixin
 
-#admin.site.unregister(Group)
+admin.site.unregister(Group)
 
 # Register your models here.
 from .models import Membre, Vacation, Inscription, Reunion, Contrepartie, Choix, Attente, Competence
