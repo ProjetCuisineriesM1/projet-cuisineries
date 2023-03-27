@@ -24,3 +24,4 @@ scikit-image
 scipy
 six
 tqdm
+psycopg2
