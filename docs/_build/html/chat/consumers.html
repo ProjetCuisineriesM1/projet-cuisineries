@@ -41,9 +41,11 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Installation:</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Information:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../droits.html">Droits des utilisateurs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../personnalisation.html">Personnalisation du site</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Chat:</span></p>
 <ul class="current">
@@ -125,8 +127,8 @@
 <dt class="sig sig-object py" id="chat.consumers.ChatConsumer.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#chat.consumers.ChatConsumer.connect" title="Lien permanent vers cette définition"></a></dt>
 <dd><p>Connexion à la room</p>
-<p>La room de connection d’un chat 1o1 passe par l’url : chat/id_conversation</p>
-<p>Le chemin est définit dans le routing.py grâce à un websocket_urlpatterns</p>
+<p>La room de connexion d’un chat 1o1 passe par l’url : chat/id_conversation</p>
+<p>Le chemin est défini dans le routing.py grâce à un websocket_urlpatterns</p>
 </dd></dl>
 
 <dl class="py method">
@@ -138,7 +140,7 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="chat.consumers.ChatConsumer.receive">
 <span class="sig-name descname"><span class="pre">receive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#chat.consumers.ChatConsumer.receive" title="Lien permanent vers cette définition"></a></dt>
-<dd><p>Réception d’un message par le WebSocket et suivant le type de donnée (message ou read) on envoi le message dans la conversation ou on marque le message comme lu</p>
+<dd><p>Réception d’un message par le WebSocket et suivant le type de donnée (message ou read) on envoie le message dans la conversation et on l’enregistre dans la table message de la base de données (avec les informations liées à l’envoyeur, au texte du message et à l’heure d’envoi) ou on marque le message comme lu pour la gestion des notifications</p>
 </dd></dl>
 
 </dd></dl>

@@ -1,53 +1,80 @@
 :root{
+    /* Couleur de fond de la barre de navigation */
+    --background-header-color: rgba(33,37,41,1);
+
+    /* Couleur de fond du panneau d'administration */
+    --background-color:#E7DBCB;
+
+    /* Couleur du texte sur fond combre */
+    --txt-color: white;
+
+    /* Couleur du texte sur fond clair */
     --link-fg:black;
+
+    /* Couleur des bandeaux principaux et des boutons */
     --primary: #943c24;
-    --secondary:#943c24;
+    --secondary: #943c24;
+
+    /* Couleur principale des tableaux */
     --body-bg:#c99a8d;
+
+    /* Couleur secondaire des tableaux */
     --darkened-bg:#bb8170;
+
+    /* Couleur du texte des breadcrumbs */
     --breadcrumbs-fg:#c99a8d;
+
+    /* Couleur de la ligne sélectionnée */
     --selected-row:#835a4e;
+
+    /* Couleur de survol des textes du tableau */
     --object-tools-bg: var(--primary);
+    --link-hover-color:var(--primary);
+    --link-selected-fg:var(--primary);
+
     --object-tools-hover-bg: var(--darkened-bg);
     --hairline-color: transparent;
     --body-fg:black;
     --body-quiet-color:black;
-    --link-hover-color:var(--primary);
-    --link-selected-fg:var(--primary);
+
+    /* Images de fond du panneau d'administration*/
+    --bg-left: url(/static/img/Ronds_petits.png);
+    --bg-right: url(/static/img/Ronds_moyens.png);
 }
 
 
 #header{
-    background-color: rgba(33,37,41,1)!important;;
+    background-color: var(--background-header-color) !important;;
 }
 
 #head{
-    color: white !important;
+    color: var(--txt-color) !important;
     font-size:1em;
     font-weight: 600 !important;
 }
 #user-tools, #user-tools > a{
-    color: white !important;
+    color: var(--txt-color) !important;
     font-size:1em;
 }
 #logout-form > button{
-    color: white;
+    color: var(--txt-color);
     font-size:1em;
     font-weight:bold;
 }
 #main{
     
-    background-color: #E7DBCB; min-height: 100vh; background-image: url(/static/img/Ronds_petits.png), url(/static/img/Ronds_moyens.png);
+    background-color: var(--background-color); min-height: 100vh; background-image: var(--bg-left), var(--bg-right);
 background-repeat-x: no-repeat;
 background-repeat-y: no-repeat;
 background-position-y: bottom; background-position-x: left, right;
 }
 
 #content >h1{
-    color:black;
+    color:var(--link-fg);
 }
 
 #recent-actions-module>h2{
-    background-color:  #943c24;
+    background-color:  var(--primary);
 }
 .module, #content-related {
     border-radius: 15px;

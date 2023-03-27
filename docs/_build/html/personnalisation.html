@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="fr" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personnalisation du site &mdash; Documentation Projet M1 Les Cuisineries 1.0</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Recherche" href="search.html" />
+    <link rel="next" title="Views (views.py)" href="chat/views.html" />
+    <link rel="prev" title="Droits des utilisateurs" href="droits.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Projet M1 Les Cuisineries
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Rechercher docs" aria-label="Rechercher docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Information:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="droits.html">Droits des utilisateurs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Personnalisation du site</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#calendrier">Calendrier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#panneau-d-administration">Panneau d’administration</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Chat:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chat/views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chat/urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chat/consumers.html">Consumers (<code class="docutils literal notranslate"><span class="pre">consumers.py</span></code>)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Site_Cuisineries:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries/views.html">Views (<code class="docutils literal notranslate"><span class="pre">views.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries/models.html">Models (<code class="docutils literal notranslate"><span class="pre">models.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries/urls.html">URLs (<code class="docutils literal notranslate"><span class="pre">urls.py</span></code>)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="site_cuisineries/admin.html">Admin (<code class="docutils literal notranslate"><span class="pre">admin.py</span></code>)</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Projet M1 Les Cuisineries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Personnalisation du site</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/personnalisation.rst.txt" rel="nofollow"> Afficher la source de la page</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="personnalisation-du-site">
+<h1>Personnalisation du site<a class="headerlink" href="#personnalisation-du-site" title="Lien permanent vers cette rubrique"></a></h1>
+<section id="calendrier">
+<h2>Calendrier<a class="headerlink" href="#calendrier" title="Lien permanent vers cette rubrique"></a></h2>
+<p>Dans le fichier <code class="docutils literal notranslate"><span class="pre">/static/css/calendar.css</span></code>, vous pouvez modifier la partie suivante :</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">calendar.css</span><a class="headerlink" href="#id1" title="Lien permanent vers ce code"></a></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">:</span><span class="nd">root</span><span class="p">{</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="c">/* Couleur de fond du header */</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="nv">--header-bg</span><span class="p">:</span><span class="mh">#943c24</span><span class="p">;</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="c">/* Couleur du texte du calendrier sur fond clair */</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="nv">--calendar-txt-color</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--header-bg</span><span class="p">);</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="c">/* Couleur du texte du calendrier sur fond sombre */</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="nv">--calendar-txt-color-dark</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="w">    </span><span class="c">/* Contour et ombres du calendrier */</span>
+<span class="linenos">12</span><span class="w">    </span><span class="nv">--calendar-shadow</span><span class="p">:</span><span class="w"> </span><span class="mh">#c9c9c9</span><span class="p">;</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="w">    </span><span class="c">/* Couleur des vacations */</span>
+<span class="linenos">15</span><span class="w">    </span><span class="nv">--vacation-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#f7b057</span><span class="p">;</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="w">    </span><span class="c">/* Couleur des réunions */</span>
+<span class="linenos">18</span><span class="w">    </span><span class="nv">--reunion-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#e87333</span><span class="p">;</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="w">    </span><span class="c">/* Couleur du jour */</span>
+<span class="linenos">21</span><span class="w">    </span><span class="nv">--today-color</span><span class="p">:</span><span class="w"> </span><span class="mh">#e66b6b</span><span class="p">;</span>
+<span class="linenos">22</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="panneau-d-administration">
+<h2>Panneau d’administration<a class="headerlink" href="#panneau-d-administration" title="Lien permanent vers cette rubrique"></a></h2>
+<p>Dans le fichier <code class="docutils literal notranslate"><span class="pre">/static/css/admin.css</span></code>, vous pouvez modifier la partie suivante :</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">admin.css</span><a class="headerlink" href="#id2" title="Lien permanent vers ce code"></a></div>
+<div class="highlight-css notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="p">:</span><span class="nd">root</span><span class="p">{</span>
+<span class="linenos"> 2</span><span class="w">    </span><span class="c">/* Couleur de fond de la barre de navigation */</span>
+<span class="linenos"> 3</span><span class="w">    </span><span class="nv">--background-header-color</span><span class="p">:</span><span class="w"> </span><span class="nb">rgba</span><span class="p">(</span><span class="mi">33</span><span class="p">,</span><span class="mi">37</span><span class="p">,</span><span class="mi">41</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="w">    </span><span class="c">/* Couleur de fond du panneau d&#39;administration */</span>
+<span class="linenos"> 6</span><span class="w">    </span><span class="nv">--background-color</span><span class="p">:</span><span class="mh">#E7DBCB</span><span class="p">;</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span><span class="w">    </span><span class="c">/* Couleur du texte sur fond combre */</span>
+<span class="linenos"> 9</span><span class="w">    </span><span class="nv">--txt-color</span><span class="p">:</span><span class="w"> </span><span class="kc">white</span><span class="p">;</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="w">    </span><span class="c">/* Couleur du texte sur fond clair */</span>
+<span class="linenos">12</span><span class="w">    </span><span class="nv">--link-fg</span><span class="p">:</span><span class="kc">black</span><span class="p">;</span>
+<span class="linenos">13</span>
+<span class="linenos">14</span><span class="w">    </span><span class="c">/* Couleur des bandeaux principaux et des boutons */</span>
+<span class="linenos">15</span><span class="w">    </span><span class="nv">--primary</span><span class="p">:</span><span class="w"> </span><span class="mh">#943c24</span><span class="p">;</span>
+<span class="linenos">16</span>
+<span class="linenos">17</span><span class="w">    </span><span class="c">/* Couleur principale des tableaux */</span>
+<span class="linenos">18</span><span class="w">    </span><span class="nv">--body-bg</span><span class="p">:</span><span class="mh">#c99a8d</span><span class="p">;</span>
+<span class="linenos">19</span>
+<span class="linenos">20</span><span class="w">    </span><span class="c">/* Couleur secondaire des tableaux */</span>
+<span class="linenos">21</span><span class="w">    </span><span class="nv">--darkened-bg</span><span class="p">:</span><span class="mh">#bb8170</span><span class="p">;</span>
+<span class="linenos">22</span>
+<span class="linenos">23</span><span class="w">    </span><span class="c">/* Couleur du texte des breadcrumbs */</span>
+<span class="linenos">24</span><span class="w">    </span><span class="nv">--breadcrumbs-fg</span><span class="p">:</span><span class="mh">#c99a8d</span><span class="p">;</span>
+<span class="linenos">25</span>
+<span class="linenos">26</span><span class="w">    </span><span class="c">/* Couleur de la ligne sélectionnée */</span>
+<span class="linenos">27</span><span class="w">    </span><span class="nv">--selected-row</span><span class="p">:</span><span class="mh">#835a4e</span><span class="p">;</span>
+<span class="linenos">28</span>
+<span class="linenos">29</span><span class="w">    </span><span class="c">/* Couleur de survol des textes du tableau */</span>
+<span class="linenos">30</span><span class="w">    </span><span class="nv">--object-tools-bg</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--primary</span><span class="p">);</span>
+<span class="linenos">31</span><span class="w">    </span><span class="nv">--link-hover-color</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--primary</span><span class="p">);</span>
+<span class="linenos">32</span><span class="w">    </span><span class="nv">--link-selected-fg</span><span class="p">:</span><span class="nf">var</span><span class="p">(</span><span class="nv">--primary</span><span class="p">);</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span><span class="w">    </span><span class="nv">--object-tools-hover-bg</span><span class="p">:</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--darkened-bg</span><span class="p">);</span>
+<span class="linenos">35</span><span class="w">    </span><span class="nv">--hairline-color</span><span class="p">:</span><span class="w"> </span><span class="kc">transparent</span><span class="p">;</span>
+<span class="linenos">36</span><span class="w">    </span><span class="nv">--body-fg</span><span class="p">:</span><span class="kc">black</span><span class="p">;</span>
+<span class="linenos">37</span><span class="w">    </span><span class="nv">--body-quiet-color</span><span class="p">:</span><span class="kc">black</span><span class="p">;</span>
+<span class="linenos">38</span>
+<span class="linenos">39</span><span class="w">    </span><span class="c">/* Images de fond du panneau d&#39;administration*/</span>
+<span class="linenos">40</span><span class="w">    </span><span class="nv">--bg-left</span><span class="p">:</span><span class="w"> </span><span class="nb">url</span><span class="p">(</span><span class="sx">/static/img/Ronds_petits.png</span><span class="p">);</span>
+<span class="linenos">41</span><span class="w">    </span><span class="nv">--bg-right</span><span class="p">:</span><span class="w"> </span><span class="nb">url</span><span class="p">(</span><span class="sx">/static/img/Ronds_moyens.png</span><span class="p">);</span>
+<span class="linenos">42</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pied de page">
+        <a href="droits.html" class="btn btn-neutral float-left" title="Droits des utilisateurs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Précédent</a>
+        <a href="chat/views.html" class="btn btn-neutral float-right" title="Views (views.py)" accesskey="n" rel="next">Suivant <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Justin Bossis &amp; Jessica Rolo.</p>
+  </div>
+
+  Compilé avec <a href="https://www.sphinx-doc.org/">Sphinx</a> en utilisant un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">thème</a>
+    fourni par <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

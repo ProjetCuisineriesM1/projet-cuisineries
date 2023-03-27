@@ -1,3 +1,29 @@
+:root{
+    /* Couleur de fond du header */
+    --header-bg:#943c24;
+
+    /* Couleur du texte du calendrier sur fond clair */
+    --calendar-txt-color: var(--header-bg);
+
+    /* Couleur du texte du calendrier sur fond sombre */
+    --calendar-txt-color-dark: white;
+
+    /* Contour et ombres du calendrier */
+    --calendar-shadow: #c9c9c9;
+
+    /* Couleur des vacations */
+    --vacation-color: #f7b057;
+
+    /* Couleur des réunions */
+    --reunion-color: #e87333;
+
+    /* Couleur du jour */
+    --today-color: #e66b6b;
+}
+
+
+
+
 /**
  * Eric Meyer's Reset CSS v2.0+ (https://meyerweb.com/eric/tools/css/reset/)
  * http://cssreset.com
@@ -69,9 +95,9 @@
     border-radius:15px;
      width: 25em;
      height: 22em;
-     border: 1px solid #c9c9c9;
-     -webkit-box-shadow: 0 0 5px #c9c9c9;
-     box-shadow: 0 0 5px #c9c9c9;
+     border: 1px solid var(--calendar-shadow);
+     -webkit-box-shadow: 0 0 5px var(--calendar-shadow);
+     box-shadow: 0 0 5px var(--calendar-shadow);
      text-align: center;
      margin: 4em auto;
      position: relative;
@@ -83,7 +109,7 @@
     border-top-right-radius: 15px;
      font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif;
      height: 3em;
-     background-color: #943c24;
+     background-color: var(--header-bg);
      margin-bottom: 0.1em;
  }
  
@@ -96,7 +122,7 @@
      width: 1em;
      height: 1em;
      line-height: 1em;
-     color: white ;
+     color: var(--calendar-txt-color-dark) ;
      border-radius: 50%;
  }
  
@@ -132,7 +158,7 @@
      margin-top: 0.5em;
      font-size: 1.8em;
      line-height: 1;
-     color: #fff;
+     color: var(--calendar-txt-color-dark);
  }
  
  .head-month {
@@ -141,7 +167,7 @@
     margin-bottom: 0.5em;
      font-size: 1.8em;
      line-height: 1;
-     color: #fff;
+     color: var(--calendar-txt-color-dark);
  }
  
  #calendar {
@@ -156,7 +182,7 @@
  }
  
  thead tr {
-     color: #943c24;
+     color: var(--calendar-txt-color);
      font-size:1.35em;
      font-weight: bolder;
      text-transform: uppercase;
@@ -168,7 +194,7 @@
  }
  
  tbody td{
-    color: #963b22;
+    color: var(--calendar-txt-color);
 
      width: 14%;
      border-radius: 100%;
@@ -179,19 +205,19 @@
  }
  
  tbody td:hover, .selected {
-     color: #fff;
-     background-color: #963b22;
+     color: var(--calendar-txt-color-dark);
+     background-color: var(--calendar-txt-color);
      border: none;
  }
 
  .vacation{
-    background-color: #f7b057;
+    background-color: var(--vacation-color);
     
  }
 
  .reunion{
     
-    background-color: #e87333;
+    background-color: var(--reunion-color);
     
  }
  
@@ -202,8 +228,8 @@
  }
  
  #today {
-     background-color: #e66b6b;
-     color: #fff;
+     background-color: var(--today-color);
+     color: var(--calendar-txt-color-dark);
      font-family: serif;
      border-radius: 50%;
  }
@@ -219,7 +245,7 @@
      right: 0.5em;
      top: 0.5em;
      z-index: 999;
-     color: #fff;
+     color: var(--calendar-txt-color-dark);
      font-family: serif;
      cursor: pointer;
      padding: 0 0.5em;

@@ -1,16 +1,13 @@
-.. Projet M1 Les Cuisineries documentation master file, created by
-   sphinx-quickstart on Tue Mar 14 18:00:08 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to Projet M1 Les Cuisineries's documentation!
-=====================================================
+Bienvenue dans la documentation du Projet M1 pour Les Cuisineries !
+===================================================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Installation:
+   :caption: Information:
    
    ./installation.rst
+   ./droits.rst
+   ./personnalisation.rst
 
 .. toctree::
    :maxdepth: 2
@@ -28,12 +25,3 @@ Welcome to Projet M1 Les Cuisineries's documentation!
    ./site_cuisineries/models.rst
    ./site_cuisineries/urls.rst
    ./site_cuisineries/admin.rst
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

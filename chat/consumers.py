@@ -20,9 +20,9 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
         """Connexion à la room
 
-         La room de connection d'un chat 1o1 passe par l'url : chat/id_conversation
+         La room de connexion d'un chat 1o1 passe par l'url : chat/id_conversation
 
-         Le chemin est définit dans le routing.py grâce à un websocket_urlpatterns
+         Le chemin est défini dans le routing.py grâce à un websocket_urlpatterns
         """
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
         
@@ -45,7 +45,7 @@ class ChatConsumer(WebsocketConsumer):
 
     # Receive message from WebSocket
     def receive(self, text_data):
-        """Réception d'un message par le WebSocket et suivant le type de donnée (message ou read) on envoi le message dans la conversation ou on marque le message comme lu
+        """Réception d'un message par le WebSocket et suivant le type de donnée (message ou read) on envoie le message dans la conversation et on l’enregistre dans la table message de la base de données (avec les informations liées à l'envoyeur, au texte du message et à l'heure d'envoi) ou on marque le message comme lu pour la gestion des notifications
         """
         text_data_json = json.loads(text_data)
         if text_data_json["type"] == "message":
