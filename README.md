@@ -1,2 +1,3 @@
-# projet-cuisineries
-# Création du site pour les cuisineries
+# Projet M1 pour Les Cuisineries
+
+[Accéder à la documentation](https://projet-cuisineries.readthedocs.io/fr/latest/)
