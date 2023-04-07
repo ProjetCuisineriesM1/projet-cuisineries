@@ -16,7 +16,16 @@ Pour modifier le logo présent dans la barre de navigation du site, ouvrez le fi
             <img src="/static/img/cropped-Logo-les-cuisineries.png" alt="Les cuisineries" height="24">
         </a>
 
+Globale
+*********
 
+Dans le fichier ``/static/css/index.css``, vous pouvez modifier la partie suivante :
+
+.. literalinclude:: ../static/css/index.css
+    :language: css
+    :caption: index.css
+    :linenos:
+    :lines: 1-8
 
 Calendrier
 ************

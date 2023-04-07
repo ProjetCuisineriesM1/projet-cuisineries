@@ -1,0 +1,18 @@
+:root{
+    /* Images de fond */
+    --bg-left: url(/static/img/Ronds_petits.png);
+    --bg-right: url(/static/img/Ronds_moyens.png);
+
+    /* Couleur de fond */
+    --bg-color: #E7DBCB;
+}
+
+body{
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    background-image: var(--bg-left), var(--bg-right);
+    background-repeat-x: no-repeat;
+    background-repeat-y: no-repeat;
+    background-position-y: bottom;
+    background-position-x: left, right;
+}
